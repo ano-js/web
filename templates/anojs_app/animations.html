@@ -1,0 +1,7 @@
+{% include 'anojs_app/base.html' %}
+{% block body %}
+  <h1>Animations</h1>
+  {% for filename, file_link in animations %}
+    <a href="{{file_link}}">{{filename}}</a>
+  {% endfor %}
+{% endblock %}

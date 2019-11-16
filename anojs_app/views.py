@@ -1,0 +1,37 @@
+from django.shortcuts import render
+
+# Going back a directory to import MEDIA_ROOT
+import sys
+sys.path.append("..")
+
+# Importing MEDIA_ROOT
+from anojs_project import settings
+
+import os
+
+# Create your views here.
+def index(request):
+    return render(request, "anojs_app/index.html")
+
+def gallery(request):
+    return render(request, "anojs_app/gallery.html")
+
+def animations(request):
+    # Format: [[filename, filename_link], [filename, filename_link]]
+    # Iterate through this twice
+    filenames = []
+    for filename in os.listdir(settings.MEDIA_ROOT):
+        file_list = []
+        # Appending formatted filename
+        filename_list = filename.split("-")[1:]
+        filename_list[-1] = filename_list[-1][:-3]
+        new_filename = " ".join(filename_list).title()
+        file_list.append(new_filename)
+
+        # Appending link to JS file
+        file_list.append("/media/" + filename)
+
+        # Appending tuple
+        filenames.append(file_list)
+
+    return render(request, "anojs_app/animations.html", context={"animations": filenames})
