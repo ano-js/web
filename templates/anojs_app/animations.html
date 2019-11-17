@@ -8,7 +8,7 @@
     {% for filename, file_link, video_link, div, script in animations %}
       {% if filename %}
         <div class="animation">
-          <a href="{{file_link}}"><video controls width="300" height="200" name="Video Name" src="{{video_link}}"></video></a><br>
+          <a href="{{file_link}}"><video controls width="300" height="200" name="Video Name" src="https://anojs.s3.us-east-2.amazonaws.com/Circular+Motion.mov"></video></a><br>
           <a class="animation-link" href="#{{filename}}">{{filename}}</a>
         </div>
       {% endif %}
