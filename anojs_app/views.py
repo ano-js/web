@@ -34,7 +34,8 @@ def animations(request):
         file_list.append("/media/" + filename)
 
         # Appending mov file link
-        file_list.append("/media/videos/" + new_filename + ".mov")
+        file_list.append("https://anojs.s3.us-east-2.amazonaws.com/" + new_filename.replace(" ", "+") + ".mov")
+        print("https://anojs.s3.us-east-2.amazonaws.com/" + new_filename.replace(" ", "+") + ".mov")
 
         # Appending the div tag
         file_list.append("<div id='" + filename[:-3] + "'></div>")
