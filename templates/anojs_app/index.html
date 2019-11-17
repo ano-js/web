@@ -1,4 +1,13 @@
+{% load staticfiles %}
 {% include 'anojs_app/base.html' %}
+<link rel="stylesheet" href="{% static 'anojs_app/index.css' %}">
+<title>Ano.js</title>
 {% block body %}
-  <h1>Ano.js</h1>
+  <div id="anojs-growing-circles">
+    <h1 class="header">Ano.js</h1>
+    <p class="description anim-typewriter line-1">
+      Ano.js is an integrable web animation platform for developers.
+    </p>
+  </div>
+  <script src="http://127.0.0.1:8000/media/anojs-growing-circles.js" charset="utf-8"></script>
 {% endblock %}

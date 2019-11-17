@@ -1,0 +1,62 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
+  text-align: center;
+}
+
+.header {
+  color: white;
+  font-size: 65px;
+  font-weight: bold;
+  margin: 50px;
+}
+
+.submit-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-input {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 15px;
+  transition: all .2s;
+  color: white;
+  margin: 20px 0;
+}
+
+.form-input:focus {
+  outline: none;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 3px rgba(0,0,0,.5);
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(255,255,255,0.75);
+  opacity: 1; /* Firefox */
+}
+
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
+[type="file"] + label {
+  background-color: transparent;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid white;
+}

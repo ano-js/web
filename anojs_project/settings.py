@@ -27,7 +27,7 @@ SECRET_KEY = '$nvx!w!ii9(qe@895i@08ygd-646^8y0o^tj@ez+e&tl#!_mo#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["anojs.herokuapp.com"]
+ALLOWED_HOSTS = ["anojs.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
@@ -123,11 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "/static/"
 STATICFILES_DIRS = [
     STATIC_DIR
 ]
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media Files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

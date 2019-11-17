@@ -35,3 +35,6 @@ def animations(request):
         filenames.append(file_list)
 
     return render(request, "anojs_app/animations.html", context={"animations": filenames})
+
+def submit(request):
+    return render(request, "anojs_app/submit.html")

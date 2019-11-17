@@ -1,7 +1,14 @@
+{% load staticfiles %}
 {% include 'anojs_app/base.html' %}
+<link rel="stylesheet" href="{% static 'anojs_app/animations.css' %}">
 {% block body %}
-  <h1>Animations</h1>
-  {% for filename, file_link in animations %}
-    <a href="{{file_link}}">{{filename}}</a>
-  {% endfor %}
+  <h1 class="header">Animations</h1>
+  <div class="container animation-grid">
+    {% for filename, file_link in animations %}
+      <div class="animation">
+        <a href="{{file_link}}"><img class="animation-video" src="{% static 'anojs_app/test.png' %}" alt=""></a>
+        <a class="animation-link" href="{{file_link}}">{{filename}}</a>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

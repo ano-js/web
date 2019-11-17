@@ -1,0 +1,14 @@
+{% load staticfiles %}
+{% include 'anojs_app/base.html' %}
+<link rel="stylesheet" href="{% static 'anojs_app/submit.css' %}">
+{% block body %}
+  <h1 class="header">Submit an Animation</h1>
+  <form class="submit-form" action="/success" method="post">
+    <input class="name form-input" type="text" placeholder="Full Name">
+    <input class="animation-name form-input" type="text" placeholder="Animation Name">
+    <div class="file-drop">
+      <input type="file" id="file" />
+      <label for="file">Javascript File</label>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,57 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
+  overflow: hidden;
+}
+
+.header {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  font-weight: bold;
+  /* background-color: rgba(210, 210, 210, 0.8); */
+  color: white;
+  text-shadow: 0 5px 5px black;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.description {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: rgba(210, 210, 210, 0.8); */
+  color: white;
+  text-shadow: 0 2px 5px black;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.line-1 {
+    width: 24em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 180%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Animation */
+.anim-typewriter {
+  animation: typewriter 3s steps(44) 0s 1 normal both,
+             blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 820px;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}

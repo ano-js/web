@@ -1,6 +1,6 @@
-let canvasDiv = document.querySelector("#anojs-colliding-circles")
+let collidingCirclesCanvasDiv = document.querySelector("#anojs-colliding-circles")
 
-canvasDiv.innerHTML += "<canvas id='anojs-colliding-circles-canvas'></canvas>"
+collidingCirclesCanvasDiv.innerHTML += "<canvas id='anojs-colliding-circles-canvas'></canvas>"
 
 let canvas = document.querySelector("#anojs-colliding-circles-canvas")
 
