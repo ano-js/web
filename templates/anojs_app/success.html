@@ -1,0 +1,14 @@
+{% load staticfiles %}
+{% include 'anojs_app/base.html' %}
+<link rel="stylesheet" href="{% static 'anojs_app/success.css' %}">
+<title>Success!</title>
+{% block body %}
+  <div style="margin: 100px 500px">
+    <h1 class="header">Success!</h1>
+    <p class="description">
+      Your animation has been submitted to one of our website administrators. We will notify you if your animation has
+      been accepted and will be promptly uploaded and displayed on our website.
+    </p>
+  <button class="home-button" onClick="window.location.href = '/'">Back to Home</button>
+  </div>
+{% endblock %}
