@@ -5,12 +5,32 @@
 {% block body %}
   <h1 class="header">Animations</h1>
   <div class="container animation-grid">
-    {% for filename, file_link, video_link in animations %}
+    {% for filename, file_link, video_link, div, script in animations %}
       {% if filename %}
         <div class="animation">
-          <a href="{{file_link}}"><video controls width="300" height="200" name="Video Name" src="{{video_link}}"></video></a>
-          <a class="animation-link" href="{{file_link}}">{{filename}}</a>
+          <!-- <a href="{{file_link}}"><video controls width="300" height="200" name="Video Name" src="{{video_link}}"></video></a> -->
+          <a class="animation-link" href="#{{filename}}">{{filename}}</a>
         </div>
+      {% endif %}
+    {% endfor %}
+
+    {% for filename, file_link, video_link, div, script in animations %}
+      {% if filename %}
+        <div id="{{filename}}" class="animation-code-container">
+          <a class="x" href="#">&times;</a>
+          Congratulations! You now have access to this animation!
+          <br>
+          <br>
+          To integrate this animation into your website, copy-paste the code below:
+          <div class="code">
+            {{div}}
+            <br><br>
+            {{script}}
+          </div>
+          <br>
+          NOTE: You may need to modify the code according to your specific application.
+        </div>
+        <!-- <div class="overlay"></div> -->
       {% endif %}
     {% endfor %}
   </div>

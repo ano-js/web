@@ -27,7 +27,6 @@ def animations(request):
         # Appending formatted filename
         filename_list = filename.split("-")[1:]
         # filename_list[-1] = filename_list[-1][:-3]
-        print(filename_list)
         new_filename = " ".join(filename_list).title()[:-3]
         file_list.append(new_filename)
 
@@ -36,6 +35,12 @@ def animations(request):
 
         # Appending mov file link
         file_list.append("/media/videos/" + new_filename + ".mov")
+
+        # Appending the div tag
+        file_list.append("<div id='" + filename[:-3] + "'></div>")
+
+        # Appending the script tag
+        file_list.append("<script src='http://" + request.META['HTTP_HOST'] + "/media/" + filename + "'></script>")
 
         # Appending list
         filenames.append(file_list)
