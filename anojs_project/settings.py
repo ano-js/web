@@ -27,7 +27,7 @@ SECRET_KEY = '$nvx!w!ii9(qe@895i@08ygd-646^8y0o^tj@ez+e&tl#!_mo#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["anojs.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
