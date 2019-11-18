@@ -8,7 +8,7 @@ body {
   color: white;
   font-size: 65px;
   font-weight: bold;
-  margin: 50px;
+  margin: 40px;
 }
 
 .submit-form {
@@ -23,7 +23,7 @@ body {
   padding: 15px;
   transition: all .2s;
   color: white;
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .form-input:focus {
@@ -37,7 +37,6 @@ body {
   border: 1px solid white;
   color: white;
   padding: 10px 15px;
-  margin: 20px;
   border-radius: 5px;
   transition: all .2s;
 }
@@ -56,25 +55,4 @@ body {
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgba(255,255,255,0.75);
   opacity: 1; /* Firefox */
-}
-
-[type="file"] {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute !important;
-  white-space: nowrap;
-  width: 1px;
-}
-
-[type="file"] + label {
-  background-color: transparent;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px;
-  border: 1px solid white;
 }

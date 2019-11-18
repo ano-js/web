@@ -1,0 +1,30 @@
+{% load staticfiles %}
+{% include "anojs_app/base.html" %}
+<link rel="stylesheet" href="{% static 'anojs_app/about.css' %}">
+<link rel="stylesheet" href="{% static 'anojs_app/faq.css' %}">
+<title>Ano.js - FAQs</title>
+{% block body %}
+  <h1 class="header">Frequently Asked Questions</h1>
+  <div class="container">
+    <h1 class="subheader">What is Ano.js?</h1>
+    <p class="content">
+      Ano.js is a free web animation platform, designed to be used by developers looking to integrate web animation into their website
+      to make it pop! Web animation is the new wave, and having it in your website is what will make it differentiate from others.
+      In specifics, Ano.js is also a open source Javascript library, that can be used or modified to your custom appearance, but
+      default animations are already provided and available for use. Ano.js is built to be extremely easy to integrate into your own
+      web applications and websites, so using our technology is so simple that you don't even need to know how to code to include it.
+      If you created a web animation that you would also like to share, you can <a href="/submit/">submit</a> it to our website, and
+      one of our web administrators will verify it and possibly deploy it for others to see!
+    </p>
+
+    <h1 class="subheader">Why use Ano.js?</h1>
+    <p class="content">
+      Ano.js is built to be extremely user friendly and quick to use. Though being in the same category as popular libraries
+      such as Mo.js and Anime.js, our platform requires no prior knowledge of web animation, design, or custom syntax to create
+      your dream animation? It's as simple as search, copy, and paste! Not to mention that it's free?! Using our animations
+      requires absolutely no money or pledges in return, and we have an email newsletter than you can subscribe to to get notified
+      whenever we deploy a new animation for you to use! We keep all of our code up on our GitHub repository, for you to contribute
+      to.
+    </p>
+  </div>
+{% endblock %}

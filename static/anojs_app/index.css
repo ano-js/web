@@ -32,6 +32,15 @@ body {
   border-radius: 2px;
 }
 
+.copyright {
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+}
+
 .line-1 {
     width: 24em;
     margin: 0 auto;

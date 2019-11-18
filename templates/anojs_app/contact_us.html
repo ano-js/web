@@ -1,0 +1,13 @@
+{% load staticfiles %}
+{% include "anojs_app/base.html" %}
+<link rel="stylesheet" href="{% static 'anojs_app/contact_us.css' %}">
+<title>Ano.js - Contact Us</title>
+{% block body %}
+  <h1 class="header">Contact us</h1>
+  <form class="submit-form" action="https://formspree.io/calix.huang1@gmail.com" method="post">
+    <input class="form-input" type="text" name="Name" placeholder="Name">
+    <input class="form-input" type="email" name="Email" placeholder="Email">
+    <textarea rows="6" class="form-input" type="text" name="Message" placeholder="Message"></textarea>
+    <input class="submit-button" type="submit" value="Submit">
+  </form>
+{% endblock %}

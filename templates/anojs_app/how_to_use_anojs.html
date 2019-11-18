@@ -1,0 +1,19 @@
+{% load staticfiles %}
+{% include "anojs_app/base.html" %}
+<link rel="stylesheet" href="{% static 'anojs_app/about.css' %}">
+<title>Ano.js - How to use Ano.js</title>
+{% block body %}
+  <h1 class="header">How to use Ano.js</h1>
+  <p class="content">
+    First, you need to select which animation you would like to use. On our <a href="/animations/">animations</a> page,
+    there is a gallery of animation demos to check out.
+  </p>
+  <p class="content">
+    Second, you must receive the code for the animation. After clicking on the animation, a code popup window will show.
+    Copy the code inside of the gray-colored box. Instructions will be posted there as well.
+  </p>
+  <p class="content">
+    Finally, take the code and paste it into the body tag of your HTML file, or wherever you'd like in your website. Pull
+    it up in a browser and the animation should be working!
+  </p>
+{% endblock %}

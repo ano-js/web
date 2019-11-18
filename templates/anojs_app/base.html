@@ -6,41 +6,38 @@
     <link href="https://fonts.googleapis.com/css?family=Exo+2&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'anojs_app/base.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script data-ad-client="ca-pub-4906158260341420" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '2422105771438319');
-      fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2422105771438319&ev=PageView&noscript=1"
-    /></noscript>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Ano.js</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-target">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar-target">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/animations/">Animations</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/submit/">Submit</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-sm navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Ano.js</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-target">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-target">
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/animations/">Animations</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/submit/">Submit</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/contact-us/">Contact Us</a>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">About</a>
+                  <div class="dropdown-menu">
+                    <a href="/faq/" class="dropdown-item">FAQs</a>
+                    <a href="/how-to-use-anojs/" class="dropdown-item">How to use Ano.js</a>
+                    <a href="/our-team/" class="dropdown-item">Our Team</a>
+                  </div>
+              </li>
+          </ul>
+        </div>
       </div>
     </nav>
     {% block body %}
@@ -52,5 +49,4 @@
       crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
       crossorigin="anonymous"></script>
-
 </html>

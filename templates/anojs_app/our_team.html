@@ -1,0 +1,19 @@
+{% load staticfiles %}
+{% include "anojs_app/base.html" %}
+<link rel="stylesheet" href="{% static 'anojs_app/about.css' %}">
+<link rel="stylesheet" href="{% static 'anojs_app/our_team.css' %}">
+<title>Ano.js - Our Team</title>
+{% block body %}
+  <h1 class="header">Our Team</h1>
+  <div class="container">
+    <div class="team-grid">
+      <div class="member-container">
+        <div class="image-cropper">
+          <img class="member-image" src="{% static 'images/calix.jpg' %}" alt="Calix Huang - Creator">
+        </div>
+        <p class="member-name">Calix Huang</p>
+        <p class="member-title">Creator, Administrator, and Developer</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

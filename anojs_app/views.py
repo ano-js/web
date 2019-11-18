@@ -51,5 +51,18 @@ def animations(request):
 def submit(request):
     return render(request, "anojs_app/submit.html")
 
+def contact_us(request):
+    return render(request, "anojs_app/contact_us.html")
+
 def success(request):
     return render(request, "anojs_app/success.html")
+
+# ABOUT PAGES
+def faq(request):
+    return render(request, "anojs_app/faq.html")
+
+def how_to_use_anojs(request):
+    return render(request, "anojs_app/how_to_use_anojs.html")
+
+def our_team(request):
+    return render(request, "anojs_app/our_team.html")
