@@ -5,12 +5,13 @@
 <meta name="description" content="Submit your own custom-made web animation to our platform and have it displayed on Ano.js!">
 {% block body %}
   <h1 class="header">Submit an Animation</h1>
-  <form class="submit-form" action="/success" method="post">
+  <form enctype="multipart/form-data" class="submit-form" action="/success" method="post">
     {% csrf_token %}
     <input class="name form-input" type="text" placeholder="Full Name">
     <input class="animation-name form-input" type="text" placeholder="Animation Name">
+    <input class="form-input" type="email" name="email" placeholder="Email">
     <div class="file-drop">
-      <input type="file" id="file" />
+      <input type="file" id="file" name="file"/>
       <label for="file">Javascript File</label>
     </div>
     <input class="submit-button" type="submit" value="Upload">

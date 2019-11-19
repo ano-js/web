@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.mail import EmailMessage
 
 # Going back a directory to import MEDIA_ROOT
 import sys
@@ -55,6 +56,12 @@ def contact_us(request):
     return render(request, "anojs_app/contact_us.html")
 
 def success(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        animation_name = request.POST.get("animation_name")
+        email = request.POST.get("email")
+        file = request.POST.get("file")
+        print(file)
     return render(request, "anojs_app/success.html")
 
 # ABOUT PAGES
