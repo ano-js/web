@@ -1,0 +1,19 @@
+{% load staticfiles %}
+{% include "anojs_app/base.html" %}
+<link rel="stylesheet" href="{% static 'anojs_app/about.css' %}">
+<title>Ano.js - Our Team</title>
+<meta name="description" content="The members of Team Ano.js">
+{% block body %}
+  <h1 class="header">Our Story</h1>
+  <p class="content">
+    The idea of Ano.js was birthed by Calix Huang, the creator, a couple days before a hackathon, aiming to host web animations
+    for others to use, because he was learning web animation with HTML5 Canvas and Javascript. This idea was brought into action
+    in a hackathon called Atoms & Bits hosted at Make School in San Francisco. Ano.js was built by Calix Huang, Udhav Sharma,
+    Srikiran Pothama, and Gio Rocchio, with Calix as the lead developer, Udhav and Srikiran as business and financial analysts,
+    and Gio as the web administrator.
+  </p>
+  <p class="content">
+    Ano.js ended up winning Best Website and first place, and the idea was later improved on by Calix Huang, who is now taking
+    on the responsiblility of updating and maintaing Ano.js.
+  </p>
+{% endblock %}

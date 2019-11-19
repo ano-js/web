@@ -71,6 +71,9 @@ def faq(request):
 def how_to_use_anojs(request):
     return render(request, "anojs_app/how_to_use_anojs.html")
 
+def our_story(request):
+    return render(request, "anojs_app/our_story.html")
+
 def our_team(request):
     return render(request, "anojs_app/our_team.html")
 
