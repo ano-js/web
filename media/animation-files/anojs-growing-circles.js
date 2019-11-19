@@ -19,6 +19,11 @@ window.addEventListener("mousemove", (event) => {
   mouse.y = event.y;
 })
 
+addEventListener("resize", () => {
+  innerWidth = window.innerWidth
+  innerHeight = window.innerHeight
+})
+
 var x = 700;
 var y = 300;
 var dx = 10;
