@@ -1,5 +1,6 @@
 body {
   background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
+  overflow: visible;
 }
 
 .header {

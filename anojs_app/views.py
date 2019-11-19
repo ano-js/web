@@ -41,7 +41,7 @@ def animations(request):
         file_list.append("<div id='" + filename[:-3] + "'></div>")
 
         # Appending the script tag
-        file_list.append("<script src='http://" + request.META['HTTP_HOST'] + "/media/animation-files/" + filename + "'></script>")
+        file_list.append("<script src='https://" + request.META['HTTP_HOST'] + "/media/animation-files/" + filename + "'></script>")
 
         # Appending list
         filenames.append(file_list)
