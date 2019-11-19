@@ -1,7 +1,10 @@
 body {
   height: 100vh;
   background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
-  overflow: hidden;
+}
+
+.body-content {
+  margin-top: 0 !important;
 }
 
 .header {
@@ -58,7 +61,7 @@ body {
 }
 @keyframes typewriter{
   from{width: 0;}
-  to{width: 820px;}
+  to{width: 370px;}
 }
 @keyframes blinkTextCursor{
   from{border-right-color: rgba(255,255,255,.75);}

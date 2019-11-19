@@ -22,7 +22,7 @@ def animations(request):
     # Format: [[filename, filename_link], [filename, filename_link]]
     # Iterate through this twice
     filenames = []
-    for filename in [f for f in listdir(settings.MEDIA_ROOT) if isfile(join(settings.MEDIA_ROOT, f))]:
+    for filename in [f for f in listdir(settings.MEDIA_ROOT + "/animation-files/") if isfile(join(settings.MEDIA_ROOT + "/animation-files/", f))]:
         file_list = []
         # Appending formatted filename
         filename_list = filename.split("-")[1:]
@@ -41,7 +41,7 @@ def animations(request):
         file_list.append("<div id='" + filename[:-3] + "'></div>")
 
         # Appending the script tag
-        file_list.append("<script src='http://" + request.META['HTTP_HOST'] + "/media/" + filename + "'></script>")
+        file_list.append("<script src='http://" + request.META['HTTP_HOST'] + "/media/animation-files/" + filename + "'></script>")
 
         # Appending list
         filenames.append(file_list)
@@ -66,3 +66,9 @@ def how_to_use_anojs(request):
 
 def our_team(request):
     return render(request, "anojs_app/our_team.html")
+
+def privacy_policy(request):
+    return render(request, "anojs_app/privacy_policy.html")
+
+def terms_and_conditions(request):
+    return render(request, "anojs_app/terms_and_conditions.html")

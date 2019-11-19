@@ -4,10 +4,30 @@ body {
 
 .header {
   text-align: center;
-  margin: 50px;
+  margin: 40px;
   font-size: 75px;
   color: white;
   font-weight: bold;
+}
+
+.github-container {
+  text-align: right;
+}
+
+.repo-link {
+  color: white;
+  text-decoration: none;
+  outline: none;
+}
+
+.github-icon {
+  width: 30px;
+}
+
+.repo-link:hover {
+  color: white;
+  text-decoration: none;
+  outline: none;
 }
 
 .animation-grid {

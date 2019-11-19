@@ -2,6 +2,7 @@ body {
   min-height: 100vh;
   background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
   text-align: center;
+  overflow: visible;
 }
 
 .header {
