@@ -77,9 +77,11 @@
   <script src="https://www.anojs.com/media/animation-files/anojs-growing-circles-gray.js" charset="utf-8"></script>
   <script>
     function mobileModal() {
-      setTimeout(function() {
-          $('#mobile-modal').modal("show");
-      }, 5000);
+      if (window.innerWidth < 500) {
+        setTimeout(function() {
+            $('#mobile-modal').modal("show");
+        }, 5000);
+      }
     }
     mobileModal()
   </script>
