@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.core.mail import EmailMessage
 
+from django.http import HttpResponseRedirect, HttpResponse
+
 from . import models
+from . import forms
 
 # Going back a directory to import MEDIA_ROOT
 import sys
@@ -28,6 +31,9 @@ def index(request):
         subscriber = models.Subscriber(name=name, email=email)
         subscriber.save()
 
+        email = EmailMessage("Ano.js - " + name + " subscribed to the newsletter!", name + "'s email is " + email, to=["calix.huang1@gmail.com"])
+        email.send()
+
     return render(request, "anojs_app/index.html")
 
 def gallery(request):
@@ -42,6 +48,11 @@ def animations(request):
 
         review = models.Review(name=name, title=title, message=message)
         review.save()
+
+        email = EmailMessage("Ano.js - Someone left a review!",
+        "Review from " + name + " who is a " + title + ":\n\n" + message,
+        to=["calix.huang1@gmail.com"])
+        email.send()
 
     # Format: [[filename, filename_link], [filename, filename_link]]
     # Iterate through this twice
@@ -74,7 +85,26 @@ def animations(request):
     return render(request, "anojs_app/animations.html", context={"animations": filenames})
 
 def submit(request):
-    return render(request, "anojs_app/submit.html")
+    if request.method == "POST":
+        form = forms.AnimationForm(request.POST)
+
+        if form.is_valid():
+            pass
+
+        creator_name = form.cleaned_data["creator_name"]
+        creator_email = form.cleaned_data["creator_email"]
+        animation_name = form.cleaned_data["animation_name"]
+        animation_file = request.FILES["animation_file"]
+
+        animation = models.Animation(creator_name=creator_name, creator_email=creator_email, animation_name=animation_name, animation_file=animation_file)
+        animation.save()
+
+        return HttpResponseRedirect("/")
+
+    else:
+        form = forms.AnimationForm()
+
+    return render(request, "anojs_app/submit.html", context={"form": form})
 
 def contact_us(request):
     if request.method == "POST":
@@ -93,12 +123,6 @@ def contact_us(request):
     return render(request, "anojs_app/contact_us.html")
 
 def success(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        animation_name = request.POST.get("animation_name")
-        email = request.POST.get("email")
-        file = request.POST.get("file")
-
     return render(request, "anojs_app/success.html")
 
 # ABOUT PAGES

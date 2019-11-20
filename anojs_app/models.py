@@ -14,3 +14,12 @@ class Review(models.Model):
 
     def __str__(self):
         return self.name
+
+class Animation(models.Model):
+    creator_name = models.CharField(max_length=100)
+    creator_email = models.CharField(max_length=100)
+    animation_name = models.CharField(max_length=100)
+    animation_file = models.FileField()
+
+    def __str__(self):
+        return self.animation_name
