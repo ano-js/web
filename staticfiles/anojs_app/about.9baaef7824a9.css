@@ -1,0 +1,20 @@
+body {
+  min-height: 100vh;
+  background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
+  text-align: center;
+  overflow: visible;
+}
+
+.header {
+  color: white;
+  font-size: 65px;
+  font-weight: bold;
+  margin: 40px;
+}
+
+.content {
+  color: white;
+  font-size: 20px;
+  text-align: left;
+  margin: 50px 200px;
+}

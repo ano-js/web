@@ -12,33 +12,82 @@
   </div>
   <h1 class="header">Animations</h1>
   <div class="container animation-grid">
-    {% for filename, file_link, video_link, div, script in animations %}
-      {% if filename %}
+    {% for non_formatted_filename, formatted_filename, video_link, div, script in animations %}
+      {% if non_formatted_filename %}
         <div class="animation">
-          <a href="{{file_link}}"><video controls width="300" height="200" name="Video Name" src="{{video_link}}"></video></a><br>
-          <a class="animation-link" href="#{{filename}}">{{filename}}</a>
+          <a href="#"><video controls width="300" height="200" name="Video Name" src="{{video_link}}"></video></a><br>
+          <button class="animation-link" data-toggle="modal" data-target="#{{non_formatted_filename}}">{{formatted_filename}}</button>
         </div>
       {% endif %}
     {% endfor %}
 
-    {% for filename, file_link, video_link, div, script in animations %}
-      {% if filename %}
-        <div id="{{filename}}" class="animation-code-container">
-          <a class="x" href="#">&times;</a>
-          Congratulations! You now have access to this animation!
-          <br>
-          <br>
-          To integrate this animation into your website, copy-paste the code below:
-          <div class="code">
-            {{div}}
-            <br><br>
-            {{script}}
+    {% for non_formatted_filename, formatted_filename, video_link, div, script in animations %}
+      {% if non_formatted_filename %}
+        <div class="modal fade" id="{{non_formatted_filename}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">{{formatted_filename}} Animation</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body" style="text-align: left;">
+                  Congratulations! You now Have access to this animation!
+                  <br><br>
+                  To integrate this animation into your website, copy-paste the code below:
+                  <div class="code">
+                    {{div}}
+                    <br><br>
+                    {{script}}
+                  </div>
+                  <br>
+                  NOTE: You may need to modify the code according to your specific application.
+                  <br><br>
+                  For more in-depth instruction, visit our "How To Use Ano.js" page <a href="/how-to-use-anojs/">here</a>
+                </div>
+            </div>
           </div>
-          <br>
-          NOTE: You may need to modify the code according to your specific application.
         </div>
-        <!-- <div class="overlay"></div> -->
       {% endif %}
     {% endfor %}
   </div>
+
+  <div class="modal fade" id="testimonial-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Review</h3>
+          <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body">
+            <h5>Enjoying Ano.js so far? Write us a review!</h5>
+            <form class="review-form" enctype="multipart/form-data" method="post" style="text-align: right;">
+              {% csrf_token %}
+              <input class="form-control form-input" type="text" name="name" placeholder="Full Name">
+              <input class="form-control form-input" type="text" name="title" placeholder="Title">
+              <textarea class="form-control form-input" placeholder="Review" name="message" rows="4"></textarea>
+              <input class="btn btn-secondary" type="submit" value="Submit">
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" charset="utf-8"></script>
+<script>
+  function testimonialModal() {
+    setTimeout(function() {
+        $('#testimonial-modal').modal("show");
+    }, 20000);
+  }
+  testimonialModal()
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>

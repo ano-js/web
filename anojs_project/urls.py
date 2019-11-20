@@ -17,8 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from django.views.static import serve
+from anojs_app import views as anojs_app_views
+from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("anojs_app.urls"))
+    url("", include("anojs_app.urls")),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = anojs_app_views.handler404
+handler500 = anojs_app_views.handler500

@@ -50,10 +50,13 @@ body {
 
 .animation-link {
   color: white;
+  border: none;
+  background-color: transparent;
 }
 
 .animation-link:hover {
   color: white;
+  text-decoration: underline;
 }
 
 .animation-code-container {
@@ -112,4 +115,8 @@ body {
   overflow: hidden;
   background-color: rgba(0,0,0,.2);
   display: none;
+}
+
+.form-input {
+  margin: 10px 0 !important;
 }

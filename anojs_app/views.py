@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.core.mail import EmailMessage
 
+from . import models
+
 # Going back a directory to import MEDIA_ROOT
 import sys
 sys.path.append("..")
@@ -12,31 +14,53 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-# Create your views here.
+def handler404(request, *args, **argv):
+    return render(request, "errors/404.html")
+
+def handler500(request, *args, **argv):
+    return render(request, "errors/500.html")
+
 def index(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+
+        subscriber = models.Subscriber(name=name, email=email)
+        subscriber.save()
+
     return render(request, "anojs_app/index.html")
 
 def gallery(request):
     return render(request, "anojs_app/gallery.html")
 
 def animations(request):
+    # Review capture
+    if request.method == "POST":
+        name = request.POST.get("name")
+        title = request.POST.get("title")
+        message = request.POST.get("message")
+
+        review = models.Review(name=name, title=title, message=message)
+        review.save()
+
     # Format: [[filename, filename_link], [filename, filename_link]]
     # Iterate through this twice
     filenames = []
     for filename in [f for f in listdir(settings.MEDIA_ROOT + "/animation-files/") if isfile(join(settings.MEDIA_ROOT + "/animation-files/", f))]:
         file_list = []
-        # Appending formatted filename
-        filename_list = filename.split("-")[1:]
-        # filename_list[-1] = filename_list[-1][:-3]
-        new_filename = " ".join(filename_list).title()[:-3]
-        file_list.append(new_filename)
 
-        # Appending link to JS file
-        file_list.append("/media/" + filename)
+        filename_list = filename.split("-")[1:]
+
+        # Appending non-formatted filename
+        non_formatted_filename = "-".join(filename_list)[:-3]
+        file_list.append(non_formatted_filename)
+
+        # Appending formatted filename
+        formatted_filename = " ".join(filename_list).title()[:-3]
+        file_list.append(formatted_filename)
 
         # Appending mov file link
-        file_list.append("https://anojs.s3.us-east-2.amazonaws.com/" + new_filename.replace(" ", "+") + ".mov")
-        print("https://anojs.s3.us-east-2.amazonaws.com/" + new_filename.replace(" ", "+") + ".mov")
+        file_list.append("https://anojs.s3.us-east-2.amazonaws.com/" + formatted_filename.replace(" ", "+") + ".mov")
 
         # Appending the div tag
         file_list.append("<div id='" + filename[:-3] + "'></div>")
@@ -53,6 +77,19 @@ def submit(request):
     return render(request, "anojs_app/submit.html")
 
 def contact_us(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        email = EmailMessage("Ano.js Contact Us Submission",
+        "You have a message from " + name + ":\n\n" + message + "\n\nReply to " + email,
+        to=["calix.huang1@gmail.com"]
+        )
+        email.send()
+
+        return HttpResponseRedirect("/")
+
     return render(request, "anojs_app/contact_us.html")
 
 def success(request):
@@ -61,7 +98,7 @@ def success(request):
         animation_name = request.POST.get("animation_name")
         email = request.POST.get("email")
         file = request.POST.get("file")
-        print(file)
+
     return render(request, "anojs_app/success.html")
 
 # ABOUT PAGES

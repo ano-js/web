@@ -1,0 +1,40 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(to right bottom, rgb(60, 60, 60), rgb(20, 20, 20));
+  text-align: center;
+}
+
+.header {
+  color: white;
+  margin: 50px;
+  font-size: 75px;
+  font-weight: bold;
+}
+
+.description {
+  color: white;
+  font-size: 20px;
+}
+
+.home-button {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 15px;
+  margin: 20px;
+  border-radius: 5px;
+  transition: all .2s;
+  margin: 20px;
+}
+
+.home-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 3px rgba(0,0,0,.8);
+  text-decoration: none;
+}
+
+.home-button:active {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 3px rgba(0,0,0,.8);
+  outline: none;
+}

@@ -1,0 +1,36 @@
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  grid-auto-rows: 400px;
+}
+
+.member-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px rgba(0,0,0,.3);
+}
+
+.image-cropper {
+  width: 125px;
+  height: 125px;
+  overflow: hidden;
+  border-radius: 50%;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.member-image {
+  display: inline;
+  /* margin: 0 auto; */
+  /* margin-left: -25%; //centers the image */
+  height: 250%;
+  width: auto;
+  transform: translateY(-90px) translateX(-47px);
+}
+
+.member-name {
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: bold;
+}

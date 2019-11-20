@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% include 'anojs_app/base.html' %}
 <link rel="stylesheet" href="{% static 'anojs_app/index.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 <title>Ano.js</title>
 {% block body %}
   <div id="anojs-growing-circles-gray">
@@ -8,7 +9,34 @@
       <h1 class="header">Web animation made easy</h1>
       <div class="cta">
         <a href="/animations/" class="primary-cta-button cta-button">Check out our Animations</a>
-        <a href="#" class="secondary-cta-button cta-button">Sign up for our Newsletter</a>
+        <a href="#newsletter-form" class="secondary-cta-button cta-button" data-toggle="modal" data-target="#exampleModal">Sign up for our Newsletter</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Sign up to our newsletter</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body" style="text-align: left;">
+            <h5>What this newsletter provides:</h5>
+            <ul class="fa-ul" style="">
+              <li class="modal-li"><span class="fa-li"><i class="fas fa-check"></i></span>Updates on new animations and news</li>
+              <li class="modal-li"><span class="fa-li"><i class="fas fa-check"></i></span>A better website experience</li>
+              <li class="modal-li"><span class="fa-li"><i class="fas fa-check"></i></span>A more in-depth look on our animations</li>
+            </ul>
+            <form class="newsletter-form form-group" enctype="multipart/form-data" method="post">
+              {% csrf_token %}
+              <input required class="form-input form-control" type="text" name="name" placeholder="Full Name"/>
+              <input required class="form-input form-control" type="email" name="email" placeholder="Email"/>
+              <input type="submit" class="btn btn-secondary submit-button" value="Sign up!"/>
+            </form>
+          </div>
       </div>
     </div>
   </div>

@@ -25,7 +25,8 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 SECRET_KEY = '$nvx!w!ii9(qe@895i@08ygd-646^8y0o^tj@ez+e&tl#!_mo#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -123,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     STATIC_DIR
 ]
@@ -138,6 +139,7 @@ MEDIA_URL = "/media/"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'calix.huang1@gmail.com'
-EMAIL_HOST_PASSWORD = 'HiboFepx0!Tuwh'
+EMAIL_HOST_USER = 'anojs.official@gmail.com'
+EMAIL_HOST_PASSWORD = 'iloveCalix8'
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = "Ano.js Team Official <anojs.official@gmail.com>"

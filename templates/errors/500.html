@@ -1,0 +1,13 @@
+{% load staticfiles %}
+{% include 'anojs_app/base.html' %}
+<link rel="stylesheet" href="{% static 'anojs_app/about.css' %}">
+{% block body %}
+  <title>Ano.js - Page Not Found!</title>
+  <h1 class="header">Page Not Found! - 404</h1>
+  <p style="font-size: 30px; color: white;">
+    Something went wrong with the backend server. Please try again later.
+    <br><br>
+    If this seems urgent or important, please contact us through the contact page, and one of our web administrators will
+    try to fix this problem promptly.
+  </p>
+{% endblock %}
