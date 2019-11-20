@@ -4,13 +4,6 @@ body {
   text-align: center;
 }
 
-.header {
-  color: white;
-  font-size: 65px;
-  font-weight: bold;
-  margin: 40px;
-}
-
 .submit-form {
    margin: 0 400px;
 }

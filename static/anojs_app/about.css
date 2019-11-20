@@ -5,13 +5,6 @@ body {
   overflow: visible;
 }
 
-.header {
-  color: white;
-  font-size: 65px;
-  font-weight: bold;
-  margin: 40px;
-}
-
 .content {
   color: white;
   font-size: 20px;

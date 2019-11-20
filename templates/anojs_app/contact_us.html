@@ -3,6 +3,18 @@
 <link rel="stylesheet" href="{% static 'anojs_app/contact_us.css' %}">
 <title>Ano.js - Contact Us</title>
 <meta name="description" content="Contact us here at Ano.js anytime and we will respond promptly!">
+<style media="screen">
+  @media (max-width: 500px) {
+    .submit-form {
+      margin: 10px 30px;
+    }
+
+    body {
+      overflow: visible;
+      height: 100%;
+    }
+  }
+</style>
 {% block body %}
   <h1 class="header">Contact us</h1>
   <form class="submit-form" method="post">

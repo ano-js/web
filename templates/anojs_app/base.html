@@ -3,6 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ano.js is a free web animation platform, designed to be used by developers looking to integrate web animation into their website to make it pop!">
     <meta name="keywords" content="Ano.js,ano.js,animation,web animation,website,web,web development,software,software development,integrable,easy,simple,anime.js,mo.js,javascript animation,transition,anojs,Anojs,ano,Ano">
     <link rel="icon" href="{% static 'images/anojs-black.png' %}">
@@ -24,6 +25,19 @@
     <!-- Google Adsense Tag -->
     <script data-ad-client="ca-pub-3207944687013200" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
+  <style>
+    @media (max-width: 1000px) {
+      nav {
+        position: static !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .header {
+        font-size: 40px;
+      }
+    }
+  </style>
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark" style="position: absolute;">
       <div class="container">

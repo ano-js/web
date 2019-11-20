@@ -3,6 +3,18 @@
 <link rel="stylesheet" href="{% static 'anojs_app/submit.css' %}">
 <title>Ano.js - Submit</title>
 <meta name="description" content="Submit your own custom-made web animation to our platform and have it displayed on Ano.js!">
+<style media="screen">
+  @media (max-width: 500px) {
+    .submit-form {
+      margin: 10px 30px;
+    }
+
+    body {
+      overflow: visible;
+      height: 100%;
+    }
+  }
+</style>
 {% block body %}
   <h1 class="header">Submit an Animation</h1>
   <form enctype="multipart/form-data" class="submit-form" method="post">

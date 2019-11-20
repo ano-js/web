@@ -11,6 +11,14 @@ body {
   overflow: hidden;
 }
 
+.header {
+  color: white;
+  font-size: 65px;
+  font-weight: bold;
+  margin: 40px;
+  text-align: center;
+}
+
 .body-content {
   margin-top: 100px;
 }

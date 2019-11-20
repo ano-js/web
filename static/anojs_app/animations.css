@@ -3,14 +3,6 @@ body {
   overflow: visible;
 }
 
-.header {
-  text-align: center;
-  margin: 40px;
-  font-size: 75px;
-  color: white;
-  font-weight: bold;
-}
-
 .github-container {
   text-align: right;
 }
