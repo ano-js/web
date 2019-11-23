@@ -118,6 +118,8 @@ def contact_us(request):
         )
         email.send()
 
+        print('yay')
+
         return HttpResponseRedirect("/")
 
     return render(request, "anojs_app/contact_us.html")

@@ -25,8 +25,8 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 SECRET_KEY = '$nvx!w!ii9(qe@895i@08ygd-646^8y0o^tj@ez+e&tl#!_mo#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -140,6 +140,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'calix.huang1@gmail.com'
-EMAIL_HOST_PASSWORD = 'HiboFepx0!Tuwh'
+EMAIL_HOST_PASSWORD = 'Deedeerocks8'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = "Ano.js Team Official <anojs.official@gmail.com>"
+DEFAULT_FROM_EMAIL = "Calix Huang <calix.huang1@gmail.com>"
