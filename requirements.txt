@@ -9,3 +9,4 @@ rsa==3.4.2
 s3transfer==0.2.0
 sqlparse==0.3.0
 whitenoise==4.1.4
+django-hosts==3.0
