@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const mongodb = require("mongodb");
 const axios = require("axios");
@@ -14,10 +16,24 @@ app.set('views', __dirname + '/views');
 app.use('/static', express.static(__dirname + '/static'))
 app.engine('html', require('ejs').renderFile);
 
+// Initializing all block elements
+// ORDER: imports, navbar, footer
+let blockElementsNames = ["imports", "navbar", "footer"];
+let blockElements = [];
+for (var i = 0; i < blockElementsNames.length; i++) {
+  fs.readFile(__dirname + `/blocks/${blockElementsNames[i]}.html`, "utf-8", (err, data) => {
+    if (err) throw err;
+
+    blockElements.push(data);
+  });
+}
+
 
 // URL Routes
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.render("index.html", context={
+    blockElements,
+  });
 });
 
 
