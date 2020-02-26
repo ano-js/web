@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 
 
 // Configuring server for listening
-const port = 3000 || process.ENV.PORT;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`[+] Node.js server listening on port ${port}`);
 });
