@@ -11,6 +11,18 @@
 
     <div class="container">
       <h1>Animations</h1>
+      <div class="animations-grid">
+        <% for (animation of animationData) { %>
+          <div class="animations-grid-item">
+            <video class="animations-grid-item-video" controls width="300" height="200" name="Video Name" src="<%= animation.videoLink %>"></video>
+            <a href="<%= animation.cdnLink %>">
+              <h5 class="animations-grid-item-title">
+                <%= animation.name %>
+              </h5>
+            </a>
+          </div>
+        <% } %>
+      </div>
     </div>
   </body>
 </html>
