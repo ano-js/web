@@ -1,0 +1,32 @@
+.primary-cta-button {
+  background-color: white;
+  color: $color-dark;
+  border: 2px solid white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: all .2s;
+  font-size: 20px;
+}
+
+.primary-cta-button:hover {
+  background-color: #ccc;
+  border: 2px solid #ccc;
+  color: $color-dark;
+  text-decoration: none;
+}
+
+.ghost-cta-button {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 20px;
+  transition: all .2s;
+}
+
+.ghost-cta-button:hover {
+  background-color: white;
+  color: $color-dark;
+  text-decoration: none;
+}

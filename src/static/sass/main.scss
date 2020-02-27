@@ -1,1 +1,12 @@
+// GLOBAL IMPORTS
+@import "imports/assets/variables";
 @import "imports/base";
+
+// BLOCK IMPORTS
+@import "imports/blocks/navbar";
+
+// ASSET IMPORTS
+@import "imports/assets/global-styles";
+
+// PAGE STYLE IMPORTS
+@import "imports/pages/index";

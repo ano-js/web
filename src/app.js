@@ -31,9 +31,31 @@ for (var i = 0; i < blockElementsNames.length; i++) {
 
 // URL Routes
 app.get("/", (req, res) => {
-  res.render("index.html", context={
-    blockElements,
-  });
+  res.render("index.html", context={ blockElements });
+});
+
+app.get("/join-us", (req, res) => {
+  res.render("join-us.html", context={ blockElements });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about.html", context={ blockElements });
+});
+
+app.get("/our-team", (req, res) => {
+  res.render("our-team.html", context={ blockElements });
+});
+
+app.get("/faq", (req, res) => {
+  res.render("faq.html", context={ blockElements });
+});
+
+app.get("/contact-us", (req, res) => {
+  res.render("contact-us.html", context={ blockElements });
+});
+
+app.get("/animations", (req, res) => {
+  res.render("animations.html", context={ blockElements });
 });
 
 

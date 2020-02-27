@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
-h1 {
-  background-color: red;
+body {
+  background-image: radial-gradient($color-light, $color-dark);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+}
+
+body * {
+  color: white;
+}
+
+.spacer {
+  padding-top: 125px;
 }
