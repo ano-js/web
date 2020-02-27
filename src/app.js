@@ -270,11 +270,11 @@ app.get("/app/store-collaborator-repo-data", (req, res) => {
 
       const collaboratorsCollection = client.db("anojs").collection("collaborators");
 
-      // Clearing out collection
-      collaboratorsCollection.drop((err, deleteConfirmation) => {
-        if (err) throw err;
-        if (deleteConfirmation) console.log("Collection cleared");
-      });
+      // // Clearing out collection
+      // collaboratorsCollection.drop((err, deleteConfirmation) => {
+      //   if (err) throw err;
+      //   if (deleteConfirmation) console.log("Collection cleared");
+      // });
 
       // Inserting all collaborators
       collaboratorsCollection.insertMany(collaborators);
