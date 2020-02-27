@@ -1,0 +1,19 @@
+.faq-grid {
+  margin-bottom: 50px;
+
+  &-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 50px;
+    align-items: center;
+
+    &-question {
+      border-right: 2px solid #ccc;
+      padding: 30 0px;
+    }
+
+    &-answer {
+      padding: 0 30px;
+    }
+  }
+}

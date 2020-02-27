@@ -1,14 +1,20 @@
-// GLOBAL IMPORTS
+// ASSET IMPORTS
 @import "imports/assets/variables";
+@import "imports/assets/global-styles";
+
+// GLOBAL IMPORTS
 @import "imports/base";
 
 // BLOCK IMPORTS
 @import "imports/blocks/navbar";
-
-// ASSET IMPORTS
-@import "imports/assets/global-styles";
+@import "imports/blocks/footer";
 
 // PAGE STYLE IMPORTS
 @import "imports/pages/index";
 @import "imports/pages/animations";
 @import "imports/pages/animation";
+@import "imports/pages/about";
+@import "imports/pages/join-us";
+@import "imports/pages/contact-us";
+@import "imports/pages/our-team";
+@import "imports/pages/faq";

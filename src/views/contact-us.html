@@ -10,14 +10,34 @@
     <div class="spacer"></div>
 
     <div class="container">
-      <h1>Contact Us</h1>
-      <form method="post">
-        <input class="form-input" type="text" name="name" placeholder="Name">
-        <input class="form-input" type="email" name="email" placeholder="Email">
-        <textarea name="message" rows="8" class="form-input" placeholder="Message"></textarea>
-        <input type="submit" value="Contact Us!">
-      </form>
+      <h1 class="page-header">Contact Us</h1>
+      <div class="contact-us-container">
+        <div class="contact-us-container-left">
+          <form method="post">
+            <input class="form-input" type="text" name="name" placeholder="Name">
+            <input class="form-input" type="email" name="email" placeholder="Email">
+            <textarea name="message" rows="8" class="form-input" placeholder="Message"></textarea>
+            <input class="primary-cta-button" type="submit" value="Contact Us!">
+          </form>
+        </div>
+        <div class="contact-us-container-right">
+          <p>
+            If you have questions about anyting, don't hesitate to send us an email! You can use the form on the left, or contact us through email or social media.
+          </p>
+          <ul class="social-links">
+            <li class="social-links-item">
+              <img src="/static/images/arroba.png" alt="Email Icon" class="social-links-item-image">
+              <a class="social-links-item-link" href="mailto:calix.huang1@gmail.com">calix.huang1@gmail.com</a>
+            </li>
+            <li class="social-links-item">
+              <img src="/static/images/telephone.png" alt="Email Icon" class="social-links-item-image">
+              <span>(925)-332-6127</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+    <%- blockElements[2] %>
   </body>
   <script>
     if ("<%= alert %>") {

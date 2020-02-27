@@ -1,0 +1,12 @@
+.about-step {
+  display: grid;
+  grid-template-columns: 10% 1fr;
+  align-items: center;
+  grid-gap: 20px;
+
+  &-number {
+    font-size: 65px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+}

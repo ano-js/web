@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon src/app.js -V -L",
     "start": "node src/app.js",
     "compile:sass": "node-sass src/static/sass/main.scss src/static/css/styles.css -w"
   },

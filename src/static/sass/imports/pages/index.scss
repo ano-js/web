@@ -3,4 +3,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 40%;
+  text-align: center;
+}
+
+.cta-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5px;
 }

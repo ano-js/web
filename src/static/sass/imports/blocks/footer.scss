@@ -1,0 +1,35 @@
+footer {
+  background-color: #181818;
+  margin-top: 50px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+footer * {
+  color: white;
+}
+
+.footer-navigation {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin: 20px 50px;
+
+  &-link {
+    list-style: none;
+    width: 100%;
+    text-align: center;
+
+    &:not(:last-child) {
+      border-right: 2px solid #454545;
+    }
+
+    & a {
+      color: #eee;
+      text-decoration: none;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}

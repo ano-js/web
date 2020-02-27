@@ -1,0 +1,21 @@
+.contact-us-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 50px;
+}
+
+.social-links {
+  &-item {
+    list-style: none;
+    margin-bottom: 15px;
+
+    &-image {
+      width: 50px;
+      margin-right: 15px;
+    }
+
+    &-link {
+      color: #ccc;
+    }
+  }
+}

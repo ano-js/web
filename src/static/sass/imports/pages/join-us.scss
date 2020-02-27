@@ -1,0 +1,31 @@
+.collaborator-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 50px;
+  margin-top: 50px;
+
+  &-left {
+    &-header {
+      font-size: 25px;
+    }
+
+    &-benefits, &-qualifications {
+      margin-left: 30px;
+
+      &-item {
+        font-size: 20px;
+
+        &-sub {
+          margin-left: 30px;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+
+  &-right {
+    &-header {
+      font-size: 25px;
+    }
+  }
+}

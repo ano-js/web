@@ -10,12 +10,12 @@
     <div class="spacer"></div>
 
     <div class="container">
-      <h1>Animations</h1>
+      <h1 class="page-header">Animations</h1>
       <div class="animations-grid">
         <% for (animation of animationData) { %>
           <div class="animations-grid-item">
             <video class="animations-grid-item-video" controls width="300" height="200" name="Video Name" src="<%= animation.videoLink %>"></video>
-            <div class="cta-buttons mt-2">
+            <div class="animation-buttons mt-2">
               <a class="ghost-cta-button" href="/animations/<%= animation.idName %>" target="_">Try it Out!</a>
               <a class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
                 Get Animation!
@@ -56,5 +56,6 @@
         </div>
       </div>
     <% } %>
+    <%- blockElements[2] %>
   </body>
 </html>
