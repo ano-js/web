@@ -291,13 +291,8 @@ app.get("/app/store-collaborator-repo-data", (req, res) => {
 // Error routes
 
 // Handle 404
-app.use(function(req, res) {
-  res.render("404.html", 400, context={ blockElements });
-});
-
-// Handle 500
-app.use(function(error, req, res, next) {
-  res.render("500.html", 500, context={ blockElements });
+app.get("*", (req, res) => {
+  res.render("404.html", context={ blockElements });
 });
 
 
