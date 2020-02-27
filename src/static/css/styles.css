@@ -76,7 +76,8 @@ strong {
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-family: Oxanium; }
 
 body {
   background-image: radial-gradient(#3c3c3c, #141414);
