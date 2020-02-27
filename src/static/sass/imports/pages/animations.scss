@@ -2,4 +2,24 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 30px;
+
+  &-item {
+    text-align: center;
+  }
+}
+
+.modal * {
+  color: black;
+}
+
+code {
+  display: inline-block;
+  background-color: #ccc;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.cta-buttons {
+  width: 100%;
 }

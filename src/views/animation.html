@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ano.js - Animation</title>
+    <%- blockElements[0] %>
+  </head>
+  <body style="padding: 0; overflow: hidden;">
+    <div class="control-panel">
+      <a href="/animations" class="control-panel-item">&larr; Back</a>
+      <a href="<%= animation.cdnLink %>" class="control-panel-item" target="_">Source Code</a>
+    </div>
+    <div id="anojs-<%= animation.idName %>"></div>
+  </body>
+  <script src="<%= animation.cdnLink %>" charset="utf-8"></script>
+</html>

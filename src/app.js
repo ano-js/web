@@ -3,6 +3,8 @@ const path = require("path");
 const express = require("express");
 const mongodb = require("mongodb");
 const axios = require("axios");
+const fetch = require("node-fetch");
+const nodemailer = require("nodemailer");
 
 app = express();
 
@@ -23,6 +25,10 @@ app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/calixo888/anojs-animations@master/animation-files/";
+const repoDataLink = "https://api.github.com/repos/calixo888/anojs-animations/contents/animation-files";
+const repoCollaboratorsLink = "https://api.github.com/repos/calixo888/anojs-animations/collaborators";
+const repoCollaboratorInviteLink = "https://api.github.com/repos/calixo888/anojs-animations/collaborators/";
+const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 
 // Initializing all block elements
 // ORDER: imports, navbar, footer
@@ -42,25 +48,87 @@ app.get("/", (req, res) => {
   res.render("index.html", context={ blockElements });
 });
 
-app.get("/join-us", (req, res) => {
-  res.render("join-us.html", context={ blockElements });
-});
+app.route("/join-us")
+  .get((req, res) => {
+    res.render("join-us.html", context={
+      blockElements,
+      alert: undefined
+    });
+  })
+  .post((req, res) => {
+    const formData = req.body;
+    const githubUsername = formData.githubUsername;
+
+    // Sending invite to github user
+    // Not using Axios because the PUT request didn't work
+    fetch(repoCollaboratorInviteLink + githubUsername, {
+      method: "PUT",
+      headers: {
+        "Authorization": "token " + personalAccessToken,
+        "Content-Length": 0
+      }
+    });
+
+    // Re-rendering page with success message
+    res.render("join-us.html", context={
+      blockElements,
+      alert: `Invite successfully sent to ${githubUsername}!`
+    });
+  });
 
 app.get("/about", (req, res) => {
   res.render("about.html", context={ blockElements });
 });
 
 app.get("/our-team", (req, res) => {
-  res.render("our-team.html", context={ blockElements });
+  // Getting all collaborators
+  MongoClient.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    collaboratorsCollection = client.db("anojs").collection("collaborators");
+
+    collaboratorsCollection.find({}).toArray((err, collaborators) => {
+      if (err) throw err;
+
+      res.render("our-team.html", context={ blockElements, collaborators });
+    });
+  });
 });
 
 app.get("/faq", (req, res) => {
   res.render("faq.html", context={ blockElements });
 });
 
-app.get("/contact-us", (req, res) => {
-  res.render("contact-us.html", context={ blockElements });
-});
+app.route("/contact-us")
+  .get((req, res) => {
+    res.render("contact-us.html", context={ blockElements, alert: undefined });
+  })
+  .post(async (req, res) => {
+    const formData = req.body;
+
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.NODEMAILER_EMAIL,
+        pass: process.env.NODEMAILER_PASS
+      }
+    });
+
+    let info = await transporter.sendMail({
+      from: formData.email,
+      to: "calix.huang1@gmail.com",
+      subject: "Ano.js - Contact Us From " + formData.name,
+      text: formData.message
+    });
+
+    res.render("contact-us.html", context={
+      blockElements,
+      alert: "Email successfully sent!"
+    });
+  });
 
 app.get("/animations", (req, res) => {
   // Grabbing all animation repo data from MongoDB
@@ -83,16 +151,44 @@ app.get("/animations", (req, res) => {
   });
 });
 
+app.get("/animations/:animationIdName", (req, res) => {
+  const animationIdName = req.params.animationIdName;
+
+  // Grabbing animation inside of URL extension
+  MongoClient.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    const animationsCollection = client.db("anojs").collection("animations");
+
+    animationsCollection.find({ idName: animationIdName }).toArray((err, animations) => {
+      if (err) throw err;
+
+      if (animations.length == 0) {  // Animation not found
+        res.send("No such animation exists.");
+      }
+      else {
+        const animation = animations[0];
+        res.render("animation.html", context={ animation, blockElements });
+      }
+    });
+  });
+});
+
 
 // BACKGROUND APPLICATION TASKS
+
+// Stores all animation file data
 app.get("/app/store-animation-repo-data", (req, res) => {
   // Inserting GitHub animations repo data into MongoDB
   let animationFilesData = [];
-  axios.get("https://api.github.com/repos/calixo888/anojs-animations/contents/animation-files").then((response) => {
+  axios.get(repoDataLink).then((response) => {
     const fileObjects = response.data;
 
     // Filtering JSON response for useful data
-    // Including name, link
+    // Including name, idName, cdnLink, videoLink
     for (animationFile of fileObjects) {
       const animationFileName = animationFile.name;
 
@@ -102,6 +198,10 @@ app.get("/app/store-animation-repo-data", (req, res) => {
 
       // Removing "anojs" from filename list
       splitFileName.shift();
+
+      // Formatting idName
+      let idName = splitFileName.join("-");
+      idName = idName.substring(0, idName.length - 3)
 
       // Pulling formatted name together
       let name = splitFileName.join(" ");
@@ -121,6 +221,7 @@ app.get("/app/store-animation-repo-data", (req, res) => {
 
       animationFilesData.push({
         name,
+        idName,
         cdnLink,
         videoLink
       })
@@ -148,6 +249,55 @@ app.get("/app/store-animation-repo-data", (req, res) => {
   });
 
   res.status(200).send();
+});
+
+// Stores all repo collaborator data
+app.get("/app/store-collaborator-repo-data", (req, res) => {
+  axios.get(repoCollaboratorsLink, {
+    headers: {
+      "Authorization": "token " + personalAccessToken
+    }
+  }).then((response) => {
+
+    const collaborators = response.data;
+
+    // Saving all collaborators in MongoDB
+    MongoClient.connect(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }, (err, client) => {
+      if (err) throw err;
+
+      const collaboratorsCollection = client.db("anojs").collection("collaborators");
+
+      // Clearing out collection
+      collaboratorsCollection.drop((err, deleteConfirmation) => {
+        if (err) throw err;
+        if (deleteConfirmation) console.log("Collection cleared");
+      });
+
+      // Inserting all collaborators
+      collaboratorsCollection.insertMany(collaborators);
+    });
+
+  }).catch((err) => {
+    console.error(err);
+  });
+
+  res.status(200).send();
+});
+
+
+// Error routes
+
+// Handle 404
+app.use(function(req, res) {
+  res.render("404.html", 400, context={ blockElements });
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+  res.render("500.html", 500, context={ blockElements });
 });
 
 

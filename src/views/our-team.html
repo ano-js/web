@@ -11,6 +11,14 @@
 
     <div class="container">
       <h1>Our Team</h1>
+      <h3>Collaborators</h3>
+      <div class="collaborators">
+        <% for (collaborator of collaborators) { %>
+          <div class="collaborator">
+            <h5><%= collaborator.login %></h5>
+          </div>
+        <% } %>
+      </div>
     </div>
   </body>
 </html>
