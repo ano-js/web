@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Oxanium:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Oxanium&display=swap");
 .primary-cta-button {
   background-color: white;
   color: #141414 !important;
@@ -34,17 +36,20 @@
 .main-header {
   font-size: 65px;
   font-weight: bold;
-  text-align: center; }
+  text-align: center;
+  font-family: Oxanium; }
 
 .page-header {
   font-size: 50px;
-  font-weight: bold;
+  font-weight: 1000;
   text-align: center;
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  font-family: Oxanium; }
 
 .sub-header {
-  font-size: 30px;
-  font-weight: bold; }
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Oxanium; }
 
 .form-input {
   display: block;
@@ -55,7 +60,7 @@
   transition: all .2s;
   border-radius: 4px;
   padding: 10px 15px;
-  margin-bottom: 10px; }
+  margin-bottom: 15px; }
   .form-input:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.3); }
@@ -67,7 +72,8 @@ h1, h2, h3, h4, h5 {
 
 p, li, div {
   color: #ddd;
-  font-size: 20px; }
+  font-size: 20px;
+  line-height: 34px; }
 
 strong {
   font-size: 25px;
