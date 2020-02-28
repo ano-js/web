@@ -24,10 +24,10 @@ app.use('/static', express.static(__dirname + '/static'))
 app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
-const baseCdnLink = "https://cdn.jsdelivr.net/gh/calixo888/anojs-animations@master/animation-files/";
-const repoDataLink = "https://api.github.com/repos/calixo888/anojs-animations/contents/animation-files";
-const repoCollaboratorsLink = "https://api.github.com/repos/calixo888/anojs-animations/collaborators";
-const repoCollaboratorInviteLink = "https://api.github.com/repos/calixo888/anojs-animations/collaborators/";
+const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs-animations@master/animation-files/";
+const repoDataLink = "https://api.github.com/repos/anojs/anojs-animations/contents/animation-files";
+const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs-animations/collaborators";
+const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs-animations/collaborators/";
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 
 // Initializing all block elements
