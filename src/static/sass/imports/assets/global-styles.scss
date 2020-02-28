@@ -87,3 +87,13 @@ strong {
   font-size: 25px;
   color: #eee;
 }
+
+.github-btn {
+  position: absolute;
+  top: 35px;
+  right: 40px;
+
+  & img {
+    width: 30px;
+  }
+}

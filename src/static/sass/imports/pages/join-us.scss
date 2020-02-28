@@ -6,7 +6,7 @@
 
   &-left {
     &-header {
-      font-size: 25px;
+      font-size: 30px;
     }
 
     &-benefits, &-qualifications {
@@ -14,6 +14,7 @@
 
       &-item {
         font-size: 20px;
+        color: white;
 
         &-sub {
           margin-left: 30px;
@@ -25,7 +26,11 @@
 
   &-right {
     &-header {
-      font-size: 25px;
+      font-size: 30px;
+    }
+
+    & p {
+      font-size: 17.5px;
     }
   }
 }

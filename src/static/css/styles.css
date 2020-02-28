@@ -73,6 +73,13 @@ strong {
   font-size: 25px;
   color: #eee; }
 
+.github-btn {
+  position: absolute;
+  top: 35px;
+  right: 40px; }
+  .github-btn img {
+    width: 30px; }
+
 * {
   margin: 0;
   padding: 0;
@@ -186,16 +193,19 @@ code {
   grid-gap: 50px;
   margin-top: 50px; }
   .collaborator-section-left-header {
-    font-size: 25px; }
+    font-size: 30px; }
   .collaborator-section-left-benefits, .collaborator-section-left-qualifications {
     margin-left: 30px; }
     .collaborator-section-left-benefits-item, .collaborator-section-left-qualifications-item {
-      font-size: 20px; }
+      font-size: 20px;
+      color: white; }
       .collaborator-section-left-benefits-item-sub, .collaborator-section-left-qualifications-item-sub {
         margin-left: 30px;
         font-size: 17px; }
   .collaborator-section-right-header {
-    font-size: 25px; }
+    font-size: 30px; }
+  .collaborator-section-right p {
+    font-size: 17.5px; }
 
 .contact-us-container {
   display: grid;

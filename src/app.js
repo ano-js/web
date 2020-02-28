@@ -5,6 +5,7 @@ const mongodb = require("mongodb");
 const axios = require("axios");
 const fetch = require("node-fetch");
 const nodemailer = require("nodemailer");
+const spawn = require("child_process").spawn;
 
 app = express();
 
@@ -72,7 +73,7 @@ app.route("/join-us")
     // Re-rendering page with success message
     res.render("join-us.html", context={
       blockElements,
-      alert: `Invite successfully sent to ${githubUsername}!`
+      alert: `Check your email! Invite sent to ${githubUsername}!`
     });
   });
 
@@ -178,10 +179,9 @@ app.get("/animations/:animationIdName", (req, res) => {
 });
 
 
-// BACKGROUND APPLICATION TASKS
-
-// Stores all animation file data
-app.get("/app/store-animation-repo-data", (req, res) => {
+// BACKGROUND APPLICATION FUNCTIONS
+const storeAnimationRepoData = (req, res) => {
+  console.log("[+] storeAnimationRepoData background process running...");
   // Inserting GitHub animations repo data into MongoDB
   let animationFilesData = [];
   axios.get(repoDataLink).then((response) => {
@@ -249,10 +249,11 @@ app.get("/app/store-animation-repo-data", (req, res) => {
   });
 
   res.status(200).send();
-});
+}
 
-// Stores all repo collaborator data
-app.get("/app/store-collaborator-repo-data", (req, res) => {
+const storeCollaboratorRepoData = (req, res) => {
+  console.log("[+] storeCollaboratorRepoData background process running...");
+
   axios.get(repoCollaboratorsLink, {
     headers: {
       "Authorization": "token " + personalAccessToken
@@ -285,7 +286,18 @@ app.get("/app/store-collaborator-repo-data", (req, res) => {
   });
 
   res.status(200).send();
-});
+}
+
+// BACKGROUND APPLICATION TASKS
+// Stores all animation file data
+app.get("/app/store-animation-repo-data", storeAnimationRepoData);
+
+// Stores all repo collaborator data
+app.get("/app/store-collaborator-repo-data", storeCollaboratorRepoData);
+
+// Running background tasks
+setInterval(storeAnimationRepoData, 3.6e+6);  // Every 1 hour
+setInterval(storeCollaboratorRepoData, 3.6e+6);  // Every 1 hour
 
 
 // Error routes
