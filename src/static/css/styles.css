@@ -114,7 +114,8 @@ footer * {
 
 .footer-navigation {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(2, 250px);
+  justify-content: center;
   margin: 20px 50px; }
   .footer-navigation-link {
     list-style: none;
