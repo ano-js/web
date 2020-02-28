@@ -178,6 +178,14 @@ app.get("/animations/:animationIdName", (req, res) => {
   });
 });
 
+app.get("/terms-and-conditions", (req, res) => {
+  res.render("terms_and_conditions.html", contet={ blockElements });
+});
+
+app.get("/privacy-policy", (req, res) => {
+  res.render("privacy_policy.html", contet={ blockElements });
+});
+
 
 // BACKGROUND APPLICATION FUNCTIONS
 const storeAnimationRepoData = (req, res) => {
