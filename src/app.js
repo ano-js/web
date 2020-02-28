@@ -61,7 +61,7 @@ app.route("/join-us")
 
     // Sending invite to github user
     // Not using Axios because the PUT request didn't work
-    fetch(repoCollaboratorInviteLink + githubUsername, {
+    fetch(repoCollaboratorInviteLink + githubUsername + "?permission=pull", {
       method: "PUT",
       headers: {
         "Authorization": "token " + personalAccessToken,
