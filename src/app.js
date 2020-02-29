@@ -128,6 +128,8 @@ app.route("/contact-us")
 
     // Sending email
     sendEmail(formData.email, "calix.huang1@gmail.com", "Ano.js - Contact Us From " + formData.name, formData.message);
+
+    res.render("contact-us.html", context={ blockElements, alert: "Email successfully sent!" });
   });
 
 app.get("/animations", (req, res) => {
@@ -316,7 +318,7 @@ app.route("/functions/email-blast")
       const contactCollection = client.db("anojs").collection("contacts");
 
       const contacts = contactCollection.find({}).toArray((err, contacts) => {
-        contacts = ["liliani.huang@gmail.com", "joseph.huang@gmail.com"];
+        contacts = ["liliani.huang@gmail.com", "joseph.huang@gmail.com", "gamestrike.info@gmail.com"];
         for (contact of contacts) {
           sendEmail(from, contact.email, subject, message);
         }
