@@ -63,13 +63,13 @@ app.route("/join-us")
 
     // Sending invite to github user
     // Not using Axios because the PUT request didn't work
-    fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
-      method: "PUT",
-      headers: {
-        "Authorization": "token " + personalAccessToken,
-        "Content-Length": 0
-      }
-    });
+    // fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
+    //   method: "PUT",
+    //   headers: {
+    //     "Authorization": "token " + personalAccessToken,
+    //     "Content-Length": 0
+    //   }
+    // });
 
     // Saving to database
     MongoClient.connect(mongoUrl, {
