@@ -5,7 +5,6 @@ const mongodb = require("mongodb");
 const axios = require("axios");
 const fetch = require("node-fetch");
 const nodemailer = require("nodemailer");
-const spawn = require("child_process").spawn;
 
 app = express();
 
@@ -308,55 +307,6 @@ const storeCollaboratorRepoData = (req, res) => {
   });
 
   res.status(200).send();
-}
-
-// Email blasting function - ONLY FOR CALIX
-// app.route("/functions/email-blast")
-//   .get((req, res) => {
-//     res.render("email-blast.html", context={ blockElements });
-//   })
-//   .post((req, res) => {
-//     const formData = req.body;
-//     const from = "calix.huang1@gmail.com";
-//     const subject = formData.subject;
-//     const message = formData.message;
-//
-//     // Blasting email
-//     MongoClient.connect(mongoUrl, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true
-//     }, (err, client) => {
-//       if (err) throw err;
-//
-//       const contactCollection = client.db("anojs").collection("contacts");
-//
-//       const contacts = contactCollection.find({}).toArray((err, contacts) => {
-//         for (contact of contacts) {
-//           sendEmail(from, contact.email, subject, message);
-//         }
-//       });
-//     });
-//
-//     res.redirect("/");
-//   });
-
-
-// HELPER FUNCTIONS
-const sendEmail = async (from, to, subject, message) => {
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.NODEMAILER_EMAIL,
-      pass: process.env.NODEMAILER_PASS
-    }
-  });
-
-  let info = await transporter.sendMail({
-    from: from,
-    to: to,
-    subject: subject,
-    text: message
-  });
 }
 
 
