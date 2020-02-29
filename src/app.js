@@ -58,17 +58,33 @@ app.route("/join-us")
   })
   .post((req, res) => {
     const formData = req.body;
+    const email = formData.email;
     const githubUsername = formData.githubUsername;
 
     // Sending invite to github user
     // Not using Axios because the PUT request didn't work
-    fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
-      method: "PUT",
-      headers: {
-        "Authorization": "token " + personalAccessToken,
-        "Content-Length": 0
-      }
-    });
+    // fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
+    //   method: "PUT",
+    //   headers: {
+    //     "Authorization": "token " + personalAccessToken,
+    //     "Content-Length": 0
+    //   }
+    // });
+
+    // Saving to database
+    MongoClient.connect(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }, (err, client) => {
+      if (err) throw err;
+
+      const contactCollection = client.db("anojs").collection("contacts");
+
+      contactCollection.insertOne({
+        email,
+        githubUsername
+      });
+    })
 
     // Re-rendering page with success message
     res.render("join-us.html", context={
