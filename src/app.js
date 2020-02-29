@@ -298,35 +298,34 @@ const storeCollaboratorRepoData = (req, res) => {
 }
 
 // Email blasting function - ONLY FOR CALIX
-app.route("/functions/email-blast")
-  .get((req, res) => {
-    res.render("email-blast.html", context={ blockElements });
-  })
-  .post((req, res) => {
-    const formData = req.body;
-    const from = "calix.huang1@gmail.com";
-    const subject = formData.subject;
-    const message = formData.message;
-
-    // Blasting email
-    MongoClient.connect(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }, (err, client) => {
-      if (err) throw err;
-
-      const contactCollection = client.db("anojs").collection("contacts");
-
-      const contacts = contactCollection.find({}).toArray((err, contacts) => {
-        contacts = ["liliani.huang@gmail.com", "joseph.huang@gmail.com", "gamestrike.info@gmail.com"];
-        for (contact of contacts) {
-          sendEmail(from, contact.email, subject, message);
-        }
-      });
-    });
-
-    res.redirect("/");
-  });
+// app.route("/functions/email-blast")
+//   .get((req, res) => {
+//     res.render("email-blast.html", context={ blockElements });
+//   })
+//   .post((req, res) => {
+//     const formData = req.body;
+//     const from = "calix.huang1@gmail.com";
+//     const subject = formData.subject;
+//     const message = formData.message;
+//
+//     // Blasting email
+//     MongoClient.connect(mongoUrl, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true
+//     }, (err, client) => {
+//       if (err) throw err;
+//
+//       const contactCollection = client.db("anojs").collection("contacts");
+//
+//       const contacts = contactCollection.find({}).toArray((err, contacts) => {
+//         for (contact of contacts) {
+//           sendEmail(from, contact.email, subject, message);
+//         }
+//       });
+//     });
+//
+//     res.redirect("/");
+//   });
 
 
 // HELPER FUNCTIONS
