@@ -82,19 +82,19 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/our-team", (req, res) => {
-  // Getting all collaborators
+  // Getting all contributors
   MongoClient.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
     if (err) throw err;
 
-    collaboratorsCollection = client.db("anojs").collection("collaborators");
+    contributorsCollection = client.db("anojs").collection("contributors");
 
-    collaboratorsCollection.find({}).toArray((err, collaborators) => {
+    contributorsCollection.find({}).toArray((err, contributors) => {
       if (err) throw err;
 
-      res.render("our-team.html", context={ blockElements, collaborators });
+      res.render("our-team.html", context={ blockElements, contributors });
     });
   });
 });
@@ -268,25 +268,25 @@ const storeCollaboratorRepoData = (req, res) => {
     }
   }).then((response) => {
 
-    const collaborators = response.data;
+    const contributors = response.data;
 
-    // Saving all collaborators in MongoDB
+    // Saving all contributors in MongoDB
     MongoClient.connect(mongoUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     }, (err, client) => {
       if (err) throw err;
 
-      const collaboratorsCollection = client.db("anojs").collection("collaborators");
+      const contributorsCollection = client.db("anojs").collection("contributors");
 
       // Clearing out collection
-      collaboratorsCollection.drop((err, deleteConfirmation) => {
+      contributorsCollection.drop((err, deleteConfirmation) => {
         if (err) throw err;
         if (deleteConfirmation) console.log("Collection cleared");
       });
 
-      // Inserting all collaborators
-      collaboratorsCollection.insertMany(collaborators);
+      // Inserting all contributors
+      contributorsCollection.insertMany(contributors);
     });
 
   }).catch((err) => {
@@ -300,8 +300,8 @@ const storeCollaboratorRepoData = (req, res) => {
 // Stores all animation file data
 app.get("/app/store-animation-repo-data", storeAnimationRepoData);
 
-// Stores all repo collaborator data
-app.get("/app/store-collaborator-repo-data", storeCollaboratorRepoData);
+// Stores all repo contributor data
+app.get("/app/store-contributor-repo-data", storeCollaboratorRepoData);
 
 // Running background tasks
 setInterval(storeAnimationRepoData, 3.6e+6);  // Every 1 hour

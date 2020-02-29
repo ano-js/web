@@ -11,13 +11,13 @@
 
     <div class="container">
       <h1 class="page-header">Our Team</h1>
-      <h3 class="sub-header">Collaborators</h3>
-      <div class="collaborators">
-        <% for (collaborator of collaborators) { %>
-          <div class="collaborator">
-            <img class="collaborator-avatar" src="<%= collaborator.avatar_url %>" alt="<%= collaborator.login %>'s Avatar'">
-            <a href="<%= collaborator.html_url %>" target="_">
-              <h5 class="collaborator-name"><%= collaborator.login %></h5>
+      <h3 class="sub-header">Contributors</h3>
+      <div class="contributors">
+        <% for (contributor of contributors) { %>
+          <div class="contributor">
+            <img class="contributor-avatar" src="<%= contributor.avatar_url %>" alt="<%= contributor.login %>'s Avatar'">
+            <a href="<%= contributor.html_url %>" target="_">
+              <h5 class="contributor-name"><%= contributor.login %></h5>
             </a>
           </div>
         <% } %>
