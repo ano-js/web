@@ -123,7 +123,7 @@ app.route("/contact-us")
   .get((req, res) => {
     res.render("contact-us.html", context={ blockElements, alert: undefined });
   })
-  .post((req, res) => {
+  .post(async (req, res) => {
     const formData = req.body;
 
     // Sending email
