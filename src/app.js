@@ -63,13 +63,13 @@ app.route("/join-us")
 
     // Sending invite to github user
     // Not using Axios because the PUT request didn't work
-    // fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
-    //   method: "PUT",
-    //   headers: {
-    //     "Authorization": "token " + personalAccessToken,
-    //     "Content-Length": 0
-    //   }
-    // });
+    fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
+      method: "PUT",
+      headers: {
+        "Authorization": "token " + personalAccessToken,
+        "Content-Length": 0
+      }
+    });
 
     // Saving to database
     MongoClient.connect(mongoUrl, {
@@ -123,28 +123,11 @@ app.route("/contact-us")
   .get((req, res) => {
     res.render("contact-us.html", context={ blockElements, alert: undefined });
   })
-  .post(async (req, res) => {
+  .post((req, res) => {
     const formData = req.body;
 
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.NODEMAILER_EMAIL,
-        pass: process.env.NODEMAILER_PASS
-      }
-    });
-
-    let info = await transporter.sendMail({
-      from: formData.email,
-      to: "calix.huang1@gmail.com",
-      subject: "Ano.js - Contact Us From " + formData.name,
-      text: formData.message
-    });
-
-    res.render("contact-us.html", context={
-      blockElements,
-      alert: "Email successfully sent!"
-    });
+    // Sending email
+    sendEmail(formData.email, "calix.huang1@gmail.com", "Ano.js - Contact Us From " + formData.name, formData.message);
   });
 
 app.get("/animations", (req, res) => {
@@ -195,11 +178,11 @@ app.get("/animations/:animationIdName", (req, res) => {
 });
 
 app.get("/terms-and-conditions", (req, res) => {
-  res.render("terms_and_conditions.html", contet={ blockElements });
+  res.render("terms_and_conditions.html", context={ blockElements });
 });
 
 app.get("/privacy-policy", (req, res) => {
-  res.render("privacy_policy.html", contet={ blockElements });
+  res.render("privacy_policy.html", context={ blockElements });
 });
 
 
@@ -311,6 +294,57 @@ const storeCollaboratorRepoData = (req, res) => {
 
   res.status(200).send();
 }
+
+// Email blasting function - ONLY FOR CALIX
+app.route("/functions/email-blast")
+  .get((req, res) => {
+    res.render("email-blast.html", context={ blockElements });
+  })
+  .post((req, res) => {
+    const formData = req.body;
+    const from = "calix.huang1@gmail.com";
+    const subject = formData.subject;
+    const message = formData.message;
+
+    // Blasting email
+    MongoClient.connect(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }, (err, client) => {
+      if (err) throw err;
+
+      const contactCollection = client.db("anojs").collection("contacts");
+
+      const contacts = contactCollection.find({}).toArray((err, contacts) => {
+        contacts = ["liliani.huang@gmail.com", "joseph.huang@gmail.com"];
+        for (contact of contacts) {
+          sendEmail(from, contact.email, subject, message);
+        }
+      });
+    });
+
+    res.redirect("/");
+  });
+
+
+// HELPER FUNCTIONS
+const sendEmail = async (from, to, subject, message) => {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_PASS
+    }
+  });
+
+  let info = await transporter.sendMail({
+    from: from,
+    to: to,
+    subject: subject,
+    text: message
+  });
+}
+
 
 // BACKGROUND APPLICATION TASKS
 // Stores all animation file data
