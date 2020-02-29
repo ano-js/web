@@ -127,7 +127,20 @@ app.route("/contact-us")
     const formData = req.body;
 
     // Sending email
-    sendEmail(formData.email, "calix.huang1@gmail.com", "Ano.js - Contact Us From " + formData.name, formData.message);
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.NODEMAILER_EMAIL,
+        pass: process.env.NODEMAILER_PASS
+      }
+    });
+
+    let info = await transporter.sendMail({
+      from: formData.email,
+      to: "calix.huang1@gmail.com",
+      subject: "Ano.js - Contact us from " + formData.name,
+      text: formData.message
+    });
 
     res.render("contact-us.html", context={ blockElements, alert: "Email successfully sent!" });
   });
