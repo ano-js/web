@@ -11,10 +11,19 @@
 
     <div class="container">
       <h1 class="page-header">Join Us!</h1>
-      <h3 class="sub-header">Become a Contributor</h3>
-      <p>
-        We're always looking for developers to help improve Ano.js. Ano.js is powered by open source contributions, so the best way is to become a contributor on this project, and that can be done just by filling out the form below!
-      </p>
+      <h3 class="sub-header">Become an Open Source Contributor</h3>
+      <ol class="contributor-section-left-benefits">
+        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>
+          <button class="btn btn-link" style="font-size: 20px; padding: 0 !important;" onclick="document.getElementById('contributor-section-right').scrollIntoView({behavior: 'smooth'});">Become an Ano.js contributor</button>
+        </li>
+        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>
+          <a target="_" href="https://join.slack.com/t/anojs-project/shared_invite/enQtOTY1NTI5MTU0Mjg5LWRmY2ZlMjE2MTYyM2ZlYmZiNWYzY2E4NGJmNDgwNWU3MjZjNTIwZmVhODc1M2M2N2M1MzE2NDFkNDM4NTgxNGU">Join the Slack Channel</a>
+        </li>
+          <li class="contributor-section-left-benefits-item-sub"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Make sure to get Slack on desktop and mobile - turn on notifications</li>
+        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Check out <a href="https://github.com/anojs/anojs/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a> for more in-depth information on contributing</li>
+        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Make your first contribution!</li>
+          <li class="contributor-section-left-benefits-item-sub"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Simply make a pull request titled "First Contribution" and we will accept it!</li>
+      </ol>
       <div class="contributor-section">
         <div class="contributor-section-left">
           <h5 class="contributor-section-left-header sub-header">Benefits of being a Contributor</h5>
@@ -49,10 +58,10 @@
               <li class="contributor-section-left-benefits-item-sub">Pull Requests</li>
           </ul> -->
         </div>
-        <div class="contributor-section-right">
+        <div class="contributor-section-right" id="contributor-section-right">
           <h5 class="contributor-section-right-header sub-header">Get Invited!</h5>
           <p>
-            After submitting this form, you will receive an invitation in your email to become a contributor on the Ano.js Animations GitHub repository.
+            After submitting this form, you will receive an invitation in your email to become a contributor on the Ano.js GitHub repository.
           </p>
           <form class="my-3" method="post">
             <input class="form-input" type="email" name="email" placeholder="Email" required>
