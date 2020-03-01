@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ano.js - Staff Positions</title>
+    <%- blockElements[0] %>
+  </head>
+  <body>
+    <%- blockElements[1] %>
+    <div class="spacer"></div>
+
+    <div class="container">
+      <h1 class="page-header">Ano.js Staff Positions</h1>
+
+      <div class="positions">
+        <% for (position of positions) { %>
+          <div class="position">
+            <h3 class="position-title"><%= position.title %></h3>
+            <p class="position-title-description"><%= position.description %></p>
+            <a href="/staff-positions/<%= position._id %>">Learn More</a>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <%- blockElements[2] %>
+  </body>
+</html>

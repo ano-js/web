@@ -258,6 +258,15 @@ code {
     .faq-grid-item-answer {
       padding: 0 30px; }
 
+.positions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 50px;
+  margin-top: 50px; }
+
+.staff-position-list {
+  margin-left: 30px; }
+
 @media (max-width: 800px) {
   .spacer {
     padding-top: 30px; }

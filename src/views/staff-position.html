@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ano.js - Staff Positions</title>
+    <%- blockElements[0] %>
+  </head>
+  <body>
+    <%- blockElements[1] %>
+    <div class="spacer"></div>
+
+    <div class="container">
+      <h1 class="page-header"><%= position.title %></h1>
+
+      <h3 class="sub-header">Summary</h3>
+      <p>
+        <%= position.summary %>
+      </p>
+
+      <h3 class="sub-header">Responsibilities</h3>
+      <ul class="staff-position-list">
+        <% for (responsibility of position.responsibilities) { %>
+          <li><%= responsibility %></li>
+        <% } %>
+      </ul>
+
+      <h3 class="sub-header">Qualifications</h3>
+      <ul class="staff-position-list">
+        <% for (qualification of position.qualifications) { %>
+          <li><%= qualification %></li>
+        <% } %>
+      </ul>
+    </div>
+    <%- blockElements[2] %>
+  </body>
+</html>
