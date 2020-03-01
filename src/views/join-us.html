@@ -12,21 +12,28 @@
     <div class="container">
       <h1 class="page-header">Join Us!</h1>
       <h3 class="sub-header">Become an Open Source Contributor</h3>
-      <ol class="contributor-section-left-benefits">
-        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>
-          <button class="btn btn-link" style="font-size: 20px; padding: 0 !important;" onclick="document.getElementById('contributor-section-right').scrollIntoView({behavior: 'smooth'});">Become an Ano.js contributor</button>
-        </li>
-        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>
-          <a target="_" href="https://join.slack.com/t/anojs-project/shared_invite/enQtOTY1NTI5MTU0Mjg5LWRmY2ZlMjE2MTYyM2ZlYmZiNWYzY2E4NGJmNDgwNWU3MjZjNTIwZmVhODc1M2M2N2M1MzE2NDFkNDM4NTgxNGU">Join the Slack Channel</a>
-        </li>
-          <li class="contributor-section-left-benefits-item-sub"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Make sure to get Slack on desktop and mobile - turn on notifications</li>
-        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Check out <a href="https://github.com/anojs/anojs/blob/master/README.md" target="_">README.md</a> for more in-depth information on Ano.js</li>
-        <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Make your first contribution!</li>
-          <li class="contributor-section-left-benefits-item-sub"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Simply make a pull request titled "First Contribution" and we will accept it!</li>
-      </ol>
       <div class="contributor-section">
-        <div class="contributor-section-left">
-          <h5 class="contributor-section-left-header sub-header">Benefits of being a Contributor</h5>
+        <div class="contributor-form-container">
+          <form method="post">
+            <input class="form-input" type="email" name="email" placeholder="Email" required>
+            <input class="form-input" type="text" name="githubUsername" placeholder="GitHub Username" required>
+            <input class="primary-cta-button" type="submit" value="Join the Team!">
+          </form>
+          <div>
+            <p>
+              After submitting this form, you will receive an invitation in your email to become a contributor on the Ano.js GitHub repository.
+            </p>
+            <p>
+              If you do not get an invite, please double check that you have typed in your GitHub username correctly.
+            </p>
+            <p>
+              NOTE: Make sure you're logged in before you accept the invitation.
+            </p>
+          </div>
+        </div>
+
+        <div class="contributor-section-left mt-5">
+          <h3 class="contributor-section-left-header sub-header">Benefits of being a Contributor</h3>
           <ul class="contributor-section-left-benefits">
             <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Paste it on your LinkedIn</li>
               <li class="contributor-section-left-benefits-item-sub">Great work experience to show</li>
@@ -43,37 +50,6 @@
               <li class="contributor-section-left-benefits-item-sub">Learn more about software engineering</li>
               <li class="contributor-section-left-benefits-item-sub">Network with fellow collaborators</li>
           </ul>
-
-          <!-- <h5 class="contributor-section-left-header mt-5">Contributor Qualifications</h5>
-          <p>
-            Don't worry if you don't have all of the qualifications. Just be a contributor and learn as you go!
-          </p>
-          <ul class="contributor-section-left-qualifications">
-            <li class="contributor-section-left-qualifications-item">HTML5 Canvas</li>
-            <li class="contributor-section-left-qualifications-item">Basic Javascript</li>
-            <li class="contributor-section-left-qualifications-item">Optimization techniques</li>
-              <li class="contributor-section-left-qualifications-item-sub">More information on this on the GitHub repository</li>
-            <li class="contributor-section-left-qualifications-item">Basic Git/GitHub skills</li>
-              <li class="contributor-section-left-qualifications-item-sub">Cloning, pulling, pushing</li>
-              <li class="contributor-section-left-benefits-item-sub">Pull Requests</li>
-          </ul> -->
-        </div>
-        <div class="contributor-section-right" id="contributor-section-right">
-          <h5 class="contributor-section-right-header sub-header">Get Invited!</h5>
-          <p>
-            After submitting this form, you will receive an invitation in your email to become a contributor on the Ano.js GitHub repository.
-          </p>
-          <form class="my-3" method="post">
-            <input class="form-input" type="email" name="email" placeholder="Email" required>
-            <input class="form-input" type="text" name="githubUsername" placeholder="GitHub Username" required>
-            <input class="primary-cta-button" type="submit" value="Join the Team!">
-          </form>
-          <p>
-            If you do not get an invite, please double check that you have typed in your GitHub username correctly.
-          </p>
-          <p>
-            NOTE: Make sure you're logged in before you accept the invitation.
-          </p>
         </div>
       </div>
     </div>

@@ -1,8 +1,4 @@
 .contributor-section {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 50px;
-  margin-top: 50px;
 
   &-left {
     &-header {
@@ -33,4 +29,11 @@
       font-size: 17.5px;
     }
   }
+}
+
+.contributor-form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 50px;
+  margin-top: 15px;
 }
