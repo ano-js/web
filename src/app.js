@@ -219,6 +219,10 @@ app.get("/staff-positions", (req, res) => {
   });
 });
 
+app.get("/staff-positions/tips-on-staff-positions", (req, res) => {
+  res.render("tips-on-staff-positions.html", context={ blockElements });
+});
+
 app.get("/staff-positions/:idName", (req, res) => {
   const idName = req.params.idName;
 
@@ -240,8 +244,8 @@ app.get("/staff-positions/:idName", (req, res) => {
         res.render("staff-position.html", context={ blockElements, position: positions[0] });
       }
     });
-  })
-})
+  });
+});
 
 app.get("/terms-and-conditions", (req, res) => {
   res.render("terms_and_conditions.html", context={ blockElements });
