@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Ano.js - Our Team</title>
+    <meta name="description" content="Here is our wonderful team of staff and open source GitHub contributors here at Ano.js! We deeply appreciate all of the web animations that have been contributed by our team, and we would like to recognize them here!">
+    <title>Ano.js - Our Team and Open Source Contributors</title>
     <%- blockElements[0] %>
   </head>
   <body>
@@ -18,7 +19,7 @@
       <div class="contributors">
         <% for (contributor of contributors) { %>
           <div class="contributor">
-            <img class="contributor-avatar" src="<%= contributor.avatar_url %>" alt="<%= contributor.login %>'s Avatar'">
+            <img class="contributor-avatar" src="<%= contributor.avatar_url %>" alt="Anojs Open Source Contributor's Avatar'">
             <a href="<%= contributor.html_url %>" target="_">
               <h5 class="contributor-name"><%= contributor.login %></h5>
             </a>
