@@ -43,6 +43,16 @@ for (var i = 0; i < blockElementsNames.length; i++) {
 }
 
 
+// ROOT DIRECTORY FILE SERVING
+app.use("/robots.txt", (req, res, next) => {
+  res.sendFile(__dirname + "/robots.txt");
+});
+
+app.use("/sitemap.xml", (req, res, next) => {
+  res.sendFile(__dirname + "/sitemap.xml");
+});
+
+
 // URL Routes
 app.get("/", (req, res) => {
   res.render("index.html", context={ blockElements });
