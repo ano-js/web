@@ -12,6 +12,19 @@
 
     <div class="container">
       <h1 class="page-header"><%= contributor.login %>'s Profile</h1>
+      <div class="profile mt-5">
+        <div class="profile-information text-center">
+          <img class="profile-information-avatar" src="<%= contributor.avatar_url %>" alt="Anojs Open Source Contributor's Avatar'">
+          <h3 class="sub-header text-center"><%= contributor.login %></h3>
+          <h5 class="text-center">Open Source Contributor</h5>
+          <a class="profile-information-github" href="<% contributor.html_url %>" target="_">
+            <img src="/static/images/github.png" alt="Anojs GitHub Logo">
+          </a>
+        </div>
+        <div class="profile-animations">
+          <small>No animations yet!</small>
+        </div>
+      </div>
     </div>
     <%- blockElements[2] %>
   </body>

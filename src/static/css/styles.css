@@ -287,6 +287,8 @@ code {
     .faq-grid-item-answer {
       padding: 0; }
   .contact-us-container {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
+  .profile {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
 
 @media (max-width: 500px) {
