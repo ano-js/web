@@ -7,10 +7,15 @@
     &-avatar {
       width: 300px;
       border: 5px solid white;
+      border-radius: 50%;
     }
 
     &-github {
       width: 50px;
+
+      & img {
+        width: 50px;
+      }
     }
   }
 }
