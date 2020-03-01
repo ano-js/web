@@ -12,7 +12,11 @@
 
     <div class="container">
       <h1 class="page-header">Our Team</h1>
-      <h3 class="sub-header pb-5" style="position: relative;">
+      <h3 class="sub-header">Top Contributors</h3>
+      <div class="text-center">
+        <small>No top contributors yet!</small>
+      </div>
+      <h3 class="sub-header pb-5 mt-5" style="position: relative;">
         <span>Contributors</span>
         <a href="/join-us" class="primary-cta-button" style="position: absolute; right: 0;">Become a Contributor!</a>
       </h3>
@@ -20,7 +24,7 @@
         <% for (contributor of contributors) { %>
           <div class="contributor">
             <img class="contributor-avatar" src="<%= contributor.avatar_url %>" alt="Anojs Open Source Contributor's Avatar'">
-            <a href="<%= contributor.html_url %>" target="_">
+            <a href="/our-team/<%= login %>" target="_">
               <h5 class="contributor-name"><%= contributor.login %></h5>
             </a>
           </div>

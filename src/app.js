@@ -124,6 +124,30 @@ app.get("/our-team", (req, res) => {
   });
 });
 
+app.get("/our-team/:username", (req, res) => {
+  const githubUsername = req.params.username;
+
+  // Grabbing user from MongoDB
+  MongoClient.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    const contributorsCollection = client.db("anojs").collection("contributors");
+
+    contributorsCollection.find({ login: githubUsername }).toArray((err, contributors) => {
+      if (contributors.length == 0) {  // Contributor not found
+        res.send("Contributor does not exist.");
+      }
+      else {
+        const contributor = contributors[0];
+        res.render("contributor.html", context={ blockElements, contributor });
+      }
+    });
+  });
+});
+
 app.get("/faq", (req, res) => {
   res.render("faq.html", context={ blockElements });
 });
