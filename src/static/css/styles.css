@@ -273,9 +273,12 @@ code {
   grid-gap: 50px; }
   .profile-information-avatar {
     width: 300px;
-    border: 5px solid white; }
+    border: 5px solid white;
+    border-radius: 50%; }
   .profile-information-github {
     width: 50px; }
+    .profile-information-github img {
+      width: 50px; }
 
 @media (max-width: 800px) {
   .spacer {
