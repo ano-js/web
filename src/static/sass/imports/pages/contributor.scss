@@ -1,0 +1,16 @@
+.profile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 50px;
+
+  &-information {
+    &-avatar {
+      width: 300px;
+      border: 5px solid white;
+    }
+
+    &-github {
+      width: 50px;
+    }
+  }
+}
