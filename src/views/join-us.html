@@ -15,11 +15,14 @@
       <h3 class="sub-header">Become an Open Source Contributor</h3>
       <div class="contributor-section">
         <div class="contributor-form-container">
-          <form method="post">
-            <input class="form-input" type="email" name="email" placeholder="Email" required>
-            <input class="form-input" type="text" name="githubUsername" placeholder="GitHub Username" required>
-            <input class="primary-cta-button" type="submit" value="Join the Team!">
-          </form>
+          <div>
+            <form method="post">
+              <input class="form-input" type="email" name="email" placeholder="Email" required>
+              <input class="form-input" type="text" name="githubUsername" placeholder="GitHub Username" required>
+              <input class="primary-cta-button" type="submit" value="Join the Team!">
+            </form>
+            <small><button class="btn btn-link p-0" onclick="document.getElementById('benefits').scrollIntoView({behavior: 'smooth'});">Why should I be a contributor?</button></small>
+          </div>
           <div>
             <p>
               You will receive an invitation in your email to become a contributor on the <a target="_" href="https://github.com/anojs/anojs">Ano.js GitHub repository</a>.
@@ -35,8 +38,18 @@
           </div>
         </div>
 
-        <div class="contributor-section-left mt-5">
-          <h3 class="contributor-section-left-header sub-header">Benefits of being a Contributor</h3>
+        <div class="mt-4">
+          <h3 class="sub-header">What do Ano.js contributors do?</h3>
+          <ul class="contributor-section-left-benefits">
+            <li>Create new web animations with new technology</li>
+            <li>Get guidance and mentorship from fellow contributors</li>
+            <li>Deploy web animations for real Ano.js users to use</li>
+            <li>Learn how to use new animation technology to create something new</li>
+          </ul>
+        </div>
+
+        <div class="contributor-section-left mt-5" id="benefits">
+          <h3 class="sub-header">Benefits of being a Contributor</h3>
           <ul class="contributor-section-left-benefits">
             <li class="contributor-section-left-benefits-item"><span class="fa-li"><i class="fas fa-angle-right"></i></span>Paste it on your LinkedIn</li>
               <li class="contributor-section-left-benefits-item-sub">Great work experience to show</li>
@@ -46,7 +59,7 @@
               <li class="contributor-section-left-benefits-item-sub">You choose how much you contribute</li>
             <li class="contributor-section-left-benefits-item">Receive recognition</li>
               <li class="contributor-section-left-benefits-item-sub">More contributions = more recognition</li>
-              <li class="contributor-section-left-benefits-item-sub">Collaborators with the most amount of contributions are shown the most</li>
+              <li class="contributor-section-left-benefits-item-sub">Contributors with the most amount of contributions are shown the most</li>
               <li class="contributor-section-left-benefits-item-sub">You receive credit for animations you create</li>
               <li class="contributor-section-left-benefits-item-sub">Eligible for staff positions</li>
             <li class="contributor-section-left-benefits-item">Gain experience</li>
@@ -63,7 +76,15 @@
   <%- blockElements[2] %>
   <script>
     if ("<%= alert %>") {
-      alertify.success("<%= alert %>");
+      alertify.message("<%= alert %>");
+
+      setTimeout(function() {
+        var message = "After accepting the invite, <a href='https://github.com/anojs/anojs#how-do-i-get-started' target='_'>find out how to get started!</a>"
+        var msg = alertify.message(message, 0);
+        $('body').one('click', function(){
+           msg.dismiss();
+        });
+      }, 1500);
     }
   </script>
 </html>
