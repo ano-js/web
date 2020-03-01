@@ -97,11 +97,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
-  position: relative;
-  padding-top: 50px; }
+  position: relative; }
 
 .spacer {
-  padding-top: 75px; }
+  padding-top: 125px; }
 
 .logo {
   height: 90px; }
@@ -254,3 +253,38 @@ code {
       padding: 30 0px; }
     .faq-grid-item-answer {
       padding: 0 30px; }
+
+@media (max-width: 800px) {
+  .spacer {
+    padding-top: 30px; }
+  .github-btn {
+    display: none; }
+  nav {
+    position: static !important; }
+  .center-container {
+    width: 90%; }
+  .contributors {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }
+  .contributor-avatar {
+    width: 100%; }
+  .faq-grid-item {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
+    .faq-grid-item-question {
+      border-right: none; }
+    .faq-grid-item-answer {
+      padding: 0; }
+  .contact-us-container {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
+
+@media (max-width: 500px) {
+  .footer-navigation {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
+    .footer-navigation li {
+      border-right: none !important; }
+  .about-step {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
+    .about-step span {
+      margin-top: 30px; }
+  .contributor-section {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }

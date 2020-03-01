@@ -56,6 +56,40 @@
         </div>
       </div>
     <% } %>
+
+    <!-- MOBILE DISCLAIMER MODAL -->
+    <div class="modal fade" id="mobile-disclaimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Mobile Viewing Disclaimer</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body" style="text-align: left;">
+              Because you are viewing on a mobile device, we cannot allow you to test and interact with these animations. If you would like to try out these animations first hand, we recommend you viewing on a computer.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <%- blockElements[2] %>
   </body>
+
+  <script>
+    // MAKING ALL ANIMATION TESTING BUTTONS DISABLED IF ON MOBILE
+    if (screen.width <= 500) {
+      var buttons = document.querySelectorAll(".ghost-cta-button");
+
+      for (button of buttons) {
+        button.style.display = "none";
+      }
+
+      $("#mobile-disclaimer").modal();
+    }
+  </script>
 </html>

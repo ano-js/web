@@ -1,0 +1,80 @@
+@media (max-width: 800px) {
+  // TOO MUCH SPACE FROM TOP
+  .spacer {
+    padding-top: 30px;
+  }
+
+
+  // NAVBAR GETS SQUISHED
+  .github-btn {
+    display: none;
+  }
+
+  nav {
+    position: static !important;
+  }
+
+
+  // HOMEPAGE CONTAINER GETS SQUISHED
+  .center-container {
+    width: 90%;
+  }
+
+
+  // CONTRIBUTORS GET TOO MUCH SPACE
+  .contributors {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+  }
+
+  .contributor-avatar {
+    width: 100%;
+  }
+
+
+  // FAQ GRID ITEMS GET SQUISHED
+  .faq-grid-item {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+
+    &-question {
+      border-right: none;
+    }
+
+    &-answer {
+      padding: 0;
+    }
+  }
+
+
+  // CONTACT US GRID GETS SQUISHED
+  .contact-us-container {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+  }
+}
+
+@media (max-width: 500px) {
+  // FOOTER GETS SQUISHED
+  .footer-navigation {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+
+    & li {
+      border-right: none !important;
+    }
+  }
+
+
+  // ABOUT NUMBERS GRID GETS SQUISHED
+  .about-step {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+
+    & span {
+      margin-top: 30px;
+    }
+  }
+
+
+  // JOIN US GRID GETS SQUISHED
+  .contributor-section {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+  }
+}
