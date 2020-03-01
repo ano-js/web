@@ -150,9 +150,35 @@ footer * {
 .animations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 175px;
   grid-gap: 50px; }
+  .animations-grid-link:hover {
+    text-decoration: none; }
   .animations-grid-item {
-    text-align: center; }
+    text-align: center;
+    position: relative;
+    height: 100%; }
+    .animations-grid-item:hover .animations-grid-item-image {
+      filter: brightness(0.7); }
+    .animations-grid-item-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      filter: brightness(0.55);
+      z-index: -1;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+      transition: all .2s;
+      border-radius: 5px; }
+    .animations-grid-item h3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 75%;
+      transform: translate(-50%, -50%); }
 
 .modal * {
   color: black; }

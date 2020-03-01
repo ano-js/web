@@ -14,15 +14,15 @@
       <h1 class="page-header">Animations</h1>
       <div class="animations-grid">
         <% for (animation of animationData) { %>
-          <div class="animations-grid-item">
-            <video class="animations-grid-item-video" controls width="300" height="200" name="Video Name" src="<%= animation.videoLink %>"></video>
-            <div class="animation-buttons mt-2">
-              <a class="ghost-cta-button" href="/animations/<%= animation.idName %>" target="_">Try it Out!</a>
-              <a class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
-                Get Animation!
-              </a>
+          <a class="animations-grid-link" href="/animations/<%= animation.idName %>" target="_">
+            <div class="animations-grid-item">
+              <img src="<%= animation.imageLink %>" alt="Ano.js animation demo image" class="animations-grid-item-image">
+              <h3><%= animation.name %></h3>
+                <!-- <a class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
+                  Get Animation!
+                </a> -->
             </div>
-          </div>
+          </a>
         <% } %>
       </div>
     </div>
