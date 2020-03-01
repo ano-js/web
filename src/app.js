@@ -209,8 +209,8 @@ app.get("/staff-positions", (req, res) => {
   });
 });
 
-app.get("/staff-positions/:id", (req, res) => {
-  const _id = req.params.id;
+app.get("/staff-positions/:idName", (req, res) => {
+  const idName = req.params.idName;
 
   MongoClient.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -220,7 +220,7 @@ app.get("/staff-positions/:id", (req, res) => {
 
     const positionCollection = client.db("anojs").collection("positions");
 
-    positionCollection.find({ _id: ObjectId(_id) }).toArray((err, positions) => {
+    positionCollection.find({ idName }).toArray((err, positions) => {
       if (err) throw err;
 
       if (positions.length == 0) {  // Position doesn't exist
