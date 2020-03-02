@@ -13,15 +13,14 @@
 
     <div class="container">
       <h1 class="page-header"><%= animation.name %></h1>
-      <!-- <div class="animation-demo" id="anojs-<%= animation.idName %>"></div> -->
       <div style="background-color: white; width: 100%; height: 500px;"></div>
 
       <div class="animation-details mt-3">
         <a href="/our-team/" class="animations-grid-item-details-creator">By: Calix Huang</a>
-        <a class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
+        <a onclick="addUseToAnimation()" class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
           Use this Animation!
         </a>
-        <span class="animations-grid-item-details-uses">_ Uses</span>
+        <span class="animations-grid-item-details-uses"><%= animation.useCounter %> Uses</span>
       </div>
     </div>
 
@@ -57,4 +56,11 @@
     <%- blockElements[2] %>
   </body>
   <script src="<%= animation.cdnLink %>" charset="utf-8"></script>
+  <script>
+    function addUseToAnimation() {
+      fetch(`/app/add-use-to-animation?animationIdName=${"<%= animation.idName %>"}`, {
+        method: "POST"
+      });
+    }
+  </script>
 </html>

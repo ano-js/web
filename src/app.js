@@ -29,6 +29,7 @@ const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@master/animation-
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
+const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 
 // Initializing all block elements
@@ -281,13 +282,50 @@ app.get("/privacy-policy", (req, res) => {
 });
 
 
+// API VIEWS
+app.post("/app/add-use-to-animation", (req, res) => {
+  const animationIdName = req.query.animationIdName;
+
+  // Add to animation-counters collection
+  fetch(baseFireBaseLink + "animationCounters.json", {
+    method: "GET"
+  }).then((response) => {
+    return response.json()
+  }).then((data) => {
+    for (animationCounterObject of Object.entries(data)) {
+      const animationCounterObjectId = animationCounterObject[0];
+      const animationCounter = animationCounterObject[1];
+      if (animationCounter.idName == animationIdName) {
+        // DELETING OLD RECORD
+        fetch(baseFireBaseLink + "animationCounters/" + animationCounterObjectId + ".json", {
+          method: "DELETE"
+        });
+
+        // ADDDING NEW RECORD
+        fetch(baseFireBaseLink + "animationCounters.json", {
+          method: "POST",
+          body: JSON.stringify({
+            idName: animationIdName,
+            useCounter: animationCounter.useCounter + 1
+          })
+        });
+        break;
+      }
+    }
+  });
+
+  res.status(200).send();
+});
+
+
 // BACKGROUND APPLICATION FUNCTIONS
 const storeAnimationRepoData = (req, res) => {
   console.log("[+] storeAnimationRepoData background process running...");
   // Inserting GitHub animations repo data into MongoDB
-  let animationFilesData = [];
   axios.get(repoDataLink).then((response) => {
+    let animationFilesData = [];
     const fileObjects = response.data;
+    let idNames = [];
 
     // Filtering JSON response for useful data
     // Including name, idName, cdnLink, videoLink
@@ -321,13 +359,60 @@ const storeAnimationRepoData = (req, res) => {
       const videoName = name.split(" ").join("+");
       const imageLink = baseImageLink + "anojs-" + idName + ".png";
 
+      idNames.push(idName);
+
       animationFilesData.push({
         name,
         idName,
         cdnLink,
         imageLink
-      })
+      });
     }
+
+    // Gathering all data from Firebase
+    fetch(baseFireBaseLink + "animationCounters.json", {
+      method: "GET"
+    }).then((response) => {
+      return response.json();
+    }).then((data) => {
+      // There are values inside of Firebase
+      if (data) {
+        // Creating array of Firebase animationCounters
+        let firebaseIdNames = [];
+        let firebaseObjects = [];
+        for (firebaseObject of Object.values(data)) {
+          firebaseIdNames.push(firebaseObject.idName);
+          firebaseObjects.push(firebaseObject);
+        }
+
+        for (idName of idNames) {
+          if (!firebaseIdNames.includes(idName)) {  // Firebase doesn't have this animation
+            // Creating record on Firebase
+            fetch(baseFireBaseLink + "animationCounters.json", {
+              method: "POST",
+              body: JSON.stringify({
+                idName,
+                useCounter: 0
+              })
+            });
+          }
+        }
+      }
+      // No values inside of Firebase
+      // Input all animation data points by default
+      else {
+        for (idName of idNames) {
+          // Creating record on Firebase
+          fetch(baseFireBaseLink + "animationCounters.json", {
+            method: "POST",
+            body: JSON.stringify({
+              idName,
+              useCounter: 0
+            })
+          });
+        }
+      }
+    });
 
     MongoClient.connect(mongoUrl, {
       useNewUrlParser: true,
@@ -335,17 +420,38 @@ const storeAnimationRepoData = (req, res) => {
     }, (err, client) => {
       if (err) throw err;
 
-      const animationsCollection = client.db("anojs").collection("animations");
+      // Gathering Firebase objects
+      fetch(baseFireBaseLink + "animationCounters.json", {
+        method: "GET"
+      }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        let firebaseObjects = [];
+        for (firebaseObject of Object.values(data)) {
+          firebaseObjects.push(firebaseObject);
+        }
 
-      // Clearing out entire collection
-      animationsCollection.drop((err, deleteConfirmation) => {
-        if (err) throw err;
-        if (deleteConfirmation) console.log("Collection cleared");
+        // Adding updated animationCounters to animationFilesData
+        for (var i = 0; i < animationFilesData.length; i++) {
+          for (firebaseObject of firebaseObjects) {
+            if (firebaseObject.idName == animationFilesData[i].idName) {
+              animationFilesData[i].useCounter = firebaseObject.useCounter;
+            }
+          }
+        }
+
+        const animationsCollection = client.db("anojs").collection("animations");
+
+        // Clearing out entire collection
+        animationsCollection.drop((err, deleteConfirmation) => {
+          if (err) throw err;
+          if (deleteConfirmation) console.log("Collection cleared");
+        });
+
+        // Inserting all animations into collection
+        animationsCollection.insertMany(animationFilesData);
       });
-
-      // Inserting all animations into collection
-      animationsCollection.insertMany(animationFilesData);
-    })
+    });
   }).catch((err) => {
     console.error(err);
   });
