@@ -14,49 +14,26 @@
       <h1 class="page-header">Animations</h1>
       <div class="animations-grid">
         <% for (animation of animationData) { %>
-          <a class="animations-grid-link" href="/animations/<%= animation.idName %>" target="_">
-            <div class="animations-grid-item">
-              <img src="<%= animation.imageLink %>" alt="Ano.js animation demo image" class="animations-grid-item-image">
-              <h3><%= animation.name %></h3>
-                <!-- <a class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
-                  Get Animation!
-                </a> -->
+          <div>
+            <a class="animations-grid-link" href="/animations/<%= animation.idName %>" target="_">
+              <div class="animations-grid-item">
+                <img src="<%= animation.imageLink %>" alt="Ano.js animation demo image" class="animations-grid-item-image">
+                <h3><%= animation.name %></h3>
+              </div>
+            </a>
+            <div class="animations-grid-item-details">
+              <a href="/our-team/" class="animations-grid-item-details-creator">By: Calix Huang</a>
+              <span class="animations-grid-item-details-uses">_ Uses</span>
             </div>
-          </a>
+          </div>
         <% } %>
       </div>
     </div>
 
-    <!-- MODALS -->
-    <% for (animation of animationData) { %>
-      <div class="modal fade" id="<%= animation.idName %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel"><%= animation.name %> Animation</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-              <div class="modal-body" style="text-align: left;">
-                <h5>Congratulations! You now have access to this animation!</h5>
-                <span>To integrate this animation into your website, copy-paste the code below:</span>
-                <br><br>
-                <code>
-                  &lt;div id="anojs-<%= animation.idName %>"&gt;&lt;/div&gt;
-                  <br>
-                  &lt;script src="<%= animation.cdnLink %>"&gt;&lt;/script&gt;
-                </code>
-                <br><br>
-                <strong>NOTE: You may need to modify the code according to your specific application.</strong>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-        </div>
-      </div>
-    <% } %>
+    <!-- <a class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
+      Get Animation!
+    </a> -->
+
 
     <!-- MOBILE DISCLAIMER MODAL -->
     <div class="modal fade" id="mobile-disclaimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
