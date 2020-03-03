@@ -320,8 +320,26 @@ app.post("/app/add-use-to-animation", (req, res) => {
 
 
 // BACKGROUND APPLICATION FUNCTIONS
+const sendEmail = async (from, to, subject, text) => {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_PASS
+    }
+  });
+
+  let info = await transporter.sendMail({
+    from,
+    to,
+    subject,
+    text
+  });
+}
+
 const storeAnimationRepoData = (req, res) => {
-  console.log("[+] storeAnimationRepoData background process running...");
+  sendEmail("gamestrike.info@gmail.com", "calix.huang1@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
+
   // Inserting GitHub animations repo data into MongoDB
   axios.get(repoDataLink).then((response) => {
     let animationFilesData = [];
@@ -473,7 +491,7 @@ const storeAnimationRepoData = (req, res) => {
 }
 
 const storeCollaboratorRepoData = (req, res) => {
-  console.log("[+] storeCollaboratorRepoData background process running...");
+  sendEmail("gamestrike.info@gmail.com", "calix.huang1@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
   // Getting all commit data
   axios.get(repoCommitsLink).then((response) => {
@@ -539,8 +557,8 @@ app.get("/app/store-animation-repo-data", storeAnimationRepoData);
 app.get("/app/store-contributor-repo-data", storeCollaboratorRepoData);
 
 // Running background tasks
-setInterval(storeAnimationRepoData, 3.6e+6);  // Every 1 hour
-setInterval(storeCollaboratorRepoData, 3.6e+6);  // Every 1 hour
+setInterval(storeAnimationRepoData, 1000);  // Every 1 hour
+setInterval(storeCollaboratorRepoData, 1000);  // Every 1 hour
 
 
 // Error routes
