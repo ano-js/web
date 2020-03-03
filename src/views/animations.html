@@ -68,6 +68,11 @@
       }
 
       $("#mobile-disclaimer").modal();
+
+      // Making all links null
+      for (aTag of document.getElementsByTagName("a")) {
+        aTag.addEventListener("click", function(event) { event.preventDefault(); return false; });
+      }
     }
   </script>
 </html>

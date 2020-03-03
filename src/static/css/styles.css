@@ -327,7 +327,14 @@ code {
     display: none; }
   nav {
     position: static !important; }
+  .contributors-header span {
+    display: block; }
+  .contributors-header a {
+    position: static !important; }
   .center-container {
+    position: static;
+    margin: 50px auto;
+    transform: none;
     width: 90%; }
   .contributors {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }

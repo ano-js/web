@@ -15,8 +15,23 @@
   }
 
 
+  // CONTRIBUTORS HEADER GETS SQUISHED
+  .contributors-header {
+    & span {
+      display: block;
+    }
+
+    & a {
+      position: static !important;
+    }
+  }
+
+
   // HOMEPAGE CONTAINER GETS SQUISHED
   .center-container {
+    position: static;
+    margin: 50px auto;
+    transform: none;
     width: 90%;
   }
 
