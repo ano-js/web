@@ -332,40 +332,52 @@ const storeAnimationRepoData = (req, res) => {
     for (animationFile of fileObjects) {
       const animationFileName = animationFile.name;
 
-      // Formatting name
-      // Splitting filename on "-"
-      const splitFileName = animationFileName.split("-");
+      // Getting file contributor
+      fetch(baseCdnLink + animationFileName, {
+        method: "GET"
+      }).then((response) => {
+        return response.text();
+      }).then((text) => {
+        // const firstLine = text.split("\n")[0];
+        const firstLine = "// calixo888";
+        const animationContributor = firstLine.substring(3);
 
-      // Removing "anojs" from filename list
-      splitFileName.shift();
+        // Formatting name
+        // Splitting filename on "-"
+        const splitFileName = animationFileName.split("-");
 
-      // Formatting idName
-      let idName = splitFileName.join("-");
-      idName = idName.substring(0, idName.length - 3)
+        // Removing "anojs" from filename list
+        splitFileName.shift();
 
-      // Pulling formatted name together
-      let name = splitFileName.join(" ");
+        // Formatting idName
+        let idName = splitFileName.join("-");
+        idName = idName.substring(0, idName.length - 3)
 
-      // Getting rid of ".js" from last word
-      name = name.substring(0, name.length - 3);
+        // Pulling formatted name together
+        let name = splitFileName.join(" ");
 
-      // Capitalizing all words in filename
-      name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
+        // Getting rid of ".js" from last word
+        name = name.substring(0, name.length - 3);
 
-      // Formatting CDN link
-      const cdnLink = baseCdnLink + animationFileName;
+        // Capitalizing all words in filename
+        name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
 
-      // Formatting S3 video link
-      const videoName = name.split(" ").join("+");
-      const imageLink = baseImageLink + "anojs-" + idName + ".png";
+        // Formatting CDN link
+        const cdnLink = baseCdnLink + animationFileName;
 
-      idNames.push(idName);
+        // Formatting S3 video link
+        const videoName = name.split(" ").join("+");
+        const imageLink = baseImageLink + "anojs-" + idName + ".png";
 
-      animationFilesData.push({
-        name,
-        idName,
-        cdnLink,
-        imageLink
+        idNames.push(idName);
+
+        animationFilesData.push({
+          name,
+          idName,
+          cdnLink,
+          imageLink,
+          animationContributor
+        });
       });
     }
 

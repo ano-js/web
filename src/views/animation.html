@@ -16,7 +16,7 @@
       <div class="animation-demo" id="anojs-<%= animation.idName %>"></div>
 
       <div class="animation-details mt-3">
-        <a href="/our-team/" class="animations-grid-item-details-creator">By: Calix Huang</a>
+        <a href="/our-team/<%= animation.animationContributor %>" class="animations-grid-item-details-creator">By: <%= animation.animationContributor %></a>
         <a onclick="addUseToAnimation()" class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
           Use this Animation!
         </a>
