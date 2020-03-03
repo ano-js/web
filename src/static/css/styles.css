@@ -284,6 +284,9 @@ code {
     border: 4px solid white;
     width: 100%;
     margin-bottom: 20px; }
+  .contributor small {
+    display: block;
+    height: 20px; }
 
 .top-contributors {
   display: grid;
@@ -292,6 +295,9 @@ code {
 
 .top-contributor {
   text-align: center; }
+  .top-contributor small {
+    display: block;
+    height: 20px; }
 
 .faq-grid {
   margin-bottom: 50px; }
@@ -325,8 +331,14 @@ code {
     border-radius: 50%; }
   .profile-information-github {
     width: 50px; }
+    .profile-information-github:hover {
+      text-decoration: none; }
     .profile-information-github img {
-      width: 50px; }
+      width: 35px;
+      transform: translateY(-3px); }
+  .profile-information small {
+    display: block;
+    height: 20px; }
 
 @media (max-width: 800px) {
   .spacer {

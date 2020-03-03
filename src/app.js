@@ -130,14 +130,16 @@ app.get("/our-team", (req, res) => {
 app.get("/our-team/:username", (req, res) => {
   const githubUsername = req.params.username;
 
-  // Grabbing user from MongoDB
   MongoClient.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
     if (err) throw err;
 
-    const contributorsCollection = client.db("anojs").collection("contributors");
+    const db = client.db("anojs");
+
+    // Grabbing contributor from MongoDB
+    const contributorsCollection = db.collection("contributors");
 
     contributorsCollection.find({ login: githubUsername }).toArray((err, contributors) => {
       if (contributors.length == 0) {  // Contributor not found
@@ -517,16 +519,41 @@ const storeCollaboratorRepoData = () => {
 
       // Sorting array based on contributionCounter
       contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
-      console.log(contributors);
 
-      // Saving all contributors in MongoDB
       MongoClient.connect(mongoUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       }, (err, client) => {
         if (err) throw err;
 
-        const contributorsCollection = client.db("anojs").collection("contributors");
+        const db = client.db("anojs");
+
+        // Grabbing all contributor's animatons from MongoDB
+        const animationsCollection = db.collection("animations");
+
+        animationsCollection.find({}).toArray((err, animations) => {
+          if (err) throw err;
+
+          // Attaching each animation appropriate to each contributor
+          for (var i = 0; i < contributors.length; i++) {
+            let contributorAnimations = [];
+
+            for (animation of animations) {
+              if (animation.animationContributor == contributors[i].login) {
+                contributorAnimations.push(animation);
+              }
+            }
+
+            // Adding animations to contributor
+            contributors[i].animations = contributorAnimations;
+
+            // Adding number of animations to contributor
+            contributors[i].numberOfAnimations = contributorAnimations.length;
+          }
+        });
+
+        // Saving all contributors in MongoDB
+        const contributorsCollection = db.collection("contributors");
 
         // Clearing out collection
         contributorsCollection.drop((err, deleteConfirmation) => {

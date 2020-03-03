@@ -13,9 +13,19 @@
     &-github {
       width: 50px;
 
-      & img {
-        width: 50px;
+      &:hover {
+        text-decoration: none;
       }
+
+      & img {
+        width: 35px;
+        transform: translateY(-3px);
+      }
+    }
+
+    & small {
+      display: block;
+      height: 20px;
     }
   }
 }

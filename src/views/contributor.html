@@ -13,16 +13,41 @@
     <div class="container">
       <h1 class="page-header"><%= contributor.login %>'s Profile</h1>
       <div class="profile mt-5">
-        <div class="profile-information">
+        <div class="profile-information text-center">
+          <h3 class="mb-5 sub-header"><%= contributor.login %>'s Info</h3>
           <img class="profile-information-avatar" src="<%= contributor.avatar_url %>" alt="Anojs Open Source Contributor's Avatar'">
-          <h3 class="sub-header mt-4"><%= contributor.login %></h3>
+          <h3 class="sub-header mt-4">
+            <a class="profile-information-github" href="<%= contributor.html_url %>" target="_">
+              <img src="/static/images/github.png" alt="Anojs GitHub Logo">
+            </a>
+            <%= contributor.login %>
+          </h3>
           <h5 class="">Open Source Contributor</h5>
-          <a class="profile-information-github" href="<%= contributor.html_url %>" target="_">
-            <img src="/static/images/github.png" alt="Anojs GitHub Logo">
-          </a>
+          <small><%= contributor.contributionCounter %> Contributions</small>
+          <small><%= contributor.numberOfAnimations %> Animations</small>
         </div>
-        <div class="profile-animations text-center">
-          <small>No animations yet!</small>
+        <div class="profile-animations text-center container">
+          <h3 class="sub-header"><%= contributor.login %>'s Animations</h3>
+          <% if (contributor.animations.length != 0) { %>
+            <div class="animations-grid mt-5">
+              <% for (animation of contributor.animations) { %>
+                <div>
+                  <a class="animations-grid-link" href="/animations/<%= animation.idName %>" target="_">
+                    <div class="animations-grid-item">
+                      <img src="<%= animation.imageLink %>" alt="Ano.js animation demo image" class="animations-grid-item-image">
+                      <h3><%= animation.name %></h3>
+                    </div>
+                  </a>
+                  <div class="animations-grid-item-details">
+                    <span></span>
+                    <span class="animations-grid-item-details-uses"><%= animation.useCounter %> Uses</span>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          <% } else { %>
+            <small>No animations yet!</small>
+          <% } %>
         </div>
       </div>
     </div>

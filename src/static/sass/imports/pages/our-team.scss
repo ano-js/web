@@ -14,6 +14,11 @@
     width: 100%;
     margin-bottom: 20px;
   }
+
+  & small {
+    display: block;
+    height: 20px;
+  }
 }
 
 .top-contributors {
@@ -24,4 +29,9 @@
 
 .top-contributor {
   text-align: center;
+
+  & small {
+    display: block;
+    height: 20px;
+  }
 }
