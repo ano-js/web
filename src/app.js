@@ -559,8 +559,8 @@ app.get("/app/store-contributor-repo-data", (req, res) => {
 });
 
 // Running background tasks
-setInterval(storeAnimationRepoData, 30000);  // Every 1 hour
-setInterval(storeCollaboratorRepoData, 30000);  // Every 1 hour
+setInterval(storeAnimationRepoData, 3600000);  // Every 1 hour
+setInterval(storeCollaboratorRepoData, 3600000);  // Every 1 hour
 
 
 // Error routes
