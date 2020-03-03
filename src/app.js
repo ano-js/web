@@ -29,6 +29,7 @@ const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-images/
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
+const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/commits";
 const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 
@@ -474,35 +475,56 @@ const storeAnimationRepoData = (req, res) => {
 const storeCollaboratorRepoData = (req, res) => {
   console.log("[+] storeCollaboratorRepoData background process running...");
 
-  axios.get(repoCollaboratorsLink, {
-    headers: {
-      "Authorization": "token " + personalAccessToken
-    }
-  }).then((response) => {
+  // Getting all commit data
+  axios.get(repoCommitsLink).then((response) => {
+    const commitData = response.data;
 
-    const contributors = response.data;
+    axios.get(repoCollaboratorsLink, {
+      headers: {
+        // "Authorization": "token " + personalAccessToken
+        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
+      }
+    }).then((response) => {
 
-    // Saving all contributors in MongoDB
-    MongoClient.connect(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }, (err, client) => {
-      if (err) throw err;
+      const contributors = response.data;
 
-      const contributorsCollection = client.db("anojs").collection("contributors");
+      for (var i = 0; i < contributors.length; i++) {
+        let contributionCounter = 0;
+        for (commit of commitData) {
+          if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
+            contributionCounter += 1;
+          }
+        }
 
-      // Clearing out collection
-      contributorsCollection.drop((err, deleteConfirmation) => {
+        contributors[i].contributionCounter = contributionCounter;
+      }
+
+      // Sorting array based on contributionCounter
+      contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
+      console.log(contributors);
+
+      // Saving all contributors in MongoDB
+      MongoClient.connect(mongoUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }, (err, client) => {
         if (err) throw err;
-        if (deleteConfirmation) console.log("Collection cleared");
+
+        const contributorsCollection = client.db("anojs").collection("contributors");
+
+        // Clearing out collection
+        contributorsCollection.drop((err, deleteConfirmation) => {
+          if (err) throw err;
+          if (deleteConfirmation) console.log("Collection cleared");
+        });
+
+        // Inserting all contributors
+        contributorsCollection.insertMany(contributors);
       });
 
-      // Inserting all contributors
-      contributorsCollection.insertMany(contributors);
+    }).catch((err) => {
+      console.error(err);
     });
-
-  }).catch((err) => {
-    console.error(err);
   });
 
   res.status(200).send();

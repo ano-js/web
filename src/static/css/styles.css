@@ -285,6 +285,14 @@ code {
     width: 100%;
     margin-bottom: 20px; }
 
+.top-contributors {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 100px; }
+
+.top-contributor {
+  text-align: center; }
+
 .faq-grid {
   margin-bottom: 50px; }
   .faq-grid-item {
