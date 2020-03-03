@@ -24,8 +24,8 @@ app.use('/static', express.static(__dirname + '/static'))
 app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
-const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-files/";
-const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-images/";
+const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
+const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
@@ -193,12 +193,15 @@ app.get("/animations", (req, res) => {
 
     const animationsCollection = client.db("anojs").collection("animations");
 
-    animationsCollection.find({}).toArray((err, animationData) => {
+    animationsCollection.find({}).toArray((err, animations) => {
       if (err) throw err;
+
+      // Sorting animations based on uses
+      animations.sort((a, b) => (a.useCounter > b.useCounter) ? -1 : 1);
 
       res.render("animations.html", context={
         blockElements,
-        animationData
+        animations
       });
     });
   });
@@ -359,8 +362,7 @@ const storeAnimationRepoData = () => {
       }).then((response) => {
         return response.text();
       }).then((text) => {
-        // const firstLine = text.split("\n")[0];
-        const firstLine = "// calixo888";
+        const firstLine = text.split("\n")[0];
         const animationContributor = firstLine.substring(3);
 
         // Formatting name
