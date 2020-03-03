@@ -597,6 +597,13 @@ app.get("*", (req, res) => {
   res.render("404.html", context={ blockElements });
 });
 
+// Handle 500
+if (app.settings.env == "production") {
+  app.error((req, res, next) => {
+    res.send("bruh - 500 error man", { status: 500 });
+  });
+}
+
 
 // Configuring server for listening
 const port = process.env.PORT || 3000;
