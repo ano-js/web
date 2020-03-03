@@ -557,8 +557,8 @@ app.get("/app/store-animation-repo-data", storeAnimationRepoData);
 app.get("/app/store-contributor-repo-data", storeCollaboratorRepoData);
 
 // Running background tasks
-setInterval(storeAnimationRepoData, 1000);  // Every 1 hour
-setInterval(storeCollaboratorRepoData, 1000);  // Every 1 hour
+setInterval(storeAnimationRepoData, 3600000);  // Every 1 hour
+setInterval(storeCollaboratorRepoData, 3600000);  // Every 1 hour
 
 
 // Error routes
