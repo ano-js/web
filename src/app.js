@@ -337,7 +337,7 @@ const sendEmail = async (from, to, subject, text) => {
   });
 }
 
-const storeAnimationRepoData = (req, res) => {
+const storeAnimationRepoData = () => {
   sendEmail("gamestrike.info@gmail.com", "calix.huang1@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
 
   // Inserting GitHub animations repo data into MongoDB
@@ -486,11 +486,9 @@ const storeAnimationRepoData = (req, res) => {
   }).catch((err) => {
     console.error(err);
   });
-
-  res.status(200).send();
 }
 
-const storeCollaboratorRepoData = (req, res) => {
+const storeCollaboratorRepoData = () => {
   sendEmail("gamestrike.info@gmail.com", "calix.huang1@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
   // Getting all commit data
@@ -544,21 +542,25 @@ const storeCollaboratorRepoData = (req, res) => {
       console.error(err);
     });
   });
-
-  res.status(200).send();
 }
 
 
 // BACKGROUND APPLICATION TASKS
 // Stores all animation file data
-app.get("/app/store-animation-repo-data", storeAnimationRepoData);
+app.get("/app/store-animation-repo-data", (req, res) => {
+  storeAnimationRepoData();
+  res.status(200).send();
+});
 
 // Stores all repo contributor data
-app.get("/app/store-contributor-repo-data", storeCollaboratorRepoData);
+app.get("/app/store-contributor-repo-data", (req, res) => {
+  storeCollaboratorRepoData();
+  res.status(200).send();
+});
 
 // Running background tasks
-setInterval(storeAnimationRepoData, 3600000);  // Every 1 hour
-setInterval(storeCollaboratorRepoData, 3600000);  // Every 1 hour
+setInterval(storeAnimationRepoData, 30000);  // Every 1 hour
+setInterval(storeCollaboratorRepoData, 30000);  // Every 1 hour
 
 
 // Error routes
