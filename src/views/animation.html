@@ -13,7 +13,7 @@
 
     <div class="container">
       <h1 class="page-header"><%= animation.name %></h1>
-      <div style="background-color: white; width: 100%; height: 500px;"></div>
+      <div class="animation-demo" id="anojs-<%= animation.idName %>"></div>
 
       <div class="animation-details mt-3">
         <a href="/our-team/" class="animations-grid-item-details-creator">By: Calix Huang</a>
@@ -62,5 +62,8 @@
         method: "POST"
       });
     }
+
+    canvas.width  = canvas.offsetWidth + 300;
+    canvas.height = canvas.offsetHeight + 150;
   </script>
 </html>
