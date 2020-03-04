@@ -24,8 +24,8 @@ app.use('/static', express.static(__dirname + '/static'))
 app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
-const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
-const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
+const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-files/";
+const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
