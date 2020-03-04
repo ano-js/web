@@ -64,7 +64,9 @@
       });
     }
 
-    canvas.width  = canvas.offsetWidth + 300;
-    canvas.height = canvas.offsetHeight + 150;
+    if (canvas) {
+      canvas.width  = canvas.offsetWidth + 300;
+      canvas.height = canvas.offsetHeight + 150;
+    }
   </script>
 </html>
