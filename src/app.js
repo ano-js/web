@@ -552,19 +552,19 @@ const storeCollaboratorRepoData = () => {
             // Adding number of animations to contributor
             contributors[i].numberOfAnimations = contributorAnimations.length;
           }
+
+          // Saving all contributors in MongoDB
+          const contributorsCollection = db.collection("contributors");
+
+          // Clearing out collection
+          contributorsCollection.drop((err, deleteConfirmation) => {
+            if (err) throw err;
+            if (deleteConfirmation) console.log("Collection cleared");
+          });
+
+          // Inserting all contributors
+          contributorsCollection.insertMany(contributors);
         });
-
-        // Saving all contributors in MongoDB
-        const contributorsCollection = db.collection("contributors");
-
-        // Clearing out collection
-        contributorsCollection.drop((err, deleteConfirmation) => {
-          if (err) throw err;
-          if (deleteConfirmation) console.log("Collection cleared");
-        });
-
-        // Inserting all contributors
-        contributorsCollection.insertMany(contributors);
       });
 
     }).catch((err) => {
