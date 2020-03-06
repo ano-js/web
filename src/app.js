@@ -175,7 +175,7 @@ app.route("/contact-us")
 
     let info = await transporter.sendMail({
       from: formData.email,
-      to: "calix.huang1@gmail.com",
+      to: "anojs.team@gmail.com",
       subject: "Ano.js - Contact us from " + formData.name,
       text: formData.message
     });
@@ -343,7 +343,7 @@ const sendEmail = async (from, to, subject, text) => {
 }
 
 const storeAnimationRepoData = () => {
-  sendEmail("gamestrike.info@gmail.com", "calix.huang1@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
+  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
 
   // Inserting GitHub animations repo data into MongoDB
   axios.get(repoDataLink).then((response) => {
@@ -493,7 +493,7 @@ const storeAnimationRepoData = () => {
 }
 
 const storeCollaboratorRepoData = () => {
-  sendEmail("gamestrike.info@gmail.com", "calix.huang1@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
+  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
   // Getting all commit data
   axios.get(repoCommitsLink).then((response) => {
