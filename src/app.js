@@ -589,14 +589,17 @@ const storeRepoData = () => {
 app.post("/app/user-join", (req, res) => {
   const slackIncomingData = req.body;
 
-  const text = "hi";
-  console.log("user join");
-
-  fetch(slackSendMessageLink + slackIncomingData.user + "&text=" + text, {
-    method: "GET"
-  }).then((response) => {
-    console.log(response);
-  });
+  // const text = "hi";
+  // console.log("user join");
+  //
+  // fetch(slackSendMessageLink + slackIncomingData.user + "&text=" + text, {
+  //   method: "GET"
+  // }).then((response) => {
+  //   console.log(response);
+  // });
+  res.send({
+    challenge: req.body.challenge
+  })
 })
 
 
