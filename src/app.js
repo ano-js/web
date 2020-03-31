@@ -24,14 +24,16 @@ app.use('/static', express.static(__dirname + '/static'))
 app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
+const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
+const slackLegacyToken = "xoxp-962839993154-962839993266-1041215205350-ddb31902b7119d3f62f3db4ff141ef0d";
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
 const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/stats/contributors";
+const slackInviteLink = `https://slack.com/api/users.admin.invite?token=${slackLegacyToken}&channels=general,github-updates,help,networking,welcome,announcements&email=`;
 const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
-const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 
 // Initializing all block elements
 // ORDER: imports, navbar, footer
@@ -83,6 +85,11 @@ app.route("/join-us")
       }
     });
 
+    // Sending Slack invite to user
+    fetch(slackInviteLink + email, {
+      method: "GET"
+    });
+
     // Saving to database
     MongoClient.connect(mongoUrl, {
       useNewUrlParser: true,
@@ -101,7 +108,7 @@ app.route("/join-us")
     // Re-rendering page with success message
     res.render("join-us.html", context={
       blockElements,
-      alert: `Check your email! Invite sent to ${githubUsername}!`
+      alert: `Check your email! Slack and GitHub invites sent to ${githubUsername}!`
     });
   });
 
