@@ -26,6 +26,8 @@ app.engine('html', require('ejs').renderFile);
 // GLOBAL VARIABLES
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
+const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
+const slackSendMessageLink = `https://slack.com/api/chat.postMessage?token=${slackHelpBotAuthToken}&channel=`;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
@@ -585,8 +587,16 @@ const storeRepoData = () => {
 // Slack webhook
 // User joins workspace -> Slackbot sends them a message
 app.post("/app/user-join", (req, res) => {
-  console.log(req.body);
-  res.status(200).send();
+  const slackIncomingData = req.body;
+
+  const text = "hi";
+  console.log("user join");
+
+  fetch(slackSendMessageLink + slackIncomingData.user + "&text=" + text, {
+    method: "GET"
+  }).then((response) => {
+    console.log(response);
+  });
 })
 
 
@@ -594,7 +604,6 @@ app.post("/app/user-join", (req, res) => {
 // Stores all animation file data
 app.get("/app/store-repo-data", (req, res) => {
   storeRepoData();
-  res.status(200).send();
 });
 
 // Running background tasks
