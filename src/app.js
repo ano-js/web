@@ -29,7 +29,7 @@ const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
-const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/commits";
+const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/stats/contributors";
 const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 
@@ -342,9 +342,8 @@ const sendEmail = async (from, to, subject, text) => {
   });
 }
 
-const storeAnimationRepoData = () => {
-  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
-
+const storeRepoData = () => {
+  // STORING ANIMATION REPO DATA
   // Inserting GitHub animations repo data into MongoDB
   axios.get(repoDataLink).then((response) => {
     let animationFilesData = [];
@@ -490,33 +489,36 @@ const storeAnimationRepoData = () => {
   }).catch((err) => {
     console.error(err);
   });
-}
 
-const storeCollaboratorRepoData = () => {
-  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
+  // STORING CONTRIBUTOR DATA
   // Getting all commit data
   axios.get(repoCommitsLink).then((response) => {
     const commitData = response.data;
 
     axios.get(repoCollaboratorsLink, {
       headers: {
-        // "Authorization": "token " + personalAccessToken
-        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
+        "Authorization": "token " + personalAccessToken
       }
     }).then((response) => {
 
       const contributors = response.data;
 
       for (var i = 0; i < contributors.length; i++) {
-        let contributionCounter = 0;
+        let contributionCounter;
         for (commit of commitData) {
           if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
-            contributionCounter += 1;
+            contributionCounter = commit.total;
+            break;
           }
         }
 
-        contributors[i].contributionCounter = contributionCounter;
+        // Contributor has no commits
+        if (!contributionCounter) {
+          contributors[i].contributionCounter = 0;
+        } else {
+          contributors[i].contributionCounter = contributionCounter;
+        }
       }
 
       // Sorting array based on contributionCounter
@@ -576,20 +578,13 @@ const storeCollaboratorRepoData = () => {
 
 // BACKGROUND APPLICATION TASKS
 // Stores all animation file data
-app.get("/app/store-animation-repo-data", (req, res) => {
-  storeAnimationRepoData();
-  res.status(200).send();
-});
-
-// Stores all repo contributor data
-app.get("/app/store-contributor-repo-data", (req, res) => {
-  storeCollaboratorRepoData();
+app.get("/app/store-repo-data", (req, res) => {
+  storeRepoData();
   res.status(200).send();
 });
 
 // Running background tasks
-setInterval(storeAnimationRepoData, 3600000);  // Every 1 hour
-setInterval(storeCollaboratorRepoData, 3600000);  // Every 1 hour
+setInterval(storeRepoData, 3600000);  // Every 1 hour
 
 
 // Error routes
