@@ -597,7 +597,7 @@ app.post("/app/user-join", (req, res) => {
   }).then((response) => {
     console.log(response);
   });
-  
+
   res.status(200).send();
 })
 
@@ -609,7 +609,7 @@ app.get("/app/store-repo-data", (req, res) => {
 });
 
 // Running background tasks
-setInterval(storeRepoData, 3600000);  // Every 1 hour
+// setInterval(storeRepoData, 3600000);  // Every 1 hour
 
 
 // Error routes
