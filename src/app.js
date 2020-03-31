@@ -582,6 +582,13 @@ const storeRepoData = () => {
   });
 }
 
+// Slack webhook
+// User joins workspace -> Slackbot sends them a message
+app.post("/app/user-join", (req, res) => {
+  console.log(req.body);
+  res.status(200).send();
+})
+
 
 // BACKGROUND APPLICATION TASKS
 // Stores all animation file data
