@@ -25,7 +25,7 @@ app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
-const slackLegacyToken = "xoxp-962839993154-962839993266-1041215205350-ddb31902b7119d3f62f3db4ff141ef0d";
+const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
