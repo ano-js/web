@@ -25,8 +25,8 @@ app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
-const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
-const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
+// const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
+// const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
 const slackSendMessageLink = `https://slack.com/api/chat.postMessage?token=${slackHelpBotAuthToken}&channel=`;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
@@ -34,7 +34,8 @@ const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animatio
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
 const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/stats/contributors";
-const slackInviteLink = `https://slack.com/api/users.admin.invite?token=${slackLegacyToken}&channels=general,github-updates,help,networking,welcome,announcements&email=`;
+// const slackInviteLink = `https://slack.com/api/users.admin.invite?token=${slackLegacyToken}&channels=general,github-updates,help,networking,welcome,announcements&email=`;
+const discordInviteLink = "https://discord.gg/xkdRm7E";
 const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
 
 // Initializing all block elements
@@ -87,10 +88,9 @@ app.route("/join-us")
       }
     });
 
-    // Sending Slack invite to user
-    fetch(slackInviteLink + email, {
-      method: "GET"
-    });
+    // Sending email with Discord invite to the email
+    const text = "Thank you for joining Ano.js as an open source contributor!\n\nOur team uses Discord to communicate and discuss different topics, and we'd love to have you there! Please join the server by clicking on the link below:\n\n" + discordInviteLink;
+    sendEmail("anojs.team@gmail.com", email, "Ano.js Discord Invite", text);
 
     // Saving to database
     MongoClient.connect(mongoUrl, {
@@ -110,7 +110,7 @@ app.route("/join-us")
     // Re-rendering page with success message
     res.render("join-us.html", context={
       blockElements,
-      alert: `Check your email! Slack and GitHub invites sent to ${githubUsername}!`
+      alert: `Check your email! Discord and GitHub invites sent to ${githubUsername}!`
     });
   });
 
