@@ -351,8 +351,9 @@ const sendEmail = async (from, to, subject, text) => {
   });
 }
 
-const storeRepoData = () => {
-  // STORING ANIMATION REPO DATA
+const storeAnimationRepoData = () => {
+  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
+
   // Inserting GitHub animations repo data into MongoDB
   axios.get(repoDataLink).then((response) => {
     let animationFilesData = [];
@@ -498,36 +499,33 @@ const storeRepoData = () => {
   }).catch((err) => {
     console.error(err);
   });
+}
 
+const storeCollaboratorRepoData = () => {
+  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
-  // STORING CONTRIBUTOR DATA
   // Getting all commit data
   axios.get(repoCommitsLink).then((response) => {
     const commitData = response.data;
 
     axios.get(repoCollaboratorsLink, {
       headers: {
-        "Authorization": "token " + personalAccessToken
+        // "Authorization": "token " + personalAccessToken
+        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
       }
     }).then((response) => {
 
       const contributors = response.data;
 
       for (var i = 0; i < contributors.length; i++) {
-        let contributionCounter;
+        let contributionCounter = 0;
         for (commit of commitData) {
           if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
-            contributionCounter = commit.total;
-            break;
+            contributionCounter += 1;
           }
         }
 
-        // Contributor has no commits
-        if (!contributionCounter) {
-          contributors[i].contributionCounter = 0;
-        } else {
-          contributors[i].contributionCounter = contributionCounter;
-        }
+        contributors[i].contributionCounter = contributionCounter;
       }
 
       // Sorting array based on contributionCounter
@@ -584,6 +582,21 @@ const storeRepoData = () => {
   });
 }
 
+
+// BACKGROUND APPLICATION TASKS
+// Stores all animation file data
+app.get("/app/store-animation-repo-data", (req, res) => {
+  storeAnimationRepoData();
+  res.status(200).send();
+});
+
+// Stores all repo contributor data
+app.get("/app/store-contributor-repo-data", (req, res) => {
+  storeCollaboratorRepoData();
+  res.status(200).send();
+});
+
+
 // Slack webhook
 // User joins workspace -> Slackbot sends them a message
 app.post("/app/user-join", (req, res) => {
@@ -600,16 +613,6 @@ app.post("/app/user-join", (req, res) => {
 
   res.status(200).send();
 })
-
-
-// BACKGROUND APPLICATION TASKS
-// Stores all animation file data
-app.get("/app/store-repo-data", (req, res) => {
-  storeRepoData();
-});
-
-// Running background tasks
-// setInterval(storeRepoData, 3600000);  // Every 1 hour
 
 
 // Error routes
