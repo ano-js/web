@@ -425,15 +425,31 @@ const storeAnimationRepoData = () => {
         // Formatting image filename
         const imageLink = baseImageLink + "anojs-" + idName + ".png";
 
-        idNames.push(idName);
+        // Getting all custom API parameters
+        // Grabbing file contents
+        fetch(baseCdnLink + animationFileName, {
+          method: "GET"
+        }).then((response) => {
+          return response.text();
+        }).then((animationFileContent) => {
+          const regex = /(?<!\w)ANOJS_\w+/g;
+          var match;
+          var animationParameters = []
+          while ((match = regex.exec(animationFileContent)) != null) {
+            animationParameters.push(match);
+          }
 
-        animationFilesData.push({
-          name,
-          idName,
-          cdnLink,
-          imageLink,
-          animationContributor
-        });
+          idNames.push(idName);
+
+          animationFilesData.push({
+            name,
+            idName,
+            cdnLink,
+            imageLink,
+            animationContributor,
+            animationParameters
+          });
+        })
       });
     }
 
