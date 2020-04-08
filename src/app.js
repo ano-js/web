@@ -351,9 +351,8 @@ const sendEmail = async (from, to, subject, text) => {
   });
 }
 
-const storeAnimationRepoData = () => {
-  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
-
+const storeRepoData = () => {
+  // STORING ANIMATION REPO DATA
   // Inserting GitHub animations repo data into MongoDB
   axios.get(repoDataLink).then((response) => {
     let animationFilesData = [];
@@ -499,33 +498,36 @@ const storeAnimationRepoData = () => {
   }).catch((err) => {
     console.error(err);
   });
-}
 
-const storeCollaboratorRepoData = () => {
-  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
+  // STORING CONTRIBUTOR DATA
   // Getting all commit data
   axios.get(repoCommitsLink).then((response) => {
     const commitData = response.data;
 
     axios.get(repoCollaboratorsLink, {
       headers: {
-        // "Authorization": "token " + personalAccessToken
-        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
+        "Authorization": "token " + personalAccessToken
       }
     }).then((response) => {
 
       const contributors = response.data;
 
       for (var i = 0; i < contributors.length; i++) {
-        let contributionCounter = 0;
+        let contributionCounter;
         for (commit of commitData) {
           if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
-            contributionCounter += 1;
+            contributionCounter = commit.total;
+            break;
           }
         }
 
-        contributors[i].contributionCounter = contributionCounter;
+        // Contributor has no commits
+        if (!contributionCounter) {
+          contributors[i].contributionCounter = 0;
+        } else {
+          contributors[i].contributionCounter = contributionCounter;
+        }
       }
 
       // Sorting array based on contributionCounter
@@ -582,260 +584,6 @@ const storeCollaboratorRepoData = () => {
   });
 }
 
-
-// BACKGROUND APPLICATION TASKS
-// Stores all animation file data
-app.get("/app/store-animation-repo-data", (req, res) => {
-  storeAnimationRepoData();
-  res.status(200).send();
-});
-
-// Stores all repo contributor data
-app.get("/app/store-contributor-repo-data", (req, res) => {
-  storeCollaboratorRepoData();
-  res.status(200).send();
-});
-
-// const storeRepoData = () => {
-//   // STORING ANIMATION REPO DATA
-//   // Inserting GitHub animations repo data into MongoDB
-//   axios.get(repoDataLink).then((response) => {
-//     let animationFilesData = [];
-//     const fileObjects = response.data;
-//     let idNames = [];
-//
-//     // Filtering JSON response for useful data
-//     // Including name, idName, cdnLink, videoLink
-//     for (animationFile of fileObjects) {
-//       const animationFileName = animationFile.name;
-//
-//       // Getting file contributor
-//       fetch(baseCdnLink + animationFileName, {
-//         method: "GET"
-//       }).then((response) => {
-//         return response.text();
-//       }).then((text) => {
-//         const firstLine = text.split("\n")[0];
-//         const animationContributor = firstLine.substring(3);
-//
-//         // Formatting name
-//         // Splitting filename on "-"
-//         const splitFileName = animationFileName.split("-");
-//
-//         // Removing "anojs" from filename list
-//         splitFileName.shift();
-//
-//         // Formatting idName
-//         let idName = splitFileName.join("-");
-//         idName = idName.substring(0, idName.length - 3)
-//
-//         // Pulling formatted name together
-//         let name = splitFileName.join(" ");
-//
-//         // Getting rid of ".js" from last word
-//         name = name.substring(0, name.length - 3);
-//
-//         // Capitalizing all words in filename
-//         name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
-//
-//         // Formatting CDN link
-//         const cdnLink = baseCdnLink + animationFileName;
-//
-//         // Formatting S3 video link
-//         const videoName = name.split(" ").join("+");
-//         const imageLink = baseImageLink + "anojs-" + idName + ".png";
-//
-//         idNames.push(idName);
-//
-//         animationFilesData.push({
-//           name,
-//           idName,
-//           cdnLink,
-//           imageLink,
-//           animationContributor
-//         });
-//       });
-//     }
-//
-//     // Gathering all data from Firebase
-//     fetch(baseFireBaseLink + "animationCounters.json", {
-//       method: "GET"
-//     }).then((response) => {
-//       return response.json();
-//     }).then((data) => {
-//       // There are values inside of Firebase
-//       if (data) {
-//         // Creating array of Firebase animationCounters
-//         let firebaseIdNames = [];
-//         let firebaseObjects = [];
-//         for (firebaseObject of Object.values(data)) {
-//           firebaseIdNames.push(firebaseObject.idName);
-//           firebaseObjects.push(firebaseObject);
-//         }
-//
-//         for (idName of idNames) {
-//           if (!firebaseIdNames.includes(idName)) {  // Firebase doesn't have this animation
-//             // Creating record on Firebase
-//             fetch(baseFireBaseLink + "animationCounters.json", {
-//               method: "POST",
-//               body: JSON.stringify({
-//                 idName,
-//                 useCounter: 0
-//               })
-//             });
-//           }
-//         }
-//       }
-//       // No values inside of Firebase
-//       // Input all animation data points by default
-//       else {
-//         for (idName of idNames) {
-//           // Creating record on Firebase
-//           fetch(baseFireBaseLink + "animationCounters.json", {
-//             method: "POST",
-//             body: JSON.stringify({
-//               idName,
-//               useCounter: 0
-//             })
-//           });
-//         }
-//       }
-//     });
-//
-//     MongoClient.connect(mongoUrl, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true
-//     }, (err, client) => {
-//       if (err) throw err;
-//
-//       // Gathering Firebase objects
-//       fetch(baseFireBaseLink + "animationCounters.json", {
-//         method: "GET"
-//       }).then((response) => {
-//         return response.json();
-//       }).then((data) => {
-//         let firebaseObjects = [];
-//         for (firebaseObject of Object.values(data)) {
-//           firebaseObjects.push(firebaseObject);
-//         }
-//
-//         // Adding updated animationCounters to animationFilesData
-//         for (var i = 0; i < animationFilesData.length; i++) {
-//           for (firebaseObject of firebaseObjects) {
-//             if (firebaseObject.idName == animationFilesData[i].idName) {
-//               animationFilesData[i].useCounter = firebaseObject.useCounter;
-//             }
-//           }
-//         }
-//
-//         const animationsCollection = client.db("anojs").collection("animations");
-//
-//         // Clearing out entire collection
-//         animationsCollection.drop((err, deleteConfirmation) => {
-//           if (err) throw err;
-//           if (deleteConfirmation) console.log("Collection cleared");
-//         });
-//
-//         // Inserting all animations into collection
-//         animationsCollection.insertMany(animationFilesData);
-//       });
-//     });
-//   }).catch((err) => {
-//     console.error(err);
-//   });
-//
-//
-//   // STORING CONTRIBUTOR DATA
-//   // Getting all commit data
-//   axios.get(repoCommitsLink).then((response) => {
-//     const commitData = response.data;
-//
-//     axios.get(repoCollaboratorsLink, {
-//       headers: {
-//         "Authorization": "token " + personalAccessToken
-//       }
-//     }).then((response) => {
-//
-//       const contributors = response.data;
-//
-//       for (var i = 0; i < contributors.length; i++) {
-//         let contributionCounter;
-//         for (commit of commitData) {
-//           if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
-//             contributionCounter = commit.total;
-//             break;
-//           }
-//         }
-//
-//         // Contributor has no commits
-//         if (!contributionCounter) {
-//           contributors[i].contributionCounter = 0;
-//         } else {
-//           contributors[i].contributionCounter = contributionCounter;
-//         }
-//       }
-//
-//       // Sorting array based on contributionCounter
-//       contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
-//
-//       MongoClient.connect(mongoUrl, {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//       }, (err, client) => {
-//         if (err) throw err;
-//
-//         const db = client.db("anojs");
-//
-//         // Grabbing all contributor's animatons from MongoDB
-//         const animationsCollection = db.collection("animations");
-//
-//         animationsCollection.find({}).toArray((err, animations) => {
-//           if (err) throw err;
-//
-//           // Attaching each animation appropriate to each contributor
-//           for (var i = 0; i < contributors.length; i++) {
-//             let contributorAnimations = [];
-//
-//             for (animation of animations) {
-//               if (animation.animationContributor == contributors[i].login) {
-//                 contributorAnimations.push(animation);
-//               }
-//             }
-//
-//             // Adding animations to contributor
-//             contributors[i].animations = contributorAnimations;
-//
-//             // Adding number of animations to contributor
-//             contributors[i].numberOfAnimations = contributorAnimations.length;
-//           }
-//
-//           // Saving all contributors in MongoDB
-//           const contributorsCollection = db.collection("contributors");
-//
-//           // Clearing out collection
-//           contributorsCollection.drop((err, deleteConfirmation) => {
-//             if (err) throw err;
-//             if (deleteConfirmation) console.log("Collection cleared");
-//           });
-//
-//           // Inserting all contributors
-//           contributorsCollection.insertMany(contributors);
-//         });
-//       });
-//
-//     }).catch((err) => {
-//       console.error(err);
-//     });
-//   });
-// }
-
-// // BACKGROUND APPLICATION TASKS
-// // Stores all animation file data
-// app.get("/app/store-repo-data", (req, res) => {
-//   storeRepoData();
-// });
-
-
 // Slack webhook
 // User joins workspace -> Slackbot sends them a message
 app.post("/app/user-join", (req, res) => {
@@ -852,6 +600,13 @@ app.post("/app/user-join", (req, res) => {
 
   res.status(200).send();
 })
+
+
+// BACKGROUND APPLICATION TASKS
+// Stores all animation file data
+app.get("/app/store-repo-data", (req, res) => {
+  storeRepoData();
+});
 
 // Running background tasks
 // setInterval(storeRepoData, 3600000);  // Every 1 hour
