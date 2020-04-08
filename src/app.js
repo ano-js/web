@@ -29,6 +29,7 @@ const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
 const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
 const slackSendMessageLink = `https://slack.com/api/chat.postMessage?token=${slackHelpBotAuthToken}&channel=`;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
+const baseApiFileLink = "http://anojs.com/files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
@@ -419,10 +420,9 @@ const storeAnimationRepoData = () => {
         name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
 
         // Formatting CDN link
-        const cdnLink = baseCdnLink + animationFileName;
+        const cdnLink = baseApiFileLink + animationFileName;
 
-        // Formatting S3 video link
-        const videoName = name.split(" ").join("+");
+        // Formatting image filename
         const imageLink = baseImageLink + "anojs-" + idName + ".png";
 
         idNames.push(idName);
