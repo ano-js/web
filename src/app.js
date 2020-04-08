@@ -333,6 +333,37 @@ app.post("/app/add-use-to-animation", (req, res) => {
 });
 
 
+// FILE API
+app.get("/files/:animationFileName", (req, res) => {
+  // Get speed from query parameters
+  const ANOJS_COLOR_1 = req.query.ANOJS_COLOR_1;
+  const ANOJS_COLOR_2 = req.query.ANOJS_COLOR_2;
+  const ANOJS_COLOR_3 = req.query.ANOJS_COLOR_3;
+
+  // Get 3 colors from query parameters
+  const ANOJS_SPEED = req.query.ANOJS_SPEED;
+
+  // Gets filename passed in
+  const animationFileName = req.params.animationFileName;
+
+  // Grabbing file contents from jsDelivr
+  fetch(baseCdnLink + animationFileName, {
+    method: "GET"
+  }).then((response) => {
+    return response.text();
+  }).then((animationFileContent) => {
+    // Replacing file contents with query parameters
+    animationFileContent = animationFileContent.replace("ANOJS_COLOR_1", ANOJS_COLOR_1);
+    animationFileContent = animationFileContent.replace("ANOJS_COLOR_2", ANOJS_COLOR_2);
+    animationFileContent = animationFileContent.replace("ANOJS_COLOR_3", ANOJS_COLOR_3);
+    animationFileContent = animationFileContent.replace("ANOJS_SPEED", ANOJS_SPEED);
+    animationFileContent = animationFileContent.replace("ANOJS_SPEED", ANOJS_SPEED);
+
+    res.send(animationFileContent);
+  });
+})
+
+
 // BACKGROUND APPLICATION FUNCTIONS
 const sendEmail = async (from, to, subject, text) => {
   let transporter = nodemailer.createTransport({
