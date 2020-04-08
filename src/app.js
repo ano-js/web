@@ -335,13 +335,8 @@ app.post("/app/add-use-to-animation", (req, res) => {
 
 // FILE API
 app.get("/files/:animationFileName", (req, res) => {
-  // Get speed from query parameters
-  const ANOJS_COLOR_1 = req.query.ANOJS_COLOR_1;
-  const ANOJS_COLOR_2 = req.query.ANOJS_COLOR_2;
-  const ANOJS_COLOR_3 = req.query.ANOJS_COLOR_3;
-
-  // Get 3 colors from query parameters
-  const ANOJS_SPEED = req.query.ANOJS_SPEED;
+  // Setting matching object
+  const matcher = req.query;
 
   // Gets filename passed in
   const animationFileName = req.params.animationFileName;
@@ -353,11 +348,9 @@ app.get("/files/:animationFileName", (req, res) => {
     return response.text();
   }).then((animationFileContent) => {
     // Replacing file contents with query parameters
-    animationFileContent = animationFileContent.replace("ANOJS_COLOR_1", ANOJS_COLOR_1);
-    animationFileContent = animationFileContent.replace("ANOJS_COLOR_2", ANOJS_COLOR_2);
-    animationFileContent = animationFileContent.replace("ANOJS_COLOR_3", ANOJS_COLOR_3);
-    animationFileContent = animationFileContent.replace("ANOJS_SPEED", ANOJS_SPEED);
-    animationFileContent = animationFileContent.replace("ANOJS_SPEED", ANOJS_SPEED);
+    for (match of Object.entries(matcher)) {
+      animationFileContent = animationFileContent.replace(match[0], match[1])
+    }
 
     res.send(animationFileContent);
   });
