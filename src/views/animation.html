@@ -21,7 +21,9 @@
           Use this Animation!
         </a>
         <span class="animations-grid-item-details-uses"><%= animation.useCounter %> Uses</span>
-        <span><%= animation.animationParameters %></span>
+        <% for (parameter of animation.animationParameters) { %>
+          <input type="color" id="<%= parameter %>" value="">
+        <% } %>
       </div>
     </div>
 
@@ -42,7 +44,7 @@
               <code>
                 &lt;div id="anojs-<%= animation.idName %>"&gt;&lt;/div&gt;
                 <br>
-                &lt;script src="<%= animation.cdnLink %>"&gt;&lt;/script&gt;
+                &lt;script src="<span id="cdnLink"></span>"&gt;&lt;/script&gt;
               </code>
               <br><br>
               <strong>NOTE: You may need to modify the code according to your specific application.</strong>
@@ -59,10 +61,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mo-js/0.288.2/mo.min.js"></script>
   <script src="<%= animation.cdnLink %>" charset="utf-8"></script>
   <script>
+    function updateCdnLink() {
+      var cdnLink = "<%= animation.cdnLink %>?";
+      for (parameter of '<%= animation.animationParameters %>'.split(',')) {
+        var colorValue = document.getElementById(parameter).value;
+        colorValue = colorValue.replace("#", "%23")
+        cdnLink += parameter + "=" + colorValue + "&"
+      }
+      cdnLink = cdnLink.substring(0, cdnLink.length - 1)
+
+      document.getElementById("cdnLink").innerHTML = cdnLink;
+    }
+
     function addUseToAnimation() {
       fetch(`/app/add-use-to-animation?animationIdName=${"<%= animation.idName %>"}`, {
         method: "POST"
       });
+
+      updateCdnLink();
     }
 
     if (typeof canvas !== 'undefined') {
