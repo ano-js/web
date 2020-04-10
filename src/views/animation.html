@@ -59,7 +59,6 @@
     <%- blockElements[2] %>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mo-js/0.288.2/mo.min.js"></script>
-  <script src="<%= animation.cdnLink %>" charset="utf-8"></script>
   <script>
     function updateCdnLink() {
       var cdnLink = "<%= animation.cdnLink %>?";
@@ -85,5 +84,29 @@
       canvas.width  = canvas.offsetWidth + 300;
       canvas.height = canvas.offsetHeight + 150;
     }
+
+    cdnLink = "<%= animation.cdnLink %>?"
+    for (parameter of '<%= animation.animationParameters %>'.split(',')) {
+      var colorValue = document.getElementById(parameter).value;
+      cdnLink += parameter + "=%23" + Math.floor(Math.random()*16777215).toString(16) + "&"
+    }
+
+    addCdnLink(cdnLink)
+    console.log(cdnLink)
+
+    function addCdnLink(link) {
+      var my_awesome_script = document.createElement('script');
+      my_awesome_script.setAttribute('src', link);
+      my_awesome_script.id = "cdn-link";
+      document.head.appendChild(my_awesome_script);
+    }
+
+    // setTimeout(function() {
+    //   console.log("bruh")
+    //   var scriptTag = document.getElementById("cdn-link");
+    //   scriptTag.parentNode.removeChild(scriptTag)
+    //   delete window.canvasDiv;
+    //   addCdnLink("<%= animation.cdnLink %>")
+    // }, 5000)
   </script>
 </html>
