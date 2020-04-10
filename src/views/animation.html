@@ -16,14 +16,20 @@
       <div style="overflow: hidden;" class="animation-demo" id="anojs-<%= animation.idName %>"></div>
 
       <div class="animation-details mt-3">
-        <a href="/our-team/<%= animation.animationContributor %>" class="animations-grid-item-details-creator">By: <%= animation.animationContributor %></a>
+        <div>
+          <a href="/our-team/<%= animation.animationContributor %>" class="animations-grid-item-details-creator">By: <%= animation.animationContributor %></a>
+          <br>
+          <span class="animations-grid-item-details-uses"><%= animation.useCounter %> Uses</span>
+        </div>
+
         <a onclick="addUseToAnimation()" class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
           Use this Animation!
         </a>
-        <span class="animations-grid-item-details-uses"><%= animation.useCounter %> Uses</span>
-        <% for (parameter of animation.animationParameters) { %>
-          <input type="color" id="<%= parameter %>" value="">
-        <% } %>
+        <div style="justify-self: flex-end;">
+          <% for (parameter of animation.animationParameters) { %>
+            <input type="color" id="<%= parameter %>" value="">
+          <% } %>
+        </div>
       </div>
     </div>
 
