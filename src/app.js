@@ -298,6 +298,12 @@ app.get("/privacy-policy", (req, res) => {
 });
 
 
+// Let's Encrypt Challenge
+app.get("/.well-known/acme-challenge/:content", (req, res) => {
+  res.send("qa6fiLwiKCMfrY1xJQcBHHBUGOEWUOX3MHdQyr6wVv4");
+});
+
+
 // API VIEWS
 app.post("/app/add-use-to-animation", (req, res) => {
   const animationIdName = req.query.animationIdName;
