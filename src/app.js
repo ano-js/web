@@ -300,7 +300,7 @@ app.get("/privacy-policy", (req, res) => {
 
 // Let's Encrypt Challenge
 app.get("/.well-known/acme-challenge/:content", (req, res) => {
-  res.send("qa6fiLwiKCMfrY1xJQcBHHBUGOEWUOX3MHdQyr6wVv4.hA-vIRqVSeJsmz_XgFQPUokkPhqpLdQtyAxPqmb9ydw");
+  res.send("AHJie4O_ZmLpUs7zBnHDnxzq-MzzZp0S_0ZRygS6dUY.hA-vIRqVSeJsmz_XgFQPUokkPhqpLdQtyAxPqmb9ydw");
 });
 
 
