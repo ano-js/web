@@ -533,13 +533,17 @@ const storeAnimationRepoData = () => {
         const animationsCollection = client.db("anojs").collection("animations");
 
         // Clearing out entire collection
-        animationsCollection.drop((err, deleteConfirmation) => {
+        animationsCollection.drop(async (err, deleteConfirmation) => {
           if (err) throw err;
-          if (deleteConfirmation) console.log("Collection cleared");
-        });
+          if (deleteConfirmation) {
+            console.log("Collection cleared");
 
-        // Inserting all animations into collection
-        animationsCollection.insertMany(animationFilesData);
+            // Inserting all animations into collection
+            animationsCollection.insertMany(animationFilesData);
+          }
+        });
+        // // Inserting all animations into collection
+        // animationsCollection.insertMany(animationFilesData);
       });
     });
   }).catch((err) => {
@@ -560,8 +564,7 @@ const storeCollaboratorRepoData = () => {
     for (i = 0; i < 10; i++) {
       await axios.get(repoCollaboratorsLink + (i+1).toString(), {
         headers: {
-          // "Authorization": "token " + personalAccessToken
-          "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
+          "Authorization": "token " + personalAccessToken
         }
       }).then((response) => {
         // console.log(response.data);
