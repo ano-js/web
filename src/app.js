@@ -28,11 +28,11 @@ const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
 const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
 const slackSendMessageLink = `https://slack.com/api/chat.postMessage?token=${slackHelpBotAuthToken}&channel=`;
-const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-files/";
+const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-files/";
 const baseApiFileLink = "http://anojs.com/files/";
-const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs@latest/animation-images/";
+const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-images/";
 const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
-const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators";
+const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators?page=";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
 const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/stats/contributors";
 const slackInviteLink = `https://slack.com/api/users.admin.invite?token=${slackLegacyToken}&channels=general,github-updates,help,networking,welcome,announcements&email=`;
@@ -551,80 +551,89 @@ const storeCollaboratorRepoData = () => {
   sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
 
   // Getting all commit data
-  axios.get(repoCommitsLink).then((response) => {
+  axios.get(repoCommitsLink).then(async (response) => {
     const commitData = response.data;
 
-    axios.get(repoCollaboratorsLink, {
-      headers: {
-        // "Authorization": "token " + personalAccessToken
-        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
-      }
-    }).then((response) => {
-
-      const contributors = response.data;
-
-      for (var i = 0; i < contributors.length; i++) {
-        let contributionCounter = 0;
-        for (commit of commitData) {
-          if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
-            contributionCounter += 1;
-          }
+    let contributors = [];
+    let pageNumber = 1;
+    let lastResponse = 1;
+    for (i = 0; i < 10; i++) {
+      await axios.get(repoCollaboratorsLink + i.toString(), {
+        headers: {
+          "Authorization": "token " + personalAccessToken
+        }
+      }).then((response) => {
+        // console.log(response.data);
+        for (contributor of response.data) {
+          contributors.push(contributor);
         }
 
-        contributors[i].contributionCounter = contributionCounter;
+        pageNumber++;
+      }).catch((err) => {
+        console.error(err);
+      });
+    }
+
+    for (var i = 0; i < contributors.length; i++) {
+      let contributionCounter = 0;
+      for (commit of commitData) {
+        if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
+          contributionCounter += 1;
+        }
       }
 
-      // Sorting array based on contributionCounter
-      contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
+      contributors[i].contributionCounter = contributionCounter;
+    }
 
-      MongoClient.connect(mongoUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      }, (err, client) => {
+    // Sorting array based on contributionCounter
+    contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
+
+    MongoClient.connect(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db("anojs");
+
+      // Grabbing all contributor's animatons from MongoDB
+      const animationsCollection = db.collection("animations");
+
+      animationsCollection.find({}).toArray((err, animations) => {
         if (err) throw err;
 
-        const db = client.db("anojs");
+        // Attaching each animation appropriate to each contributor
+        for (var i = 0; i < contributors.length; i++) {
+          let contributorAnimations = [];
 
-        // Grabbing all contributor's animatons from MongoDB
-        const animationsCollection = db.collection("animations");
-
-        animationsCollection.find({}).toArray((err, animations) => {
-          if (err) throw err;
-
-          // Attaching each animation appropriate to each contributor
-          for (var i = 0; i < contributors.length; i++) {
-            let contributorAnimations = [];
-
-            for (animation of animations) {
-              if (animation.animationContributor == contributors[i].login) {
-                contributorAnimations.push(animation);
-              }
+          for (animation of animations) {
+            if (animation.animationContributor == contributors[i].login) {
+              contributorAnimations.push(animation);
             }
-
-            // Adding animations to contributor
-            contributors[i].animations = contributorAnimations;
-
-            // Adding number of animations to contributor
-            contributors[i].numberOfAnimations = contributorAnimations.length;
           }
 
-          // Saving all contributors in MongoDB
-          const contributorsCollection = db.collection("contributors");
+          // Adding animations to contributor
+          contributors[i].animations = contributorAnimations;
 
-          // Clearing out collection
-          contributorsCollection.drop((err, deleteConfirmation) => {
-            if (err) throw err;
-            if (deleteConfirmation) console.log("Collection cleared");
-          });
+          // Adding number of animations to contributor
+          contributors[i].numberOfAnimations = contributorAnimations.length;
+        }
 
-          // Inserting all contributors
-          contributorsCollection.insertMany(contributors);
+        // Saving all contributors in MongoDB
+        const contributorsCollection = db.collection("contributors");
+
+        // Clearing out collection
+        contributorsCollection.drop((err, deleteConfirmation) => {
+          if (err) throw err;
+          if (deleteConfirmation) console.log("Collection cleared");
         });
-      });
 
-    }).catch((err) => {
-      console.error(err);
+        // Inserting all contributors
+        contributorsCollection.insertMany(contributors);
+      });
     });
+
+    res.send("done!");
   });
 }
 
