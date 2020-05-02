@@ -27,7 +27,7 @@
         </a>
         <div style="justify-self: flex-end;">
           <% for (parameter of animation.animationParameters) { %>
-            <input type="color" id="<%= parameter %>" value="">
+            <input type="color" id="<%= parameter %>" value="" onchange="updateCdnLink()">
           <% } %>
         </div>
       </div>
@@ -68,14 +68,17 @@
   <script>
     function updateCdnLink() {
       var cdnLink = "<%= animation.cdnLink %>?";
+      var colorValues = [];
       for (parameter of '<%= animation.animationParameters %>'.split(',')) {
         var colorValue = document.getElementById(parameter).value;
+        colorValues.push(colorValue);
         colorValue = colorValue.replace("#", "%23")
         cdnLink += parameter + "=" + colorValue + "&"
       }
       cdnLink = cdnLink.substring(0, cdnLink.length - 1)
 
       document.getElementById("cdnLink").innerHTML = cdnLink;
+      resetCanvas(colorValues);
     }
 
     function addUseToAnimation() {
@@ -84,6 +87,17 @@
       });
 
       updateCdnLink();
+    }
+
+    function addCdnLink(link) {
+      var cdnScript = document.createElement('script');
+      cdnScript.setAttribute('src', link);
+      cdnScript.id = "cdn-link";
+      document.head.appendChild(cdnScript);
+    }
+
+    function resetCanvas(colorValues) {
+      customColors = colorValues;
     }
 
     if (typeof canvas !== 'undefined') {
@@ -95,20 +109,12 @@
     colorInputs = document.querySelectorAll('input[type=color]');
     animationParameters = '<%= animation.animationParameters %>'.split(',');
     for (var i = 0; i < animationParameters.length; i++) {
-      var randomColor = Math.floor(Math.random()*16777215).toString(16);
+      var newRandomColor = Math.floor(Math.random()*16777215).toString(16);
       var colorValue = document.getElementById(animationParameters[i]).value;
-      cdnLink += animationParameters[i] + "=%23" + randomColor + "&"
-      colorInputs[i].value = "#" + randomColor;
-      console.log(colorInputs[i].value)
+      cdnLink += animationParameters[i] + "=%23" + newRandomColor + "&"
+      colorInputs[i].value = "#" + newRandomColor;
     }
 
     addCdnLink(cdnLink)
-
-    function addCdnLink(link) {
-      var my_awesome_script = document.createElement('script');
-      my_awesome_script.setAttribute('src', link);
-      my_awesome_script.id = "cdn-link";
-      document.head.appendChild(my_awesome_script);
-    }
   </script>
 </html>
