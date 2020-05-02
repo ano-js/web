@@ -84,8 +84,7 @@ app.route("/join-us")
     fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
       method: "PUT",
       headers: {
-        // "Authorization": "token " + personalAccessToken,
-        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7",
+        "Authorization": "token " + personalAccessToken,
         "Content-Length": 0
       }
     });
@@ -558,8 +557,7 @@ const storeCollaboratorRepoData = () => {
       console.log(repoCollaboratorsLink + (i+1).toString())
       await axios.get(repoCollaboratorsLink + (i+1).toString(), {
         headers: {
-          // "Authorization": "token " + personalAccessToken
-          "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
+          "Authorization": "token " + personalAccessToken
         }
       }).then((response) => {
         // console.log(response.data);
