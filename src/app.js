@@ -28,13 +28,13 @@ const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
 const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
 const slackSendMessageLink = `https://slack.com/api/chat.postMessage?token=${slackHelpBotAuthToken}&channel=`;
-const baseCdnLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-files/";
+const baseCdnLink = "https://cdn.jsdelivr.net/gh/launch-tech-llc/anojs@latest/animation-files/";
 const baseApiFileLink = "http://anojs.com/files/";
-const baseImageLink = "https://cdn.jsdelivr.net/gh/anojs/anojs/animation-images/";
-const repoDataLink = "https://api.github.com/repos/anojs/anojs/contents/animation-files";
-const repoCollaboratorsLink = "https://api.github.com/repos/anojs/anojs/collaborators?page=";
-const repoCollaboratorInviteLink = "https://api.github.com/repos/anojs/anojs/collaborators/";
-const repoCommitsLink = "https://api.github.com/repos/anojs/anojs/stats/contributors";
+const baseImageLink = "https://cdn.jsdelivr.net/gh/launch-tech-llc/anojs@latest/animation-images/";
+const repoDataLink = "https://api.github.com/repos/launch-tech-llc/anojs/contents/animation-files";
+const repoCollaboratorsLink = "https://api.github.com/repos/launch-tech-llc/anojs/collaborators?page=";
+const repoCollaboratorInviteLink = "https://api.github.com/repos/launch-tech-llc/anojs/collaborators/";
+const repoCommitsLink = "https://api.github.com/repos/launch-tech-llc/anojs/stats/contributors";
 const slackInviteLink = `https://slack.com/api/users.admin.invite?token=${slackLegacyToken}&channels=general,github-updates,help,networking,welcome,announcements&email=`;
 const discordInviteLink = "https://discord.gg/xkdRm7E";
 const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
@@ -84,7 +84,8 @@ app.route("/join-us")
     fetch(repoCollaboratorInviteLink + githubUsername + "?permission=triage", {
       method: "PUT",
       headers: {
-        "Authorization": "token " + personalAccessToken,
+        // "Authorization": "token " + personalAccessToken,
+        "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7",
         "Content-Length": 0
       }
     });
@@ -295,12 +296,6 @@ app.get("/terms-and-conditions", (req, res) => {
 
 app.get("/privacy-policy", (req, res) => {
   res.render("privacy_policy.html", context={ blockElements });
-});
-
-
-// Let's Encrypt Challenge
-app.get("/.well-known/acme-challenge/:content", (req, res) => {
-  res.send("AHJie4O_ZmLpUs7zBnHDnxzq-MzzZp0S_0ZRygS6dUY.hA-vIRqVSeJsmz_XgFQPUokkPhqpLdQtyAxPqmb9ydw");
 });
 
 
@@ -542,8 +537,6 @@ const storeAnimationRepoData = () => {
             animationsCollection.insertMany(animationFilesData);
           }
         });
-        // // Inserting all animations into collection
-        // animationsCollection.insertMany(animationFilesData);
       });
     });
   }).catch((err) => {
@@ -562,9 +555,11 @@ const storeCollaboratorRepoData = () => {
     let pageNumber = 1;
     let lastResponse = 1;
     for (i = 0; i < 10; i++) {
+      console.log(repoCollaboratorsLink + (i+1).toString())
       await axios.get(repoCollaboratorsLink + (i+1).toString(), {
         headers: {
-          "Authorization": "token " + personalAccessToken
+          // "Authorization": "token " + personalAccessToken
+          "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
         }
       }).then((response) => {
         // console.log(response.data);
