@@ -558,9 +558,10 @@ const storeCollaboratorRepoData = () => {
     let pageNumber = 1;
     let lastResponse = 1;
     for (i = 0; i < 10; i++) {
-      await axios.get(repoCollaboratorsLink + i.toString(), {
+      await axios.get(repoCollaboratorsLink + (i+1).toString(), {
         headers: {
-          "Authorization": "token " + personalAccessToken
+          // "Authorization": "token " + personalAccessToken
+          "Authorization": "token 5c0de97616c79aa5ccddb7775222d5579b4ba4a7"
         }
       }).then((response) => {
         // console.log(response.data);
