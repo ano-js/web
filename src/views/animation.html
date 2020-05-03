@@ -25,9 +25,14 @@
         <a onclick="addUseToAnimation()" class="primary-cta-button" data-toggle="modal" data-target="#<%= animation.idName %>">
           Use this Animation!
         </a>
-        <div style="justify-self: flex-end;">
-          <% for (parameter of animation.animationParameters) { %>
-            <input type="color" id="<%= parameter %>" value="" onchange="updateCdnLink()">
+        <div class="customize-colors">
+          <% if (animation.animationParameters != "") { %>
+            <h4>Customize the colors!</h4>
+            <div>
+              <% for (parameter of animation.animationParameters) { %>
+                <input type="color" id="<%= parameter %>" value="" onchange="updateCdnLink()">
+              <% } %>
+            </div>
           <% } %>
         </div>
       </div>

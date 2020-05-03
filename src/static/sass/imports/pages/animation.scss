@@ -9,3 +9,9 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px;
 }
+
+.customize-colors {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end
+}
