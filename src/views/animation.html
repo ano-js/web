@@ -66,10 +66,10 @@
   </body>
   <script>
     function updateCdnLink() {
-      var animationParameters = '<%= animation.animationParameters %>'.split(',');
+      var cdnLink = "<%= animation.cdnLink %>?";
 
-      if (animationParameters != []) {
-        var cdnLink = "<%= animation.cdnLink %>?";
+      if ('<%= animation.animationParameters %>' != "") {
+        var animationParameters = '<%= animation.animationParameters %>'.split(',');
         var colorValues = [];
         for (parameter of animationParameters) {
           var colorValue = document.getElementById(parameter).value;
@@ -81,6 +81,8 @@
 
         document.getElementById("cdnLink").innerHTML = cdnLink;
         resetCanvas(colorValues);
+      } else {
+        document.getElementById("cdnLink").innerHTML = cdnLink;
       }
     }
 
@@ -112,7 +114,6 @@
     colorInputs = document.querySelectorAll('input[type=color]');
     animationParameters = '<%= animation.animationParameters %>'.split(',');
     if ('<%= animation.animationParameters %>') {
-      console.log(animationParameters)
       for (var i = 0; i < animationParameters.length; i++) {
         var newRandomColor = Math.floor(Math.random()*16777215).toString(16);
         var colorValue = document.getElementById(animationParameters[i]).value;
