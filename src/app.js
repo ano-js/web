@@ -243,52 +243,6 @@ app.get("/animations/:animationIdName", (req, res) => {
   });
 });
 
-app.get("/staff-positions", (req, res) => {
-  // Gathering all staff positions from DB
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err) throw err;
-
-    const positionCollection = client.db("anojs").collection("positions");
-
-    positionCollection.find({}).toArray((err, positions) => {
-      if (err) throw err;
-
-      res.render("staff-positions.html", context={ blockElements, positions });
-    });
-  });
-});
-
-app.get("/staff-positions/tips-on-staff-positions", (req, res) => {
-  res.render("tips-on-staff-positions.html", context={ blockElements });
-});
-
-app.get("/staff-positions/:idName", (req, res) => {
-  const idName = req.params.idName;
-
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err) throw err;
-
-    const positionCollection = client.db("anojs").collection("positions");
-
-    positionCollection.find({ idName }).toArray((err, positions) => {
-      if (err) throw err;
-
-      if (positions.length == 0) {  // Position doesn't exist
-        res.send("That staff position does not exist.")
-      }
-      else {
-        res.render("staff-position.html", context={ blockElements, position: positions[0] });
-      }
-    });
-  });
-});
-
 app.get("/terms-and-conditions", (req, res) => {
   res.render("terms_and_conditions.html", context={ blockElements });
 });
