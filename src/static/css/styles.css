@@ -267,14 +267,12 @@ code {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 50px; }
 
-.social-links-item {
-  list-style: none;
-  margin-bottom: 15px; }
-  .social-links-item-image {
-    width: 50px;
-    margin-right: 15px; }
-  .social-links-item-link {
-    color: #ccc; }
+.social-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 40px);
+  grid-gap: 20px; }
+  .social-links img {
+    width: 100%; }
 
 .contributors {
   display: grid;

@@ -185,7 +185,7 @@ app.route("/contact-us")
 
     let info = await transporter.sendMail({
       from: formData.email,
-      to: "anojs.team@gmail.com",
+      to: "anojs@launchtechllc.com",
       subject: "Ano.js - Contact us from " + formData.name,
       text: formData.message
     });
