@@ -159,10 +159,6 @@ app.get("/our-team/:username", (req, res) => {
   });
 });
 
-app.get("/faq", (req, res) => {
-  res.render("faq.html", context={ blockElements });
-});
-
 app.route("/contact-us")
   .get((req, res) => {
     res.render("contact-us.html", context={ blockElements, alert: undefined });
