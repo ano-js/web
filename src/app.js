@@ -327,126 +327,11 @@ const sendEmail = async (from, to, subject, text) => {
 }
 
 const storeAnimationRepoData = () => {
-  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeAnimationRepoData background process running...");
-
   // Inserting GitHub animations repo data into MongoDB
   axios.get(repoDataLink).then((response) => {
-    let animationFilesData = [];
+    var animationFilesData = [];
     const fileObjects = response.data;
     let idNames = [];
-
-    // Filtering JSON response for useful data
-    // Including name, idName, cdnLink, videoLink
-    for (animationFile of fileObjects) {
-      const animationFileName = animationFile.name;
-
-      // Getting file contributor
-      fetch(baseCdnLink + animationFileName, {
-        method: "GET"
-      }).then((response) => {
-        return response.text();
-      }).then((text) => {
-        const firstLine = text.split("\n")[0];
-        const animationContributor = firstLine.substring(3);
-
-        // Formatting name
-        // Splitting filename on "-"
-        const splitFileName = animationFileName.split("-");
-
-        // Removing "anojs" from filename list
-        splitFileName.shift();
-
-        // Formatting idName
-        let idName = splitFileName.join("-");
-        idName = idName.substring(0, idName.length - 3)
-
-        // Pulling formatted name together
-        let name = splitFileName.join(" ");
-
-        // Getting rid of ".js" from last word
-        name = name.substring(0, name.length - 3);
-
-        // Capitalizing all words in filename
-        name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
-
-        // Formatting CDN link
-        const cdnLink = baseApiFileLink + animationFileName;
-
-        // Formatting image filename
-        const imageLink = baseImageLink + "anojs-" + idName + ".png";
-
-        // Getting all custom API parameters
-        // Grabbing file contents
-        fetch(baseCdnLink + animationFileName, {
-          method: "GET"
-        }).then((response) => {
-          return response.text();
-        }).then((animationFileContent) => {
-          const regex = /(?<!\w)ANOJS_\w+/g;
-          var match;
-          var animationParameters = []
-          while ((match = regex.exec(animationFileContent)) != null) {
-            animationParameters.push(match);
-          }
-
-          idNames.push(idName);
-
-          animationFilesData.push({
-            name,
-            idName,
-            cdnLink,
-            imageLink,
-            animationContributor,
-            animationParameters
-          });
-        })
-      });
-    }
-
-    // Gathering all data from Firebase
-    fetch(baseFireBaseLink + "animationCounters.json", {
-      method: "GET"
-    }).then((response) => {
-      return response.json();
-    }).then((data) => {
-      // There are values inside of Firebase
-      if (data) {
-        // Creating array of Firebase animationCounters
-        let firebaseIdNames = [];
-        let firebaseObjects = [];
-        for (firebaseObject of Object.values(data)) {
-          firebaseIdNames.push(firebaseObject.idName);
-          firebaseObjects.push(firebaseObject);
-        }
-
-        for (idName of idNames) {
-          if (!firebaseIdNames.includes(idName)) {  // Firebase doesn't have this animation
-            // Creating record on Firebase
-            fetch(baseFireBaseLink + "animationCounters.json", {
-              method: "POST",
-              body: JSON.stringify({
-                idName,
-                useCounter: 0
-              })
-            });
-          }
-        }
-      }
-      // No values inside of Firebase
-      // Input all animation data points by default
-      else {
-        for (idName of idNames) {
-          // Creating record on Firebase
-          fetch(baseFireBaseLink + "animationCounters.json", {
-            method: "POST",
-            body: JSON.stringify({
-              idName,
-              useCounter: 0
-            })
-          });
-        }
-      }
-    });
 
     MongoClient.connect(mongoUrl, {
       useNewUrlParser: true,
@@ -454,40 +339,75 @@ const storeAnimationRepoData = () => {
     }, (err, client) => {
       if (err) throw err;
 
-      // Gathering Firebase objects
-      fetch(baseFireBaseLink + "animationCounters.json", {
-        method: "GET"
-      }).then((response) => {
-        return response.json();
-      }).then((data) => {
-        let firebaseObjects = [];
-        for (firebaseObject of Object.values(data)) {
-          firebaseObjects.push(firebaseObject);
-        }
+      const animationsCollection = client.db("anojs").collection("animations");
+      const animationsCounterCollection = client.db("anojs").collection("animationCounters");
 
-        // Adding updated animationCounters to animationFilesData
-        for (var i = 0; i < animationFilesData.length; i++) {
-          for (firebaseObject of firebaseObjects) {
-            if (firebaseObject.idName == animationFilesData[i].idName) {
-              animationFilesData[i].useCounter = firebaseObject.useCounter;
+      // Filtering JSON response for useful data
+      // Including name, idName, cdnLink, videoLink
+      for (animationFile of fileObjects) {
+        const animationFileName = animationFile.name;
+
+        // Getting file contributor
+        fetch(baseCdnLink + animationFileName, {
+          method: "GET"
+        }).then((response) => {
+          return response.text();
+        }).then((text) => {
+          const firstLine = text.split("\n")[0];
+          const animationContributor = firstLine.substring(3);
+
+          // Formatting name
+          // Splitting filename on "-"
+          const splitFileName = animationFileName.split("-");
+
+          // Removing "anojs" from filename list
+          splitFileName.shift();
+
+          // Formatting idName
+          let idName = splitFileName.join("-");
+          idName = idName.substring(0, idName.length - 3)
+
+          // Pulling formatted name together
+          let name = splitFileName.join(" ");
+
+          // Getting rid of ".js" from last word
+          name = name.substring(0, name.length - 3);
+
+          // Capitalizing all words in filename
+          name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
+
+          // Formatting CDN link
+          const cdnLink = baseApiFileLink + animationFileName;
+
+          // Formatting image filename
+          const imageLink = baseImageLink + "anojs-" + idName + ".png";
+
+          // Getting all custom API parameters
+          // Grabbing file contents
+          fetch(baseCdnLink + animationFileName, {
+            method: "GET"
+          }).then((response) => {
+            return response.text();
+          }).then((animationFileContent) => {
+            const regex = /(?<!\w)ANOJS_\w+/g;
+            var match;
+            var animationParameters = []
+            while ((match = regex.exec(animationFileContent)) != null) {
+              animationParameters.push(match);
             }
-          }
-        }
 
-        const animationsCollection = client.db("anojs").collection("animations");
-
-        // Clearing out entire collection
-        animationsCollection.drop(async (err, deleteConfirmation) => {
-          if (err) throw err;
-          if (deleteConfirmation) {
-            console.log("Collection cleared");
-
-            // Inserting all animations into collection
-            animationsCollection.insertMany(animationFilesData);
-          }
+            animationsCollection.insertOne({
+              name,
+              idName,
+              cdnLink,
+              imageLink,
+              animationContributor,
+              animationParameters
+            });
+          });
         });
-      });
-    });
+      }
+    })
   }).catch((err) => {
     console.error(err);
   });
@@ -579,8 +499,6 @@ const storeCollaboratorRepoData = () => {
         contributorsCollection.insertMany(contributors);
       });
     });
-
-    res.send("done!");
   });
 }
 
@@ -589,13 +507,13 @@ const storeCollaboratorRepoData = () => {
 // Stores all animation file data
 app.get("/app/store-animation-repo-data", (req, res) => {
   storeAnimationRepoData();
-  res.status(200).send();
+  res.send("done!");
 });
 
 // Stores all repo contributor data
 app.get("/app/store-contributor-repo-data", (req, res) => {
   storeCollaboratorRepoData();
-  res.status(200).send();
+  res.send("done!");
 });
 
 
