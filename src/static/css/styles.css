@@ -121,28 +121,26 @@ nav {
 footer {
   background-color: #181818;
   margin-top: 50px;
-  padding-top: 20px;
-  text-align: center; }
+  padding: 50px; }
+  footer .footer-logo {
+    width: 85px;
+    transform: translateX(-15px); }
 
 footer * {
   color: white; }
 
-.footer-navigation {
+.footer-grid {
   display: grid;
-  grid-template-columns: repeat(2, 250px);
-  justify-content: center;
-  margin: 20px 50px; }
-  .footer-navigation-link {
-    list-style: none;
-    width: 100%;
-    text-align: center; }
-    .footer-navigation-link:not(:last-child) {
-      border-right: 2px solid #454545; }
-    .footer-navigation-link a {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 50px; }
+  .footer-grid .footer-navigation {
+    list-style: none; }
+    .footer-grid .footer-navigation a {
       color: #eee;
-      text-decoration: none; }
-      .footer-navigation-link a:hover {
-        color: white; }
+      font-size: 17.5px; }
+  .footer-grid .footer-social-links {
+    grid-gap: 10px !important;
+    grid-template-columns: repeat(auto-fill, 30px) !important; }
 
 .center-container {
   position: absolute;
@@ -315,7 +313,10 @@ code {
   grid-template-columns: repeat(auto-fill, 40px);
   grid-gap: 20px; }
   .social-links img {
-    width: 100%; }
+    width: 100%;
+    transition: all .2s; }
+    .social-links img:hover {
+      transform: scale(1.2); }
 
 .contributors {
   display: grid;
@@ -357,15 +358,6 @@ code {
       padding: 30 0px; }
     .faq-grid-item-answer {
       padding: 0 30px; }
-
-.positions {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 50px;
-  margin-top: 50px; }
-
-.staff-position-list {
-  margin-left: 30px; }
 
 .profile {
   display: grid;
