@@ -115,10 +115,6 @@ app.route("/join-us")
     });
   });
 
-app.get("/about", (req, res) => {
-  res.render("about.html", context={ blockElements });
-});
-
 app.get("/our-team", (req, res) => {
   // Getting all contributors
   MongoClient.connect(mongoUrl, {
