@@ -12,3 +12,54 @@
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px;
 }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 50px;
+
+  .feature {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-gap: 15px;
+
+     * {
+       color: white;
+     }
+
+     img {
+       width: 100%;
+     }
+
+     small {
+       line-height: 0;
+     }
+  }
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 30px;
+
+  .step {
+    position: relative;
+
+     &-number {
+       position: absolute;
+       top: 30%;
+       left: 0;
+       font-size: 225px;
+       opacity: 0.2;
+       font-weight: bold;
+     }
+
+     &-content {
+       margin-left: 50px;
+     }
+
+     small {
+       line-height: 0;
+     }
+  }
+}

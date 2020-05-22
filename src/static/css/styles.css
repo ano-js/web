@@ -99,8 +99,18 @@ body {
   min-height: 100vh;
   position: relative; }
 
+section {
+  padding: 50px 0;
+  background-color: #141414; }
+
+.index-background {
+  background-image: radial-gradient(#3c3c3c, #141414); }
+
 .spacer {
   padding-top: 125px; }
+
+nav {
+  z-index: 10; }
 
 .logo {
   height: 90px; }
@@ -146,6 +156,39 @@ footer * {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px; }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 50px; }
+  .features .feature {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-gap: 15px; }
+    .features .feature * {
+      color: white; }
+    .features .feature img {
+      width: 100%; }
+    .features .feature small {
+      line-height: 0; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 30px; }
+  .steps .step {
+    position: relative; }
+    .steps .step-number {
+      position: absolute;
+      top: 30%;
+      left: 0;
+      font-size: 225px;
+      opacity: 0.2;
+      font-weight: bold; }
+    .steps .step-content {
+      margin-left: 50px; }
+    .steps .step small {
+      line-height: 0; }
 
 .animations-grid {
   display: grid;

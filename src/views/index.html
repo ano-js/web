@@ -6,21 +6,101 @@
     <title>Ano.js - Interactive Web Animation Made Easy</title>
     <%- blockElements[0] %>
   </head>
-  <body style="padding: 0; overflow: hidden; position: relative;">
+  <body style="background-image: none; background-color: rgb(20, 20, 20);">
     <%- blockElements[1] %>
-    <div id="anojs-growing-circles-gray" style="height: 100vh;">
-      <div class="center-container">
-        <h1 class="main-header">Web Animation Made Easy</h1>
-        <div class="cta-buttons">
-          <a class="ghost-cta-button" href="/join-us">Join Our Team!</a>
-          <a class="primary-cta-button" href="/animations">Check out Animations!</a>
+    <div class="index-background" style="padding: 0; position: relative;">
+      <!-- <div id="anojs-growing-circles-gray" style="height: 100vh;"> -->
+        <div class="center-container">
+          <h1 class="main-header">Web Animation Made Easy</h1>
+          <div class="cta-buttons">
+            <a class="ghost-cta-button" href="/join-us">Join Our Team!</a>
+            <a class="primary-cta-button" href="/animations">Check out Animations!</a>
+          </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
 
-    <div class="text-center" style="position: absolute; bottom: 0;left: 50%; transform: translateX(-50%);">
+    <section class="about">
+      <div class="container">
+        <h1 class="page-header">About</h1>
+      </div>
+    </section>
+
+    <section class="why">
+      <div class="container">
+        <h1 class="page-header">Why Ano.js?</h1>
+        <div class="features">
+          <div class="feature">
+            <img src="/static/images/icons/github.svg" alt="">
+            <div>
+              <h3>Feature</h3>
+              <small>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </small>
+            </div>
+          </div>
+          <div class="feature">
+            <img src="/static/images/icons/github.svg" alt="">
+            <div>
+              <h3>Feature</h3>
+              <small>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </small>
+            </div>
+          </div>
+          <div class="feature">
+            <img src="/static/images/icons/github.svg" alt="">
+            <div>
+              <h3>Feature</h3>
+              <small>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how">
+      <div class="container">
+        <h1 class="page-header">How to use Ano.js</h1>
+        <div class="steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            <div class="step-content">
+              <h3>Step</h3>
+              <small>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </small>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+              <div class="step-content">
+                <h3>Step</h3>
+                <small>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </small>
+              </div>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+              <div class="step-content">
+                <h3>Step</h3>
+                <small>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </small>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <div class="text-center" style="position: absolute; bottom: 0;left: 50%; transform: translateX(-50%);">
       <small>&copy; 2020 <a href="https://www.launchtechllc.com/" target="_blank">Launch Tech LLC</a>. All rights reserved.</small>
-    </div>
+    </div> -->
+
+    <%- blockElements[2] %>
 
     <script>
       if (screen.width >= 500) {
