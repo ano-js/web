@@ -414,8 +414,6 @@ const storeAnimationRepoData = () => {
 }
 
 const storeCollaboratorRepoData = () => {
-  sendEmail("anojs.team@gmail.com", "anojs.team@gmail.com", "Ano.js Background Task Ran", "[+] storeCollaboratorRepoData background process running...");
-
   // Getting all commit data
   axios.get(repoCommitsLink).then(async (response) => {
     const commitData = response.data;
