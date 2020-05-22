@@ -70,7 +70,7 @@
       $("#mobile-disclaimer").modal();
 
       // Making all links null
-      for (aTag of document.getElementsByTagName("a")) {
+      for (aTag of document.getElementsByClassName("animations-grid-link")) {
         aTag.addEventListener("click", function(event) { event.preventDefault(); return false; });
       }
     }

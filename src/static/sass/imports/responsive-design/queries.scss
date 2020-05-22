@@ -4,6 +4,17 @@
     padding-top: 30px;
   }
 
+  // STEPS GET SQUISHED TOGETHER
+  .steps {
+    grid-gap: 75px !important;
+  }
+
+  // HEADER HEIGHT IS TOO TALL
+  .index-animation {
+    height: auto;
+    padding: 100px 0;
+  }
+
 
   // NAVBAR GETS SQUISHED
   .github-btn {
@@ -69,6 +80,13 @@
   // PROFILE GETS SQUISHED
   .profile {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  // HOMEPAGE CTA BUTTONS ARE SQUISHED
+  .cta-buttons {
+    grid-template-columns: repeat(auto-fill, 100%);
   }
 }
 
