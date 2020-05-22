@@ -343,7 +343,7 @@ const storeAnimationRepoData = () => {
       const animationsCounterCollection = client.db("anojs").collection("animationCounters");
 
       // Dropping animation collection
-      // animationsCollection.remove();
+      animationsCollection.remove();
 
       // Filtering JSON response for useful data
       // Including name, idName, cdnLink, videoLink
@@ -399,9 +399,11 @@ const storeAnimationRepoData = () => {
               animationParameters.push(match);
             }
 
+            let found = false;
             animationsCounterCollection.find().toArray((err, animationCounters) => {
               for (animationCounter of animationCounters) {
                 if (animationCounter.idName == idName) {
+                  found = true;
                   animationsCollection.insertOne({
                     name,
                     idName,
@@ -412,6 +414,23 @@ const storeAnimationRepoData = () => {
                     useCounter: animationCounter.counter
                   });
                 }
+              }
+
+              if (!found) {
+                animationsCounterCollection.insertOne({
+                  idName,
+                  counter: 0
+                });
+
+                animationsCollection.insertOne({
+                  name,
+                  idName,
+                  cdnLink,
+                  imageLink,
+                  animationContributor,
+                  animationParameters,
+                  useCounter: 0
+                });
               }
             });
           });
