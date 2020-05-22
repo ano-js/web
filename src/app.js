@@ -243,6 +243,10 @@ app.get("/privacy-policy", (req, res) => {
   res.render("privacy_policy.html", context={ blockElements });
 });
 
+app.get("/credits", (req, res) => {
+  res.render("credits.html", context={ blockElements });
+});
+
 
 // API VIEWS
 app.post("/app/add-use-to-animation", (req, res) => {
