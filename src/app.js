@@ -342,6 +342,9 @@ const storeAnimationRepoData = () => {
       const animationsCollection = client.db("anojs").collection("animations");
       const animationsCounterCollection = client.db("anojs").collection("animationCounters");
 
+      // Dropping animation collection
+      // animationsCollection.remove();
+
       // Filtering JSON response for useful data
       // Including name, idName, cdnLink, videoLink
       for (animationFile of fileObjects) {
@@ -396,13 +399,20 @@ const storeAnimationRepoData = () => {
               animationParameters.push(match);
             }
 
-            animationsCollection.insertOne({
-              name,
-              idName,
-              cdnLink,
-              imageLink,
-              animationContributor,
-              animationParameters
+            animationsCounterCollection.find().toArray((err, animationCounters) => {
+              for (animationCounter of animationCounters) {
+                if (animationCounter.idName == idName) {
+                  animationsCollection.insertOne({
+                    name,
+                    idName,
+                    cdnLink,
+                    imageLink,
+                    animationContributor,
+                    animationParameters,
+                    useCounter: animationCounter.counter
+                  });
+                }
+              }
             });
           });
         });
