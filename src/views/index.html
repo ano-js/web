@@ -6,7 +6,7 @@
     <title>Ano.js - Interactive Web Animation Made Easy</title>
     <%- blockElements[0] %>
   </head>
-  <body style="padding: 0; overflow: hidden;">
+  <body style="padding: 0; overflow: hidden; position: relative;">
     <%- blockElements[1] %>
     <div id="anojs-growing-circles-gray" style="height: 100vh;">
       <div class="center-container">
@@ -16,6 +16,10 @@
           <a class="primary-cta-button" href="/animations">Check out Animations!</a>
         </div>
       </div>
+    </div>
+
+    <div class="text-center" style="position: absolute; bottom: 0;left: 50%; transform: translateX(-50%);">
+      <small>&copy; 2020 <a href="https://www.launchtechllc.com/" target="_blank">Launch Tech LLC</a>. All rights reserved.</small>
     </div>
 
     <script>
