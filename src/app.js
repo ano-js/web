@@ -580,7 +580,7 @@ const storeCollaboratorRepoData = () => {
     for (i = 0; i < 10; i++) {
       await axios.get(repoCollaboratorsLink + (i+1).toString(), {
         headers: {
-          "Authorization": "token 27f1b707854794f6d34f6bb3451a7adca228d8fa"
+          "Authorization": "token " + personalAccessToken
         }
       }).then((response) => {
         for (contributor of response.data) {
@@ -632,51 +632,6 @@ const storeCollaboratorRepoData = () => {
       // Inserting all contributors
       contributorModel.insertMany(contributors, (err, contributors) => { if (err) throw err; })
     });
-
-    // MongoClient.connect(mongoUrl, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true
-    // }, (err, client) => {
-    //   if (err) throw err;
-    //
-    //   const db = client.db("anojs");
-    //
-    //   // Grabbing all contributor's animatons from MongoDB
-    //   const animationsCollection = db.collection("animations");
-    //
-    //   animationsCollection.find({}).toArray((err, animations) => {
-    //     if (err) throw err;
-    //
-    //     // Attaching each animation appropriate to each contributor
-    //     for (var i = 0; i < contributors.length; i++) {
-    //       let contributorAnimations = [];
-    //
-    //       for (animation of animations) {
-    //         if (animation.animationContributor == contributors[i].login) {
-    //           contributorAnimations.push(animation);
-    //         }
-    //       }
-    //
-    //       // Adding animations to contributor
-    //       contributors[i].animations = contributorAnimations;
-    //
-    //       // Adding number of animations to contributor
-    //       contributors[i].numberOfAnimations = contributorAnimations.length;
-    //     }
-    //
-    //     // Saving all contributors in MongoDB
-    //     const contributorsCollection = db.collection("contributors");
-    //
-    //     // Clearing out collection
-    //     contributorsCollection.drop((err, deleteConfirmation) => {
-    //       if (err) throw err;
-    //       if (deleteConfirmation) console.log("Collection cleared");
-    //     });
-    //
-    //     // Inserting all contributors
-    //     contributorsCollection.insertMany(contributors);
-    //   });
-    // });
   });
 }
 
