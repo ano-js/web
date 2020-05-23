@@ -252,33 +252,57 @@ app.get("/credits", (req, res) => {
 app.post("/app/add-use-to-animation", (req, res) => {
   const animationIdName = req.query.animationIdName;
 
-  // Add to animation-counters collection
-  fetch(baseFireBaseLink + "animationCounters.json", {
-    method: "GET"
-  }).then((response) => {
-    return response.json()
-  }).then((data) => {
-    for (animationCounterObject of Object.entries(data)) {
-      const animationCounterObjectId = animationCounterObject[0];
-      const animationCounter = animationCounterObject[1];
-      if (animationCounter.idName == animationIdName) {
-        // DELETING OLD RECORD
-        fetch(baseFireBaseLink + "animationCounters/" + animationCounterObjectId + ".json", {
-          method: "DELETE"
-        });
+  MongoClient.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
 
-        // ADDDING NEW RECORD
-        fetch(baseFireBaseLink + "animationCounters.json", {
-          method: "POST",
-          body: JSON.stringify({
+    const animationsCounterCollection = client.db("anojs").collection("animationCounters");
+
+    animationsCounterCollection.find().toArray((err, animationCounters) => {
+      for (animationCounter of animationCounters) {
+        if (animationCounter.idName == animationIdName) {
+          // DELETING OLD RECORD
+          animationsCounterCollection.remove({ idName: animationIdName });
+
+          // ADDING NEW RECORD
+          animationsCounterCollection.insertOne({
             idName: animationIdName,
-            useCounter: animationCounter.useCounter + 1
-          })
-        });
-        break;
+            counter: animationCounter.counter + 1
+          });
+        }
       }
-    }
-  });
+    })
+  })
+
+  // Add to animation-counters collection
+  // fetch(baseFireBaseLink + "animationCounters.json", {
+  //   method: "GET"
+  // }).then((response) => {
+  //   return response.json()
+  // }).then((data) => {
+  //   for (animationCounterObject of Object.entries(data)) {
+  //     const animationCounterObjectId = animationCounterObject[0];
+  //     const animationCounter = animationCounterObject[1];
+  //     if (animationCounter.idName == animationIdName) {
+  //       // DELETING OLD RECORD
+  //       fetch(baseFireBaseLink + "animationCounters/" + animationCounterObjectId + ".json", {
+  //         method: "DELETE"
+  //       });
+  //
+  //       // ADDDING NEW RECORD
+  //       fetch(baseFireBaseLink + "animationCounters.json", {
+  //         method: "POST",
+  //         body: JSON.stringify({
+  //           idName: animationIdName,
+  //           useCounter: animationCounter.useCounter + 1
+  //         })
+  //       });
+  //       break;
+  //     }
+  //   }
+  // });
 
   res.status(200).send();
 });
@@ -413,6 +437,7 @@ const storeAnimationRepoData = () => {
                     animationParameters,
                     useCounter: animationCounter.counter
                   });
+                  break;
                 }
               }
 
