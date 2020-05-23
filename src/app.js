@@ -148,19 +148,6 @@ app.route("/join-us")
       if (err) throw err;
       console.log(newContact);
      });
-    // MongoClient.connect(mongoUrl, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true
-    // }, (err, client) => {
-    //   if (err) throw err;
-    //
-    //   const contactCollection = client.db("anojs").collection("contacts");
-    //
-    //   contactCollection.insertOne({
-    //     email,
-    //     githubUsername
-    //   });
-    // })
 
     // Re-rendering page with success message
     res.render("join-us.html", context={
@@ -176,20 +163,6 @@ app.get("/our-team", (req, res) => {
 
     res.render("our-team.html", context={ blockElements, contributors });
   });
-  // MongoClient.connect(mongoUrl, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true
-  // }, (err, client) => {
-  //   if (err) throw err;
-  //
-  //   contributorsCollection = client.db("anojs").collection("contributors");
-  //
-  //   contributorsCollection.find({}).toArray((err, contributors) => {
-  //     if (err) throw err;
-  //
-  //     res.render("our-team.html", context={ blockElements, contributors });
-  //   });
-  // });
 });
 
 app.get("/our-team/:username", (req, res) => {
@@ -206,27 +179,6 @@ app.get("/our-team/:username", (req, res) => {
       res.send("Contributor does not exist.");
     }
   });
-  // MongoClient.connect(mongoUrl, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true
-  // }, (err, client) => {
-  //   if (err) throw err;
-  //
-  //   const db = client.db("anojs");
-  //
-  //   // Grabbing contributor from MongoDB
-  //   const contributorsCollection = db.collection("contributors");
-  //
-  //   contributorsCollection.find({ login: githubUsername }).toArray((err, contributors) => {
-  //     if (contributors.length == 0) {  // Contributor not found
-  //       res.send("Contributor does not exist.");
-  //     }
-  //     else {
-  //       const contributor = contributors[0];
-  //       res.render("contributor.html", context={ blockElements, contributor });
-  //     }
-  //   });
-  // });
 });
 
 app.route("/contact-us")
@@ -268,26 +220,6 @@ app.get("/animations", (req, res) => {
       animations
     });
   });
-  // MongoClient.connect(mongoUrl, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true
-  // }, (err, client) => {
-  //   if (err) throw err;
-  //
-  //   const animationsCollection = client.db("anojs").collection("animations");
-  //
-  //   animationsCollection.find({}).toArray((err, animations) => {
-  //     if (err) throw err;
-  //
-  //     // Sorting animations based on uses
-  //     animations.sort((a, b) => (a.useCounter > b.useCounter) ? -1 : 1);
-  //
-  //     res.render("animations.html", context={
-  //       blockElements,
-  //       animations
-  //     });
-  //   });
-  // });
 });
 
 app.get("/animations/:animationIdName", (req, res) => {
@@ -302,27 +234,7 @@ app.get("/animations/:animationIdName", (req, res) => {
     } else {  // Animation not found
       res.send("No such animation exists.");
     }
-  })
-  // MongoClient.connect(mongoUrl, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true
-  // }, (err, client) => {
-  //   if (err) throw err;
-  //
-  //   const animationsCollection = client.db("anojs").collection("animations");
-  //
-  //   animationsCollection.find({ idName: animationIdName }).toArray((err, animations) => {
-  //     if (err) throw err;
-  //
-  //     if (animations.length == 0) {  // Animation not found
-  //       res.send("No such animation exists.");
-  //     }
-  //     else {
-  //       const animation = animations[0];
-  //       res.render("animation.html", context={ animation, blockElements });
-  //     }
-  //   });
-  // });
+  });
 });
 
 app.get("/terms-and-conditions", (req, res) => {
@@ -342,76 +254,17 @@ app.get("/credits", (req, res) => {
 app.post("/app/add-use-to-animation", (req, res) => {
   const animationIdName = req.query.animationIdName;
 
-  // console.log(animationIdName);
-  //
-  // animationCounterModel.findOne({ idName: animationIdName }, (err, animation) => {
-  //   console.log(animation)
-  // });
-  //
-  // mongoose.set('useFindAndModify', false);
-  //
-  // // Update animationCounter
-  // animationCounterModel.findOneAndUpdate(
-  //   { idName: animationIdName },
-  //   { $inc: { counter: 1 } },
-  //   { new: true },
-  //   (err, animationCounter) => {
-  //     if (err) throw err;
-  //
-  //     console.log(animationCounter);
-  //   }
-  // );
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err) throw err;
+  mongoose.set('useFindAndModify', false);
 
-    const animationsCounterCollection = client.db("anojs").collection("animationCounters");
-
-    animationsCounterCollection.find().toArray((err, animationCounters) => {
-      for (animationCounter of animationCounters) {
-        if (animationCounter.idName == animationIdName) {
-          // DELETING OLD RECORD
-          animationsCounterCollection.remove({ idName: animationIdName });
-
-          // ADDING NEW RECORD
-          animationsCounterCollection.insertOne({
-            idName: animationIdName,
-            counter: animationCounter.counter + 1
-          });
-        }
-      }
-    })
-  });
-
-  // Add to animation-counters collection
-  // fetch(baseFireBaseLink + "animationCounters.json", {
-  //   method: "GET"
-  // }).then((response) => {
-  //   return response.json()
-  // }).then((data) => {
-  //   for (animationCounterObject of Object.entries(data)) {
-  //     const animationCounterObjectId = animationCounterObject[0];
-  //     const animationCounter = animationCounterObject[1];
-  //     if (animationCounter.idName == animationIdName) {
-  //       // DELETING OLD RECORD
-  //       fetch(baseFireBaseLink + "animationCounters/" + animationCounterObjectId + ".json", {
-  //         method: "DELETE"
-  //       });
-  //
-  //       // ADDDING NEW RECORD
-  //       fetch(baseFireBaseLink + "animationCounters.json", {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //           idName: animationIdName,
-  //           useCounter: animationCounter.useCounter + 1
-  //         })
-  //       });
-  //       break;
-  //     }
-  //   }
-  // });
+  // Update animationCounter
+  animationCounterModel.findOneAndUpdate(
+    { idName: animationIdName },
+    { $inc: { counter: 1 } },
+    { new: true },
+    (err, animationCounter) => {
+      if (err) throw err;
+    }
+  );
 
   res.status(200).send();
 });
