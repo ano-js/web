@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const mongodb = require("mongodb");
+const mongoose = require("mongoose");
 const axios = require("axios");
 const fetch = require("node-fetch");
 const nodemailer = require("nodemailer");
@@ -12,6 +13,26 @@ app = express();
 const MongoClient = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId;
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
+
+// Mongoose configuration
+mongoose.connect(mongoUrl, {useNewUrlParser: true});
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+const animationModel = mongoose.model("Animation", new mongoose.Schema({
+  name: String,
+  idName: String,
+  cdnLink: String,
+  imageLink: String,
+  animationContributor: String,
+  animationParameters: Array,
+  useCounter: Integer
+}));
+
+const animationCounterModel = mongoose.model("AnimationCounter", new mongoose.Schema({
+  idName: String,
+  counter: Integer
+}));
 
 // Setting JSON parsing methods for POST request data
 app.use(express.urlencoded()); // HTML forms
