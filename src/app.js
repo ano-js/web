@@ -26,12 +26,17 @@ const animationModel = mongoose.model("Animation", new mongoose.Schema({
   imageLink: String,
   animationContributor: String,
   animationParameters: Array,
-  useCounter: Integer
+  useCounter: Number
 }));
 
 const animationCounterModel = mongoose.model("AnimationCounter", new mongoose.Schema({
   idName: String,
-  counter: Integer
+  counter: Number
+}));
+
+const contactModel = mongoose.model("Contact", new mongoose.Schema({
+  email: String,
+  githubUsername: String
 }));
 
 // Setting JSON parsing methods for POST request data
@@ -115,19 +120,23 @@ app.route("/join-us")
     sendEmail("anojs.team@gmail.com", email, "Ano.js Discord Invite", text);
 
     // Saving to database
-    MongoClient.connect(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }, (err, client) => {
-      if (err) throw err;
-
-      const contactCollection = client.db("anojs").collection("contacts");
-
-      contactCollection.insertOne({
-        email,
-        githubUsername
-      });
-    })
+    const newContact = new contactModel({
+      email, githubUsername
+    });
+    newContact.save((err, newContact) => { if (err) throw err; });
+    // MongoClient.connect(mongoUrl, {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true
+    // }, (err, client) => {
+    //   if (err) throw err;
+    //
+    //   const contactCollection = client.db("anojs").collection("contacts");
+    //
+    //   contactCollection.insertOne({
+    //     email,
+    //     githubUsername
+    //   });
+    // })
 
     // Re-rendering page with success message
     res.render("join-us.html", context={
