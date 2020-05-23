@@ -39,6 +39,27 @@ const contactModel = mongoose.model("Contact", new mongoose.Schema({
   githubUsername: String
 }));
 
+const contributorModel = mongoose.model("Contributor", new mongoose.Schema({
+  login: String,
+  id: Number,
+  node_id: String,
+  avatar_url: String,
+  gravatar_id: String,
+  url: String,
+  html_url: String,
+  followers_url: String,
+  gists_url: String,
+  starred_url: String,
+  subscriptions_url: String,
+  organizations_url: String,
+  repos_url: String,
+  events_url: String,
+  received_events_url: String,
+  type: String,
+  site_admin: Boolean,
+  permissions: Object
+}));
+
 // Setting JSON parsing methods for POST request data
 app.use(express.urlencoded()); // HTML forms
 app.use(express.json()); // API clients
@@ -150,46 +171,62 @@ app.route("/join-us")
 
 app.get("/our-team", (req, res) => {
   // Getting all contributors
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
+  contributorModel.find((err, contributors) => {
     if (err) throw err;
 
-    contributorsCollection = client.db("anojs").collection("contributors");
-
-    contributorsCollection.find({}).toArray((err, contributors) => {
-      if (err) throw err;
-
-      res.render("our-team.html", context={ blockElements, contributors });
-    });
+    res.render("our-team.html", context={ blockElements, contributors });
   });
+  // MongoClient.connect(mongoUrl, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true
+  // }, (err, client) => {
+  //   if (err) throw err;
+  //
+  //   contributorsCollection = client.db("anojs").collection("contributors");
+  //
+  //   contributorsCollection.find({}).toArray((err, contributors) => {
+  //     if (err) throw err;
+  //
+  //     res.render("our-team.html", context={ blockElements, contributors });
+  //   });
+  // });
 });
 
 app.get("/our-team/:username", (req, res) => {
   const githubUsername = req.params.username;
 
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
+  // Getting specific contributor
+  contributorModel.findOne({ login: githubUsername }, (err, contributor) => {
     if (err) throw err;
 
-    const db = client.db("anojs");
-
-    // Grabbing contributor from MongoDB
-    const contributorsCollection = db.collection("contributors");
-
-    contributorsCollection.find({ login: githubUsername }).toArray((err, contributors) => {
-      if (contributors.length == 0) {  // Contributor not found
-        res.send("Contributor does not exist.");
-      }
-      else {
-        const contributor = contributors[0];
-        res.render("contributor.html", context={ blockElements, contributor });
-      }
-    });
+    if (contributor) {
+      res.render("contributor.html", context={ blockElements, contributor });
+    }
+    else { // Contributor not found
+      res.send("Contributor does not exist.");
+    }
   });
+  // MongoClient.connect(mongoUrl, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true
+  // }, (err, client) => {
+  //   if (err) throw err;
+  //
+  //   const db = client.db("anojs");
+  //
+  //   // Grabbing contributor from MongoDB
+  //   const contributorsCollection = db.collection("contributors");
+  //
+  //   contributorsCollection.find({ login: githubUsername }).toArray((err, contributors) => {
+  //     if (contributors.length == 0) {  // Contributor not found
+  //       res.send("Contributor does not exist.");
+  //     }
+  //     else {
+  //       const contributor = contributors[0];
+  //       res.render("contributor.html", context={ blockElements, contributor });
+  //     }
+  //   });
+  // });
 });
 
 app.route("/contact-us")
@@ -220,26 +257,37 @@ app.route("/contact-us")
 
 app.get("/animations", (req, res) => {
   // Grabbing all animation repo data from MongoDB
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
+  animationModel.find((err, animations) => {
     if (err) throw err;
 
-    const animationsCollection = client.db("anojs").collection("animations");
+    // Sorting animations based on uses
+    animations.sort((a, b) => (a.useCounter > b.useCounter) ? -1 : 1);
 
-    animationsCollection.find({}).toArray((err, animations) => {
-      if (err) throw err;
-
-      // Sorting animations based on uses
-      animations.sort((a, b) => (a.useCounter > b.useCounter) ? -1 : 1);
-
-      res.render("animations.html", context={
-        blockElements,
-        animations
-      });
+    res.render("animations.html", context={
+      blockElements,
+      animations
     });
   });
+  // MongoClient.connect(mongoUrl, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true
+  // }, (err, client) => {
+  //   if (err) throw err;
+  //
+  //   const animationsCollection = client.db("anojs").collection("animations");
+  //
+  //   animationsCollection.find({}).toArray((err, animations) => {
+  //     if (err) throw err;
+  //
+  //     // Sorting animations based on uses
+  //     animations.sort((a, b) => (a.useCounter > b.useCounter) ? -1 : 1);
+  //
+  //     res.render("animations.html", context={
+  //       blockElements,
+  //       animations
+  //     });
+  //   });
+  // });
 });
 
 app.get("/animations/:animationIdName", (req, res) => {
