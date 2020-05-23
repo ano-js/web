@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
-const mongodb = require("mongodb");
 const mongoose = require("mongoose");
 const axios = require("axios");
 const fetch = require("node-fetch");
@@ -9,12 +8,8 @@ const nodemailer = require("nodemailer");
 
 app = express();
 
-// MongoDB configuration
-const MongoClient = mongodb.MongoClient;
-const ObjectId = mongodb.ObjectId;
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/anojs";
-
 // Mongoose configuration
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/anojs";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
@@ -72,9 +67,6 @@ app.engine('html', require('ejs').renderFile);
 
 // GLOBAL VARIABLES
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
-const slackLegacyToken = process.env.SLACK_LEGACY_TOKEN;
-const slackHelpBotAuthToken = "xoxb-962839993154-1039500909904-5xfhZGqIlVXTsyJOTcWsrNLL";
-const slackSendMessageLink = `https://slack.com/api/chat.postMessage?token=${slackHelpBotAuthToken}&channel=`;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/launch-tech-llc/anojs@latest/animation-files/";
 const baseApiFileLink = "http://anojs.com/files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/launch-tech-llc/anojs@latest/animation-images/";
@@ -82,7 +74,6 @@ const repoDataLink = "https://api.github.com/repos/launch-tech-llc/anojs/content
 const repoCollaboratorsLink = "https://api.github.com/repos/launch-tech-llc/anojs/collaborators?page=";
 const repoCollaboratorInviteLink = "https://api.github.com/repos/launch-tech-llc/anojs/collaborators/";
 const repoCommitsLink = "https://api.github.com/repos/launch-tech-llc/anojs/stats/contributors";
-const slackInviteLink = `https://slack.com/api/users.admin.invite?token=${slackLegacyToken}&channels=general,github-updates,help,networking,welcome,announcements&email=`;
 const discordInviteLink = "https://discord.gg/xkdRm7E";
 const baseFireBaseLink = "https://anojs-2c1b8.firebaseio.com/";
 
@@ -137,17 +128,14 @@ app.route("/join-us")
     });
 
     // Sending email with Discord invite to the email
-    // const text = "Thank you for joining Ano.js as an open source contributor!\n\nOur team uses Discord to communicate and discuss different topics, and we'd love to have you there! Please join the server by clicking on the link below:\n\n" + discordInviteLink;
-    // sendEmail("anojs.team@gmail.com", email, "Ano.js Discord Invite", text);
+    const text = "Thank you for joining Ano.js as an open source contributor!\n\nOur team uses Discord to communicate and discuss different topics, and we'd love to have you there! Please join the server by clicking on the link below:\n\n" + discordInviteLink;
+    sendEmail("anojs.team@gmail.com", email, "Ano.js Discord Invite", text);
 
     // Saving to database
     const newContact = new contactModel({
       email, githubUsername
     });
-    newContact.save((err, newContact) => {
-      if (err) throw err;
-      console.log(newContact);
-     });
+    newContact.save((err, newContact) => { if (err) throw err; });
 
     // Re-rendering page with success message
     res.render("join-us.html", context={
@@ -297,6 +285,7 @@ app.get("/files/:animationFileName", (req, res) => {
 // BACKGROUND APPLICATION FUNCTIONS
 const sendEmail = async (from, to, subject, text) => {
   let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
     service: "gmail",
     auth: {
       user: process.env.NODEMAILER_EMAIL,
@@ -304,12 +293,7 @@ const sendEmail = async (from, to, subject, text) => {
     }
   });
 
-  let info = await transporter.sendMail({
-    from,
-    to,
-    subject,
-    text
-  });
+  let info = await transporter.sendMail({ from, to, subject, text }, (err, info) => { if (err) throw err; });
 }
 
 const storeAnimationRepoData = () => {
@@ -493,36 +477,17 @@ const storeCollaboratorRepoData = () => {
 // Stores all animation file data
 app.get("/app/store-animation-repo-data", (req, res) => {
   storeAnimationRepoData();
-  res.send("done!");
+  res.send("Ano.js animations successfully scraped and stored!");
 });
 
 // Stores all repo contributor data
 app.get("/app/store-contributor-repo-data", (req, res) => {
   storeCollaboratorRepoData();
-  res.send("done!");
+  res.send("Ano.js contributors successfully scraped and stored!");
 });
 
 
-// Slack webhook
-// User joins workspace -> Slackbot sends them a message
-app.post("/app/user-join", (req, res) => {
-  const slackIncomingData = req.body;
-
-  const text = "hi";
-  console.log("user join");
-
-  fetch(slackSendMessageLink + slackIncomingData.user + "&text=" + text, {
-    method: "GET"
-  }).then((response) => {
-    console.log(response);
-  });
-
-  res.status(200).send();
-})
-
-
-// Error routes
-
+// ERROR ROUTES
 // Handle 404
 app.get("*", (req, res) => {
   res.render("404.html", context={ blockElements });
@@ -532,5 +497,5 @@ app.get("*", (req, res) => {
 // Configuring server for listening
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`[+] Node.js server listening on port ${port}`);
+  console.log(`[+] Ano.js server listening on port ${port}`);
 });
