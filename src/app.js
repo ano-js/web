@@ -294,26 +294,35 @@ app.get("/animations/:animationIdName", (req, res) => {
   const animationIdName = req.params.animationIdName;
 
   // Grabbing animation inside of URL extension
-  MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
+  animationModel.findOne({ idName: animationIdName }, (err, animation) => {
     if (err) throw err;
 
-    const animationsCollection = client.db("anojs").collection("animations");
-
-    animationsCollection.find({ idName: animationIdName }).toArray((err, animations) => {
-      if (err) throw err;
-
-      if (animations.length == 0) {  // Animation not found
-        res.send("No such animation exists.");
-      }
-      else {
-        const animation = animations[0];
-        res.render("animation.html", context={ animation, blockElements });
-      }
-    });
-  });
+    if (animation) {
+      res.render("animation.html", context={ animation, blockElements });
+    } else {  // Animation not found
+      res.send("No such animation exists.");
+    }
+  })
+  // MongoClient.connect(mongoUrl, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true
+  // }, (err, client) => {
+  //   if (err) throw err;
+  //
+  //   const animationsCollection = client.db("anojs").collection("animations");
+  //
+  //   animationsCollection.find({ idName: animationIdName }).toArray((err, animations) => {
+  //     if (err) throw err;
+  //
+  //     if (animations.length == 0) {  // Animation not found
+  //       res.send("No such animation exists.");
+  //     }
+  //     else {
+  //       const animation = animations[0];
+  //       res.render("animation.html", context={ animation, blockElements });
+  //     }
+  //   });
+  // });
 });
 
 app.get("/terms-and-conditions", (req, res) => {
@@ -333,6 +342,25 @@ app.get("/credits", (req, res) => {
 app.post("/app/add-use-to-animation", (req, res) => {
   const animationIdName = req.query.animationIdName;
 
+  // console.log(animationIdName);
+  //
+  // animationCounterModel.findOne({ idName: animationIdName }, (err, animation) => {
+  //   console.log(animation)
+  // });
+  //
+  // mongoose.set('useFindAndModify', false);
+  //
+  // // Update animationCounter
+  // animationCounterModel.findOneAndUpdate(
+  //   { idName: animationIdName },
+  //   { $inc: { counter: 1 } },
+  //   { new: true },
+  //   (err, animationCounter) => {
+  //     if (err) throw err;
+  //
+  //     console.log(animationCounter);
+  //   }
+  // );
   MongoClient.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -355,7 +383,7 @@ app.post("/app/add-use-to-animation", (req, res) => {
         }
       }
     })
-  })
+  });
 
   // Add to animation-counters collection
   // fetch(baseFireBaseLink + "animationCounters.json", {
