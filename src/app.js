@@ -564,113 +564,6 @@ const storeAnimationRepoData = () => {
         });
       });
     }
-
-
-    // MongoClient.connect(mongoUrl, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true
-    // }, (err, client) => {
-    //   if (err) throw err;
-    //
-    //   const animationsCollection = client.db("anojs").collection("animations");
-    //   const animationsCounterCollection = client.db("anojs").collection("animationCounters");
-    //
-    //   // Dropping animation collection
-    //   animationsCollection.remove();
-    //
-    //   // Filtering JSON response for useful data
-    //   // Including name, idName, cdnLink, videoLink
-    //   for (animationFile of fileObjects) {
-    //     const animationFileName = animationFile.name;
-    //
-    //     // Getting file contributor
-    //     fetch(baseCdnLink + animationFileName, {
-    //       method: "GET"
-    //     }).then((response) => {
-    //       return response.text();
-    //     }).then((text) => {
-    //       const firstLine = text.split("\n")[0];
-    //       const animationContributor = firstLine.substring(3);
-    //
-    //       // Formatting name
-    //       // Splitting filename on "-"
-    //       const splitFileName = animationFileName.split("-");
-    //
-    //       // Removing "anojs" from filename list
-    //       splitFileName.shift();
-    //
-    //       // Formatting idName
-    //       let idName = splitFileName.join("-");
-    //       idName = idName.substring(0, idName.length - 3)
-    //
-    //       // Pulling formatted name together
-    //       let name = splitFileName.join(" ");
-    //
-    //       // Getting rid of ".js" from last word
-    //       name = name.substring(0, name.length - 3);
-    //
-    //       // Capitalizing all words in filename
-    //       name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
-    //
-    //       // Formatting CDN link
-    //       const cdnLink = baseApiFileLink + animationFileName;
-    //
-    //       // Formatting image filename
-    //       const imageLink = baseImageLink + "anojs-" + idName + ".png";
-    //
-    //       // Getting all custom API parameters
-    //       // Grabbing file contents
-    //       fetch(baseCdnLink + animationFileName, {
-    //         method: "GET"
-    //       }).then((response) => {
-    //         return response.text();
-    //       }).then((animationFileContent) => {
-    //         const regex = /(?<!\w)ANOJS_\w+/g;
-    //         var match;
-    //         var animationParameters = []
-    //         while ((match = regex.exec(animationFileContent)) != null) {
-    //           animationParameters.push(match);
-    //         }
-    //
-    //         let found = false;
-    //         animationsCounterCollection.find().toArray((err, animationCounters) => {
-    //           for (animationCounter of animationCounters) {
-    //             if (animationCounter.idName == idName) {
-    //               found = true;
-    //               animationsCollection.insertOne({
-    //                 name,
-    //                 idName,
-    //                 cdnLink,
-    //                 imageLink,
-    //                 animationContributor,
-    //                 animationParameters,
-    //                 useCounter: animationCounter.counter
-    //               });
-    //               break;
-    //             }
-    //           }
-    //
-    //           if (!found) {
-    //             animationsCounterCollection.insertOne({
-    //               idName,
-    //               counter: 0
-    //             });
-    //
-    //             animationsCollection.insertOne({
-    //               name,
-    //               idName,
-    //               cdnLink,
-    //               imageLink,
-    //               animationContributor,
-    //               animationParameters,
-    //               useCounter: 0
-    //             });
-    //           }
-    //         });
-    //       });
-    //     });
-    //   }
-    // })
   }).catch((err) => {
     console.error(err);
   });
@@ -685,13 +578,11 @@ const storeCollaboratorRepoData = () => {
     let pageNumber = 1;
     let lastResponse = 1;
     for (i = 0; i < 10; i++) {
-      console.log(repoCollaboratorsLink + (i+1).toString())
       await axios.get(repoCollaboratorsLink + (i+1).toString(), {
         headers: {
-          "Authorization": "token " + personalAccessToken
+          "Authorization": "token 27f1b707854794f6d34f6bb3451a7adca228d8fa"
         }
       }).then((response) => {
-        // console.log(response.data);
         for (contributor of response.data) {
           contributors.push(contributor);
         }
@@ -716,50 +607,76 @@ const storeCollaboratorRepoData = () => {
     // Sorting array based on contributionCounter
     contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
 
-    MongoClient.connect(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }, (err, client) => {
-      if (err) throw err;
+    animationModel.find((err, animations) => {
+      // Attaching each animation appropriate to each contributor
+      for (var i = 0; i < contributors.length; i++) {
+        let contributorAnimations = [];
 
-      const db = client.db("anojs");
-
-      // Grabbing all contributor's animatons from MongoDB
-      const animationsCollection = db.collection("animations");
-
-      animationsCollection.find({}).toArray((err, animations) => {
-        if (err) throw err;
-
-        // Attaching each animation appropriate to each contributor
-        for (var i = 0; i < contributors.length; i++) {
-          let contributorAnimations = [];
-
-          for (animation of animations) {
-            if (animation.animationContributor == contributors[i].login) {
-              contributorAnimations.push(animation);
-            }
+        for (animation of animations) {
+          if (animation.animationContributor == contributors[i].login) {
+            contributorAnimations.push(animation);
           }
-
-          // Adding animations to contributor
-          contributors[i].animations = contributorAnimations;
-
-          // Adding number of animations to contributor
-          contributors[i].numberOfAnimations = contributorAnimations.length;
         }
 
-        // Saving all contributors in MongoDB
-        const contributorsCollection = db.collection("contributors");
+        // Adding animations to contributor
+        contributors[i].animations = contributorAnimations;
 
-        // Clearing out collection
-        contributorsCollection.drop((err, deleteConfirmation) => {
-          if (err) throw err;
-          if (deleteConfirmation) console.log("Collection cleared");
-        });
+        // Adding number of animations to contributor
+        contributors[i].numberOfAnimations = contributorAnimations.length;
+      }
 
-        // Inserting all contributors
-        contributorsCollection.insertMany(contributors);
-      });
+      // Saving all contributors in MongoDB
+      // Drop all animations
+      contributorModel.deleteMany({}, (err) => { if (err) throw err; });
+
+      // Inserting all contributors
+      contributorModel.insertMany(contributors, (err, contributors) => { if (err) throw err; })
     });
+
+    // MongoClient.connect(mongoUrl, {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true
+    // }, (err, client) => {
+    //   if (err) throw err;
+    //
+    //   const db = client.db("anojs");
+    //
+    //   // Grabbing all contributor's animatons from MongoDB
+    //   const animationsCollection = db.collection("animations");
+    //
+    //   animationsCollection.find({}).toArray((err, animations) => {
+    //     if (err) throw err;
+    //
+    //     // Attaching each animation appropriate to each contributor
+    //     for (var i = 0; i < contributors.length; i++) {
+    //       let contributorAnimations = [];
+    //
+    //       for (animation of animations) {
+    //         if (animation.animationContributor == contributors[i].login) {
+    //           contributorAnimations.push(animation);
+    //         }
+    //       }
+    //
+    //       // Adding animations to contributor
+    //       contributors[i].animations = contributorAnimations;
+    //
+    //       // Adding number of animations to contributor
+    //       contributors[i].numberOfAnimations = contributorAnimations.length;
+    //     }
+    //
+    //     // Saving all contributors in MongoDB
+    //     const contributorsCollection = db.collection("contributors");
+    //
+    //     // Clearing out collection
+    //     contributorsCollection.drop((err, deleteConfirmation) => {
+    //       if (err) throw err;
+    //       if (deleteConfirmation) console.log("Collection cleared");
+    //     });
+    //
+    //     // Inserting all contributors
+    //     contributorsCollection.insertMany(contributors);
+    //   });
+    // });
   });
 }
 
