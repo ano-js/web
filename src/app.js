@@ -12,10 +12,10 @@ app = express();
 // MongoDB configuration
 const MongoClient = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId;
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/anojs";
 
 // Mongoose configuration
-mongoose.connect(mongoUrl, {useNewUrlParser: true});
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -116,14 +116,17 @@ app.route("/join-us")
     });
 
     // Sending email with Discord invite to the email
-    const text = "Thank you for joining Ano.js as an open source contributor!\n\nOur team uses Discord to communicate and discuss different topics, and we'd love to have you there! Please join the server by clicking on the link below:\n\n" + discordInviteLink;
-    sendEmail("anojs.team@gmail.com", email, "Ano.js Discord Invite", text);
+    // const text = "Thank you for joining Ano.js as an open source contributor!\n\nOur team uses Discord to communicate and discuss different topics, and we'd love to have you there! Please join the server by clicking on the link below:\n\n" + discordInviteLink;
+    // sendEmail("anojs.team@gmail.com", email, "Ano.js Discord Invite", text);
 
     // Saving to database
     const newContact = new contactModel({
       email, githubUsername
     });
-    newContact.save((err, newContact) => { if (err) throw err; });
+    newContact.save((err, newContact) => {
+      if (err) throw err;
+      console.log(newContact);
+     });
     // MongoClient.connect(mongoUrl, {
     //   useNewUrlParser: true,
     //   useUnifiedTopology: true
