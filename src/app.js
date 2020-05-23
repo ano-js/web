@@ -466,111 +466,211 @@ const storeAnimationRepoData = () => {
     const fileObjects = response.data;
     let idNames = [];
 
-    MongoClient.connect(mongoUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }, (err, client) => {
-      if (err) throw err;
+    // Drop all animations
+    animationModel.deleteMany({}, (err) => { if (err) throw err; });
 
-      const animationsCollection = client.db("anojs").collection("animations");
-      const animationsCounterCollection = client.db("anojs").collection("animationCounters");
+    for (animationFile of fileObjects) {
+      const animationFileName = animationFile.name;
 
-      // Dropping animation collection
-      animationsCollection.remove();
+      // Getting file contributor
+      fetch(baseCdnLink + animationFileName, {
+        method: "GET"
+      }).then((response) => {
+        return response.text();
+      }).then((text) => {
+        const firstLine = text.split("\n")[0];
+        const animationContributor = firstLine.substring(3);
 
-      // Filtering JSON response for useful data
-      // Including name, idName, cdnLink, videoLink
-      for (animationFile of fileObjects) {
-        const animationFileName = animationFile.name;
+        // Formatting name
+        // Splitting filename on "-"
+        const splitFileName = animationFileName.split("-");
 
-        // Getting file contributor
+        // Removing "anojs" from filename list
+        splitFileName.shift();
+
+        // Formatting idName
+        let idName = splitFileName.join("-");
+        idName = idName.substring(0, idName.length - 3)
+
+        // Pulling formatted name together
+        let name = splitFileName.join(" ");
+
+        // Getting rid of ".js" from last word
+        name = name.substring(0, name.length - 3);
+
+        // Capitalizing all words in filename
+        name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
+
+        // Formatting CDN link
+        const cdnLink = baseApiFileLink + animationFileName;
+
+        // Formatting image filename
+        const imageLink = baseImageLink + "anojs-" + idName + ".png";
+
+        // Getting all custom API parameters
+        // Grabbing file contents
         fetch(baseCdnLink + animationFileName, {
           method: "GET"
         }).then((response) => {
           return response.text();
-        }).then((text) => {
-          const firstLine = text.split("\n")[0];
-          const animationContributor = firstLine.substring(3);
+        }).then((animationFileContent) => {
+          const regex = /(?<!\w)ANOJS_\w+/g;
+          var match;
+          var animationParameters = []
+          while ((match = regex.exec(animationFileContent)) != null) {
+            animationParameters.push(match);
+          }
 
-          // Formatting name
-          // Splitting filename on "-"
-          const splitFileName = animationFileName.split("-");
+          let found = false;
 
-          // Removing "anojs" from filename list
-          splitFileName.shift();
-
-          // Formatting idName
-          let idName = splitFileName.join("-");
-          idName = idName.substring(0, idName.length - 3)
-
-          // Pulling formatted name together
-          let name = splitFileName.join(" ");
-
-          // Getting rid of ".js" from last word
-          name = name.substring(0, name.length - 3);
-
-          // Capitalizing all words in filename
-          name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
-
-          // Formatting CDN link
-          const cdnLink = baseApiFileLink + animationFileName;
-
-          // Formatting image filename
-          const imageLink = baseImageLink + "anojs-" + idName + ".png";
-
-          // Getting all custom API parameters
-          // Grabbing file contents
-          fetch(baseCdnLink + animationFileName, {
-            method: "GET"
-          }).then((response) => {
-            return response.text();
-          }).then((animationFileContent) => {
-            const regex = /(?<!\w)ANOJS_\w+/g;
-            var match;
-            var animationParameters = []
-            while ((match = regex.exec(animationFileContent)) != null) {
-              animationParameters.push(match);
-            }
-
-            let found = false;
-            animationsCounterCollection.find().toArray((err, animationCounters) => {
-              for (animationCounter of animationCounters) {
-                if (animationCounter.idName == idName) {
-                  found = true;
-                  animationsCollection.insertOne({
-                    name,
-                    idName,
-                    cdnLink,
-                    imageLink,
-                    animationContributor,
-                    animationParameters,
-                    useCounter: animationCounter.counter
-                  });
-                  break;
-                }
-              }
-
-              if (!found) {
-                animationsCounterCollection.insertOne({
-                  idName,
-                  counter: 0
-                });
-
-                animationsCollection.insertOne({
+          animationCounterModel.find((err, animationCounters) => {
+            for (animationCounter of animationCounters) {
+              if (animationCounter.idName == idName) {
+                found = true;
+                const newAnimation = animationModel({
                   name,
                   idName,
                   cdnLink,
                   imageLink,
                   animationContributor,
                   animationParameters,
-                  useCounter: 0
+                  useCounter: animationCounter.counter
                 });
+                newAnimation.save((err, newAnimation) => { if (err) throw err; });
+                break;
               }
-            });
+            }
+
+            if (!found) {
+              console.log("not found");
+              const newAnimationCounter = new animationCounterModel({
+                idName,
+                counter: 0
+              });
+              newAnimationCounter.save((err, newAnimationCounter) => { if (err) throw err; });
+
+              const newAnimation = new animationModel({
+                name,
+                idName,
+                cdnLink,
+                imageLink,
+                animationContributor,
+                animationParameters,
+                useCounter: 0
+              });
+              newAnimation.save((err, newAnimation) => { if (err) throw err; });
+            }
           });
         });
-      }
-    })
+      });
+    }
+
+
+    // MongoClient.connect(mongoUrl, {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true
+    // }, (err, client) => {
+    //   if (err) throw err;
+    //
+    //   const animationsCollection = client.db("anojs").collection("animations");
+    //   const animationsCounterCollection = client.db("anojs").collection("animationCounters");
+    //
+    //   // Dropping animation collection
+    //   animationsCollection.remove();
+    //
+    //   // Filtering JSON response for useful data
+    //   // Including name, idName, cdnLink, videoLink
+    //   for (animationFile of fileObjects) {
+    //     const animationFileName = animationFile.name;
+    //
+    //     // Getting file contributor
+    //     fetch(baseCdnLink + animationFileName, {
+    //       method: "GET"
+    //     }).then((response) => {
+    //       return response.text();
+    //     }).then((text) => {
+    //       const firstLine = text.split("\n")[0];
+    //       const animationContributor = firstLine.substring(3);
+    //
+    //       // Formatting name
+    //       // Splitting filename on "-"
+    //       const splitFileName = animationFileName.split("-");
+    //
+    //       // Removing "anojs" from filename list
+    //       splitFileName.shift();
+    //
+    //       // Formatting idName
+    //       let idName = splitFileName.join("-");
+    //       idName = idName.substring(0, idName.length - 3)
+    //
+    //       // Pulling formatted name together
+    //       let name = splitFileName.join(" ");
+    //
+    //       // Getting rid of ".js" from last word
+    //       name = name.substring(0, name.length - 3);
+    //
+    //       // Capitalizing all words in filename
+    //       name = name.replace(/(^\w{1})|(\s{1}\w{1})/g, match => match.toUpperCase());
+    //
+    //       // Formatting CDN link
+    //       const cdnLink = baseApiFileLink + animationFileName;
+    //
+    //       // Formatting image filename
+    //       const imageLink = baseImageLink + "anojs-" + idName + ".png";
+    //
+    //       // Getting all custom API parameters
+    //       // Grabbing file contents
+    //       fetch(baseCdnLink + animationFileName, {
+    //         method: "GET"
+    //       }).then((response) => {
+    //         return response.text();
+    //       }).then((animationFileContent) => {
+    //         const regex = /(?<!\w)ANOJS_\w+/g;
+    //         var match;
+    //         var animationParameters = []
+    //         while ((match = regex.exec(animationFileContent)) != null) {
+    //           animationParameters.push(match);
+    //         }
+    //
+    //         let found = false;
+    //         animationsCounterCollection.find().toArray((err, animationCounters) => {
+    //           for (animationCounter of animationCounters) {
+    //             if (animationCounter.idName == idName) {
+    //               found = true;
+    //               animationsCollection.insertOne({
+    //                 name,
+    //                 idName,
+    //                 cdnLink,
+    //                 imageLink,
+    //                 animationContributor,
+    //                 animationParameters,
+    //                 useCounter: animationCounter.counter
+    //               });
+    //               break;
+    //             }
+    //           }
+    //
+    //           if (!found) {
+    //             animationsCounterCollection.insertOne({
+    //               idName,
+    //               counter: 0
+    //             });
+    //
+    //             animationsCollection.insertOne({
+    //               name,
+    //               idName,
+    //               cdnLink,
+    //               imageLink,
+    //               animationContributor,
+    //               animationParameters,
+    //               useCounter: 0
+    //             });
+    //           }
+    //         });
+    //       });
+    //     });
+    //   }
+    // })
   }).catch((err) => {
     console.error(err);
   });
