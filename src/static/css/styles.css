@@ -272,6 +272,14 @@ code {
   flex-direction: column;
   align-items: flex-end; }
 
+.cdn-code {
+  background-color: #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px; }
+  .cdn-code #cdnLink {
+    word-wrap: break-word; }
+
 .about-step {
   display: grid;
   grid-template-columns: 10% 1fr;
