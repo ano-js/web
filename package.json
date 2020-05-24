@@ -18,6 +18,7 @@
     "node-fetch": "^2.6.0",
     "node-sass": "^4.13.1",
     "nodemailer": "^6.4.3",
-    "templatesjs": "^2.0.0"
+    "templatesjs": "^2.0.0",
+    "twilio": "^3.43.1"
   }
 }
