@@ -1,0 +1,9 @@
+const fs = require("fs");
+const express = require("express");
+const mongoose = require("mongoose");
+const axios = require("axios");
+const fetch = require("node-fetch");
+const nodemailer = require("nodemailer");
+const { animationModel, animationCounterModel, contactModel, contributorModel } = require('./mongoose');
+const { sendEmail, storeAnimationRepoData, storeContributorRepoData } = require("./background-functions");
+const { personalAccessToken, baseCdnLink, baseApiFileLink, baseImageLink, repoDataLink, repoCollaboratorsLink, repoCollaboratorInviteLink, repoCommitsLink, discordInviteLink } = require("./background-functions");
