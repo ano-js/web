@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Oxanium&display=swap');
 
-$color-light: rgb(60, 60, 60);
-$color-dark: rgb(20, 20, 20);
-
 * {
   margin: 0;
   padding: 0;
@@ -23,10 +20,12 @@ section {
   background-color: $color-dark;
 }
 
-.index-background {
-  background-image: radial-gradient($color-light, $color-dark);
-}
-
 .spacer {
   padding-top: 125px;
+}
+
+.cta-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5px;
 }

@@ -36,20 +36,17 @@
 .main-header {
   font-size: 65px;
   font-weight: bold;
-  text-align: center;
-  font-family: Oxanium; }
+  text-align: center; }
 
 .page-header {
   font-size: 50px;
   font-weight: 1000;
   text-align: center;
-  margin-bottom: 40px;
-  font-family: Oxanium; }
+  margin-bottom: 40px; }
 
 .sub-header {
   font-size: 35px;
-  font-weight: bold;
-  font-family: Oxanium; }
+  font-weight: bold; }
 
 .form-input {
   display: block;
@@ -103,44 +100,42 @@ section {
   padding: 50px 0;
   background-color: #141414; }
 
-.index-background {
-  background-image: radial-gradient(#3c3c3c, #141414); }
-
 .spacer {
   padding-top: 125px; }
 
+.cta-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5px; }
+
 nav {
   z-index: 10; }
-
-.logo {
-  height: 90px; }
-
-.nav-item {
-  margin: 0 2.5px !important; }
+  nav .logo {
+    height: 90px; }
+  nav .nav-item {
+    margin: 0 2.5px !important; }
 
 footer {
   background-color: #181818;
   margin-top: 50px;
   padding: 50px 0; }
+  footer * {
+    color: white; }
+  footer .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 50px; }
+    footer .footer-grid .footer-navigation {
+      list-style: none; }
+      footer .footer-grid .footer-navigation a {
+        color: #eee;
+        font-size: 17.5px; }
+    footer .footer-grid .footer-social-links {
+      grid-gap: 10px !important;
+      grid-template-columns: repeat(auto-fill, 30px) !important; }
   footer .footer-logo {
     width: 85px;
     transform: translateX(-15px); }
-
-footer * {
-  color: white; }
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 50px; }
-  .footer-grid .footer-navigation {
-    list-style: none; }
-    .footer-grid .footer-navigation a {
-      color: #eee;
-      font-size: 17.5px; }
-  .footer-grid .footer-social-links {
-    grid-gap: 10px !important;
-    grid-template-columns: repeat(auto-fill, 30px) !important; }
 
 .center-container {
   position: absolute;
@@ -150,13 +145,11 @@ footer * {
   width: 40%;
   text-align: center; }
 
+.index-background {
+  background-image: radial-gradient(#3c3c3c, #141414); }
+
 .index-animation {
   height: 100vh; }
-
-.cta-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px; }
 
 .features {
   display: grid;

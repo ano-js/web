@@ -3,32 +3,32 @@ footer {
   margin-top: 50px;
   padding: 50px 0;
 
-  & .footer-logo {
-    width: 85px;
-    transform: translateX(-15px);
+  & * {
+    color: white;
   }
-}
 
-footer * {
-  color: white;
-}
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 50px;
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 50px;
+    .footer-navigation {
+      list-style: none;
 
-  .footer-navigation {
-    list-style: none;
+      & a {
+        color: #eee;
+        font-size: 17.5px;
+      }
+    }
 
-    & a {
-      color: #eee;
-      font-size: 17.5px;
+    .footer-social-links {
+      grid-gap: 10px !important;
+      grid-template-columns: repeat(auto-fill, 30px) !important;
     }
   }
 
-  .footer-social-links {
-    grid-gap: 10px !important;
-    grid-template-columns: repeat(auto-fill, 30px) !important;
+  .footer-logo {
+    width: 85px;
+    transform: translateX(-15px);
   }
 }
