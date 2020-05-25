@@ -29,3 +29,10 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  // PROFILE GETS SQUISHED
+  .profile {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+  }
+}

@@ -65,3 +65,24 @@
      }
   }
 }
+
+@media (max-width: 800px) {
+  // HEADER HEIGHT IS TOO TALL
+  .index-animation {
+    height: auto;
+    padding: 100px 0;
+  }
+
+  // HOMEPAGE CONTAINER GETS SQUISHED
+  .center-container {
+    position: static;
+    margin: 50px auto;
+    transform: none;
+    width: 90%;
+  }
+
+  // STEPS GET SQUISHED TOGETHER
+  .steps {
+    grid-gap: 75px !important;
+  }
+}

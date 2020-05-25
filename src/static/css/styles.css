@@ -108,12 +108,26 @@ section {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px; }
 
+@media (max-width: 800px) {
+  .spacer {
+    padding-top: 30px; } }
+
+@media (max-width: 600px) {
+  .cta-buttons {
+    grid-template-columns: repeat(auto-fill, 100%); } }
+
 nav {
   z-index: 10; }
   nav .logo {
     height: 90px; }
   nav .nav-item {
     margin: 0 2.5px !important; }
+
+@media (max-width: 800px) {
+  .github-btn {
+    display: none; }
+  nav {
+    position: static !important; } }
 
 footer {
   background-color: #181818;
@@ -183,6 +197,18 @@ footer {
       margin-left: 50px; }
     .steps .step small {
       line-height: 0; }
+
+@media (max-width: 800px) {
+  .index-animation {
+    height: auto;
+    padding: 100px 0; }
+  .center-container {
+    position: static;
+    margin: 50px auto;
+    transform: none;
+    width: 90%; }
+  .steps {
+    grid-gap: 75px !important; } }
 
 .animations-grid {
   display: grid;
@@ -289,6 +315,12 @@ footer {
   grid-gap: 50px;
   margin-top: 15px; }
 
+@media (max-width: 500px) {
+  .contributor-section {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
+    .contributor-section .contributor-form-container {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
+
 .contact-us-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -303,6 +335,10 @@ footer {
     transition: all .2s; }
     .social-links img:hover {
       transform: scale(1.2); }
+
+@media (max-width: 800px) {
+  .contact-us-container {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
 
 .contributors {
   display: grid;
@@ -329,6 +365,16 @@ footer {
       display: block;
       height: 20px; }
 
+@media (max-width: 800px) {
+  .contributors-header span {
+    display: block; }
+  .contributors-header a {
+    position: static !important; }
+  .contributors {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }
+    .contributors .contributor-avatar {
+      width: 100%; } }
+
 .profile {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -349,56 +395,5 @@ footer {
     height: 20px; }
 
 @media (max-width: 800px) {
-  .spacer {
-    padding-top: 30px; }
-  .steps {
-    grid-gap: 75px !important; }
-  .index-animation {
-    height: auto;
-    padding: 100px 0; }
-  .github-btn {
-    display: none; }
-  nav {
-    position: static !important; }
-  .contributors-header span {
-    display: block; }
-  .contributors-header a {
-    position: static !important; }
-  .center-container {
-    position: static;
-    margin: 50px auto;
-    transform: none;
-    width: 90%; }
-  .contributors {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }
-  .contributor-avatar {
-    width: 100%; }
-  .faq-grid-item {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
-    .faq-grid-item-question {
-      border-right: none; }
-    .faq-grid-item-answer {
-      padding: 0; }
-  .contact-us-container {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
   .profile {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
-
-@media (max-width: 600px) {
-  .cta-buttons {
-    grid-template-columns: repeat(auto-fill, 100%); } }
-
-@media (max-width: 500px) {
-  .footer-navigation {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
-    .footer-navigation li {
-      border-right: none !important; }
-  .about-step {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
-    .about-step span {
-      margin-top: 30px; }
-  .contributor-section {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
-  .contributor-form-container {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }

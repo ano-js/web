@@ -29,3 +29,18 @@ section {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px;
 }
+
+
+@media (max-width: 800px) {
+  // SPACER HAS TOO MUCH SPACE
+  .spacer {
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  // HOMEPAGE CTA BUTTONS GET SQUISHED
+  .cta-buttons {
+    grid-template-columns: repeat(auto-fill, 100%);
+  }
+}

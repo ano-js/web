@@ -9,3 +9,14 @@ nav {
     margin: 0 2.5px !important;
   }
 }
+
+@media (max-width: 800px) {
+  // NAVBAR GETS SQUISHED
+  .github-btn {
+    display: none;
+  }
+
+  nav {
+    position: static !important;
+  }
+}

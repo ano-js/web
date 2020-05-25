@@ -37,3 +37,14 @@
     margin-top: 15px;
   }
 }
+
+@media (max-width: 500px) {
+  // JOIN US GRID GETS SQUISHED
+  .contributor-section {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+
+    .contributor-form-container {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+    }
+  }
+}

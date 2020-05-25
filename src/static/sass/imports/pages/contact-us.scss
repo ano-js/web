@@ -18,3 +18,10 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  // CONTACT US GRID GETS SQUISHED
+  .contact-us-container {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important;
+  }
+}
