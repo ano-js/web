@@ -48,6 +48,18 @@ module.exports = function(app, blockElements) {
         animationFileContent = animationFileContent.replace(match[0], match[1])
       }
 
+      // ADDING USE TO ANIMATION
+      // FORMATTING FILENAME INTO IDNAME
+      let animationIdName = animationFileName.split(".")[0];
+      animationIdName = animationIdName.split("-");
+      animationIdName.shift();
+      animationIdName = animationIdName.join("-");
+
+      // MAKING POST REQUEST TO ADD USE TO ANIMATION
+      fetch(`http://${req.headers.host}/app/add-use-to-animation?animationIdName=${animationIdName}`, {
+        method: "POST"
+      });
+
       res.send(animationFileContent);
     });
   });
