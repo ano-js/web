@@ -56,6 +56,8 @@
                 &lt;div id="anojs-<%= animation.idName %>"&gt;&lt;/div&gt;
                 <br>
                 &lt;script src="<span id="cdnLink"></span>"&gt;&lt;/script&gt;
+
+                <!-- <button id="copy" onclick="copyCode()" data-clipboard-text="hi"><img class="copy-code" src="/static/images/icons/copy.svg" alt=""></button> -->
               </p>
               <strong>NOTE: You may need to modify the code according to your specific application.</strong>
             </div>
@@ -68,7 +70,27 @@
 
     <%- blockElements[2] %>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
   <script>
+    var btn = document.getElementById('btn');
+    var clipboard = new ClipboardJS(btn);
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+
+    function copyCode() {
+      const cdnCode = document.getElementById("cdn-code");
+      console.log(cdnCode);
+      // cdnCode.select();
+      // document.execCommand("copy");
+
+      alertify.success("<%= animation.name %> code copied to clipboard!")
+    }
     function updateCdnLink() {
       var cdnLink = "<%= animation.cdnLink %>?";
 

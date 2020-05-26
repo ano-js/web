@@ -284,12 +284,20 @@ footer {
   align-items: flex-end; }
 
 .cdn-code {
+  position: relative;
   background-color: #ccc;
   border-radius: 5px;
   padding: 10px;
   font-size: 15px; }
+  .cdn-code #cdn-code {
+    display: none; }
   .cdn-code #cdnLink {
     word-wrap: break-word; }
+  .cdn-code .copy-code {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px; }
 
 .contributor-section-left-header {
   font-size: 30px; }
