@@ -180,6 +180,35 @@ footer {
     .features .feature small {
       line-height: 0; }
 
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-gap: 25px; }
+  .examples-grid img {
+    border-radius: 4px;
+    box-sizing: 0 5px 25px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    transition: all .2s; }
+    .examples-grid img:hover {
+      transform: scale(1.05); }
+
+.testimonials .testimonial {
+  position: relative;
+  background-color: #3c3c3c;
+  border: 1px solid #505050;
+  padding: 25px;
+  margin: 0 50px;
+  margin-bottom: 50px;
+  border-radius: 4px; }
+
+.testimonial-quote {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  font-size: 225px;
+  opacity: 0.2;
+  font-weight: bold; }
+
 .steps {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -207,6 +236,9 @@ footer {
     margin: 50px auto;
     transform: none;
     width: 90%; }
+  .testimonial {
+    margin: 0 !important;
+    margin-bottom: 50px !important; }
   .steps {
     grid-gap: 75px !important; } }
 
