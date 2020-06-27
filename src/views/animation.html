@@ -70,27 +70,7 @@
 
     <%- blockElements[2] %>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
   <script>
-    var btn = document.getElementById('btn');
-    var clipboard = new ClipboardJS(btn);
-
-    clipboard.on('success', function(e) {
-        console.log(e);
-    });
-
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-
-    function copyCode() {
-      const cdnCode = document.getElementById("cdn-code");
-      console.log(cdnCode);
-      // cdnCode.select();
-      // document.execCommand("copy");
-
-      alertify.success("<%= animation.name %> code copied to clipboard!")
-    }
     function updateCdnLink() {
       var cdnLink = "<%= animation.cdnLink %>?";
 
