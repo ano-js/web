@@ -15,7 +15,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/anojs";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'connection error:')); 
 
 // Setting JSON parsing methods for POST request data
 app.use(express.urlencoded()); // HTML forms
