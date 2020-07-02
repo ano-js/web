@@ -1,6 +1,6 @@
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/launch-tech-llc/anojs@latest/animation-files/";
-const baseApiFileLink = "http://anojs.com/files/";
+const baseApiFileLink = "https://anojs.com/files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/launch-tech-llc/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/launch-tech-llc/anojs/contents/animation-files";
 const repoCollaboratorsLink = "https://api.github.com/repos/launch-tech-llc/anojs/collaborators?page=";
