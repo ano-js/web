@@ -15,7 +15,7 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/anojs";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:')); 
+db.on('error', console.error.bind(console, 'connection error:'));
 
 // Setting JSON parsing methods for POST request data
 app.use(express.urlencoded()); // HTML forms
@@ -54,6 +54,10 @@ app.get("/app/store-animation-repo-data", (req, res) => {
 app.get("/app/store-contributor-repo-data", (req, res) => {
   storeContributorRepoData();
   res.send("Ano.js contributors successfully scraped and stored!");
+});
+
+app.get("/ads.txt", (req, res) => {
+  res.send("google.com, pub-3207944687013200, DIRECT, f08c47fec0942fa0");
 });
 
 
