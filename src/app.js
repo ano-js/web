@@ -57,7 +57,7 @@ app.get("/app/store-contributor-repo-data", (req, res) => {
 });
 
 app.get("/ads.txt", (req, res) => {
-  res.send("google.com, pub-3207944687013200, DIRECT, f08c47fec0942fa0");
+  res.sendFile(__dirname + "/static/ads.txt");
 });
 
 
