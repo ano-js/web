@@ -6,9 +6,10 @@
     <title>Ano.js - Interactive Web Animation Made Easy</title>
     <%- include("blocks/imports.html") %>
   </head>
-  <body style="background-image: none; background-color: rgb(20, 20, 20);">
+  <body>
     <%- include("blocks/navbar.html") %>
-    <div class="index-background" style="padding: 0; position: relative;">
+
+    <div class="container" style="position: relative;">
       <div class="index-animation" id="anojs-growing-circles-gray">
         <div class="center-container">
           <h1 class="main-header">Web Animation Made Easy</h1>
@@ -20,146 +21,20 @@
       </div>
     </div>
 
-    <section class="why">
-      <div class="container">
-        <h1 class="page-header">Why Ano.js?</h1>
-        <div class="features">
-          <div class="feature">
-            <img src="/static/images/icons/no.svg" alt="">
-            <div>
-              <h3>No coding!</h3>
-              <small>
-                We've specifically designed Ano.js so that you can have the web animation you want without coding a single thing! We've made a lot of animations to choose from, and made them all customizable so you can have the animation you want!
-              </small>
-            </div>
-          </div>
-          <div class="feature">
-            <img src="/static/images/icons/easy.svg" alt="">
-            <div>
-              <h3>Easy to use!</h3>
-              <small>
-                Copy-paste. No coding, not 1 million steps. Just find the animation that you want, copy the code we provide you, and paste it in wherever you want in your HTML file! It's as simple as that!
-              </small>
-            </div>
-          </div>
-          <div class="feature">
-            <img src="/static/images/icons/opensource.svg" alt="">
-            <div>
-              <h3>Open Source!</h3>
-              <small>
-                We want everyone to be involved with Ano.js! Whether you are a contributor, on staff, or a user, we want everything we do to be open! So we've make all of our code, processes, PRs, and issues open for anyone to see!
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="examples">
-      <div class="container">
-        <h1 class="page-header">Ano.js Examples</h1>
-        <div class="examples-grid">
-          <img src="/static/images/example1.png" alt="">
-          <a href="https://fredericklim.netlify.app/" target="_blank">
-            <img src="/static/images/example2.png" alt="">
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="testimonials">
-      <div class="container">
-        <h1 class="page-header">Testimonials</h1>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="testimonial">
-                <h3 class="testimonial-quote">&ldquo;</h3>
-                <p class="mt-4">
-                  I have always struggled to create a clean portfolio. It was hard to design my vision because I didn't have the web development skills necessary. Ano.js helped me give that extra edge to my portfolio. With their wide selection of elegantly designed JavaScript animations, it was easy to create the aesthetic I wanted. On top of that, customizing their animations to fit the needs of my website was a breeze. I enjoyed using Ano.js and would definitely use it again!
-                </p>
-                <div class="text-right">
-                  Michael Rejo, Web Developer
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="testimonial">
-                <h3 class="testimonial-quote">&ldquo;</h3>
-                <p class="mt-4">
-                  Ano.js is super convenient for anyone who wants to add a pop of excitement to their website with almost no effort at all. It's literally copy-pasting code, and that's all I needed to do to make my website stand out from all of my peers!
-                </p>
-                <div class="text-right">
-                  Frederick Lim, DevOps Engineer & ML Enthusiast
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="testimonial">
-                <h3 class="testimonial-quote">&ldquo;</h3>
-                <p class="mt-4">
-                  I absolutely love the variety and simplicity of Ano.js, as well as their core values. The fact that Ano.js is open source is so nice in helping me to modify each animation to exactly how I want it. It's a lot more helpful for those who don't know how to code!
-                </p>
-                <div class="text-right">
-                  Jessica Lin, Entrepreneur & Writer
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="how">
-      <div class="container">
-        <h1 class="page-header">How to use Ano.js</h1>
-        <div class="steps">
-          <div class="step">
-            <span class="step-number">1</span>
-            <div class="step-content">
-              <h3>Find an animation!</h3>
-              <small>
-                Look through our large library of animations and find the one you like!
-              </small>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-number">2</span>
-              <div class="step-content">
-                <h3>Customize it!</h3>
-                <small>
-                  Pick the different colors you want to be used in the animation! Remember, these colors can always be changed.
-                </small>
-              </div>
-          </div>
-          <div class="step">
-            <span class="step-number">3</span>
-              <div class="step-content">
-                <h3>Integrate it!</h3>
-                <small>
-                  Simply click the "Use this Animation!" button and copy the code given! Then paste that code wherever you want in your HTML file and you're done!
-                </small>
-              </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <%- include("blocks/footer.html") %>
 
+    <!-- <script src="https://cdn.jsdelivr.net/gh/calixo888/anojs-animations@master/animation-files/anojs-growing-circles-gray.js" charset="utf-8"></script> -->
     <script>
-      if (screen.width >= 800) {
-        var body = document.getElementsByTagName('body')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = 'https://cdn.jsdelivr.net/gh/calixo888/anojs-animations@master/animation-files/anojs-growing-circles-gray.js';
-        body.appendChild(script);
+      function onResize() {
+        if (window.innerWidth >= 800) {
+          document.querySelector("#anojs-growing-circles-gray-canvas").style.display = "block";
+        } else {
+          document.querySelector("#anojs-growing-circles-gray-canvas").style.display = "none";
+        }
       }
+
+      onResize();
+      window.onresize = onResize;
     </script>
   </body>
 </html>

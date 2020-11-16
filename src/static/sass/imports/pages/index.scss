@@ -3,134 +3,30 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40%;
+  width: 600px;
   text-align: center;
-}
-
-.index-background {
-  background-image: radial-gradient($color-light, $color-dark);
 }
 
 .index-animation {
   height: 100vh;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  grid-gap: 50px;
-
-  .feature {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    grid-gap: 15px;
-
-     * {
-       color: white;
-     }
-
-     img {
-       width: 100%;
-     }
-
-     small {
-       line-height: 0;
-     }
-  }
-}
-
-.examples {
-
-  &-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    grid-gap: 25px;
-
-    & img {
-      border-radius: 4px;
-      box-sizing: 0 5px 25px rgba(0,0,0,.3);
-      width: 100%;
-      transition: all .2s;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-  }
-}
-
-.testimonials {
-
-  .testimonial {
-    position: relative;
-
-    background-color: $color-light;
-    border: 1px solid rgb(80, 80, 80);
-    padding: 25px;
-    margin: 0 50px;
-    margin-bottom: 50px;
-    border-radius: 4px
-  }
-}
-
-.testimonial-quote {
-  position: absolute;
-  top: -10px;
-  left: 15px;
-  font-size: 225px;
-  opacity: 0.2;
-  font-weight: bold;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 30px;
-
-  .step {
-    position: relative;
-
-     &-number {
-       position: absolute;
-       top: 30%;
-       left: 0;
-       font-size: 225px;
-       opacity: 0.2;
-       font-weight: bold;
-     }
-
-     &-content {
-       margin-left: 50px;
-     }
-
-     small {
-       line-height: 0;
-     }
-  }
-}
-
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   // HEADER HEIGHT IS TOO TALL
   .index-animation {
     height: auto;
-    padding: 100px 0;
   }
 
   // HOMEPAGE CONTAINER GETS SQUISHED
   .center-container {
     position: static;
-    margin: 50px auto;
+    margin: 25px auto;
     transform: none;
     width: 90%;
-  }
 
-  .testimonial {
-    margin: 0 !important;
-    margin-bottom: 50px !important;
-  }
-
-  // STEPS GET SQUISHED TOGETHER
-  .steps {
-    grid-gap: 75px !important;
+    .main-header {
+      font-size: 55px;
+      margin-bottom: 25px;
+    }
   }
 }
