@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="description" content="Check out some of our open source web animations made in HTML, CSS, and Javascript by Anojs. These animations are completely free, courtesy of Ano.js, hosted on GitHub, and they have the source code along with it! Copy and paste web animations in your website for free!">
     <title>Ano.js - Free Web Animations with Source Code</title>
-    <%- blockElements[0] %>
+    <%- include("blocks/imports.html") %>
   </head>
   <body>
-    <%- blockElements[1] %>
+    <%- include("blocks/navbar.html") %>
     <div class="spacer"></div>
 
     <div class="container">
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <%- blockElements[2] %>
+    <%- include("blocks/footer.html") %>
   </body>
 
   <script>
