@@ -27,23 +27,11 @@ app.set('views', __dirname + '/views');
 app.use('/static', express.static(__dirname + '/static'))
 app.engine('html', require('ejs').renderFile);
 
-// INITALIZING ALL BLOCK ELEMENTS
-let blockElementsNames = ["imports", "navbar", "footer"];
-let blockElements = [];
-for (var i = 0; i < blockElementsNames.length; i++) {
-  fs.readFile(__dirname + `/blocks/${blockElementsNames[i]}.html`, "utf-8", (err, data) => {
-    if (err) throw err;
-
-    blockElements.push(data);
-  });
-}
-
-
 // URL ROUTES
-require("./routes/general")(app, blockElements);
-require("./routes/animations")(app, blockElements);
-require("./routes/legal")(app, blockElements);
-require("./routes/api")(app, blockElements);
+require("./routes/general")(app);
+require("./routes/animations")(app);
+require("./routes/legal")(app);
+require("./routes/api")(app);
 
 // BACKGROUND APPLICATION TASKS
 app.get("/app/store-animation-repo-data", (req, res) => {

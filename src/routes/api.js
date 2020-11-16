@@ -8,7 +8,7 @@ const { animationModel, animationCounterModel, contactModel, contributorModel } 
 const { sendEmail, storeAnimationRepoData, storeContributorRepoData } = require("../background-functions");
 const { personalAccessToken, baseCdnLink, baseApiFileLink, baseImageLink, repoDataLink, repoCollaboratorsLink, repoCollaboratorInviteLink, repoCommitsLink, discordInviteLink } = require("../variables");
 
-module.exports = function(app, blockElements) {
+module.exports = function(app) {
   // API VIEWS
   app.post("/app/add-use-to-animation", (req, res) => {
     const animationIdName = req.query.animationIdName;

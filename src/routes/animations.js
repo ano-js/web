@@ -8,7 +8,7 @@ const { animationModel, animationCounterModel, contactModel, contributorModel } 
 const { sendEmail, storeAnimationRepoData, storeContributorRepoData } = require("../background-functions");
 const { personalAccessToken, baseCdnLink, baseApiFileLink, baseImageLink, repoDataLink, repoCollaboratorsLink, repoCollaboratorInviteLink, repoCommitsLink, discordInviteLink } = require("../variables");
 
-module.exports = function(app, blockElements) {
+module.exports = function(app) {
 
   app.get("/animations", (req, res) => {
     // Grabbing all animation repo data from MongoDB
@@ -18,10 +18,7 @@ module.exports = function(app, blockElements) {
       // Sorting animations based on uses
       animations.sort((a, b) => (a.useCounter > b.useCounter) ? -1 : 1);
 
-      res.render("animations.html", context={
-        blockElements,
-        animations
-      });
+      res.render("animations.html", context={ animations });
     });
   });
 
@@ -33,7 +30,7 @@ module.exports = function(app, blockElements) {
       if (err) throw err;
 
       if (animation) {
-        res.render("animation.html", context={ animation, blockElements });
+        res.render("animation.html", context={ animation });
       } else {  // Animation not found
         res.send("No such animation exists.");
       }

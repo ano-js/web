@@ -8,18 +8,19 @@ const { animationModel, animationCounterModel, contactModel, contributorModel } 
 const { sendEmail, storeAnimationRepoData, storeContributorRepoData } = require("../background-functions");
 const { personalAccessToken, baseCdnLink, baseApiFileLink, baseImageLink, repoDataLink, repoCollaboratorsLink, repoCollaboratorInviteLink, repoCommitsLink, discordInviteLink } = require("../variables");
 
-module.exports = function(app, blockElements) {
+module.exports = function(app) {
 
   app.get("/", (req, res) => {
-    res.render("index.html", context={ blockElements });
+    res.render("index.html");
   });
+
+  app.get("/faq", (req, res) => {
+    res.render("faq.html");
+  })
 
   app.route("/join-us")
     .get((req, res) => {
-      res.render("join-us.html", context={
-        blockElements,
-        alert: undefined
-      });
+      res.render("join-us.html", context={ alert: undefined });
     })
     .post((req, res) => {
       const formData = req.body;
@@ -48,7 +49,6 @@ module.exports = function(app, blockElements) {
 
       // Re-rendering page with success message
       res.render("join-us.html", context={
-        blockElements,
         alert: `Check your email! Discord and GitHub invites sent to ${githubUsername}!`
       });
     });
@@ -58,7 +58,7 @@ module.exports = function(app, blockElements) {
     contributorModel.find((err, contributors) => {
       if (err) throw err;
 
-      res.render("our-team.html", context={ blockElements, contributors });
+      res.render("our-team.html", context={ contributors });
     });
   });
 
@@ -70,7 +70,7 @@ module.exports = function(app, blockElements) {
       if (err) throw err;
 
       if (contributor) {
-        res.render("contributor.html", context={ blockElements, contributor });
+        res.render("contributor.html", context={ contributor });
       }
       else { // Contributor not found
         res.send("Contributor does not exist.");
@@ -80,7 +80,7 @@ module.exports = function(app, blockElements) {
 
   app.route("/contact-us")
     .get((req, res) => {
-      res.render("contact-us.html", context={ blockElements, alert: undefined });
+      res.render("contact-us.html", context={ alert: undefined });
     })
     .post(async (req, res) => {
       const formData = req.body;
@@ -101,6 +101,6 @@ module.exports = function(app, blockElements) {
         text: formData.message
       });
 
-      res.render("contact-us.html", context={ blockElements, alert: "Email successfully sent!" });
+      res.render("contact-us.html", context={ alert: "Email successfully sent!" });
     });
 }

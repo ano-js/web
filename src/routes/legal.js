@@ -9,14 +9,14 @@ module.exports = function(app, blockElements) {
   });
 
   app.get("/terms-and-conditions", (req, res) => {
-    res.render("terms_and_conditions.html", context={ blockElements });
+    res.render("terms_and_conditions.html");
   });
 
   app.get("/privacy-policy", (req, res) => {
-    res.render("privacy_policy.html", context={ blockElements });
+    res.render("privacy_policy.html");
   });
 
   app.get("/credits", (req, res) => {
-    res.render("credits.html", context={ blockElements });
+    res.render("credits.html");
   });
 }
