@@ -61,46 +61,4 @@ module.exports = function(app) {
       res.render("our-team.html", context={ contributors });
     });
   });
-
-  app.get("/our-team/:username", (req, res) => {
-    const githubUsername = req.params.username;
-
-    // Getting specific contributor
-    contributorModel.findOne({ login: githubUsername }, (err, contributor) => {
-      if (err) throw err;
-
-      if (contributor) {
-        res.render("contributor.html", context={ contributor });
-      }
-      else { // Contributor not found
-        res.send("Contributor does not exist.");
-      }
-    });
-  });
-
-  app.route("/contact-us")
-    .get((req, res) => {
-      res.render("contact-us.html", context={ alert: undefined });
-    })
-    .post(async (req, res) => {
-      const formData = req.body;
-
-      // Sending email
-      let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.NODEMAILER_EMAIL,
-          pass: process.env.NODEMAILER_PASS
-        }
-      });
-
-      let info = await transporter.sendMail({
-        from: formData.email,
-        to: "anojs@launchtechllc.com",
-        subject: "Ano.js - Contact us from " + formData.name,
-        text: formData.message
-      });
-
-      res.render("contact-us.html", context={ alert: "Email successfully sent!" });
-    });
 }
