@@ -12,6 +12,29 @@ footer {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 50px;
 
+    .twitter {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 17.5px;
+      margin: 10px 0;
+      transition: all .2s;
+
+      & a {
+        color: white;
+
+        &:hover {
+          color: #ddd;
+          text-decoration: none;
+        }
+
+        & img {
+          width: 30px;
+          margin-right: 5px;
+        }
+      }
+    }
+
     .footer-navigation {
       list-style: none;
 

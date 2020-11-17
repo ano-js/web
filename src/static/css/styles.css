@@ -139,6 +139,21 @@ footer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 50px; }
+    footer .footer-grid .twitter {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 17.5px;
+      margin: 10px 0;
+      transition: all .2s; }
+      footer .footer-grid .twitter a {
+        color: white; }
+        footer .footer-grid .twitter a:hover {
+          color: #ddd;
+          text-decoration: none; }
+        footer .footer-grid .twitter a img {
+          width: 30px;
+          margin-right: 5px; }
     footer .footer-grid .footer-navigation {
       list-style: none; }
       footer .footer-grid .footer-navigation a {
