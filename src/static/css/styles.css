@@ -78,7 +78,8 @@ strong {
 .github-btn {
   position: absolute;
   top: 35px;
-  right: 40px; }
+  right: 40px;
+  z-index: 99999; }
   .github-btn img {
     width: 30px; }
 
@@ -291,25 +292,6 @@ footer {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; }
     .contributor-section .contributor-form-container {
       grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
-
-.contact-us-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 50px; }
-
-.social-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 40px);
-  grid-gap: 20px; }
-  .social-links img {
-    width: 100%;
-    transition: all .2s; }
-    .social-links img:hover {
-      transform: scale(1.2); }
-
-@media (max-width: 768px) {
-  .contact-us-container {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)) !important; } }
 
 .contributors {
   display: grid;
