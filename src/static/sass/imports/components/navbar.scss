@@ -1,4 +1,5 @@
 nav {
+  height: 115px;
   z-index: 10;
 
   .logo {
@@ -7,7 +8,12 @@ nav {
 
   .nav-item {
     margin: 0 2.5px !important;
+    font-size: 20px;
   }
+}
+
+.nav-placeholder {
+  height: 115px;
 }
 
 @media (max-width: 768px) {
@@ -18,5 +24,9 @@ nav {
 
   nav {
     position: static !important;
+  }
+
+  .nav-placeholder {
+    display: none;
   }
 }

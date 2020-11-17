@@ -1,0 +1,20 @@
+.form-input {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  transition: all .2s;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+
+  &:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, .3);
+  }
+
+  &::placeholder {
+    color: #ddd;
+  }
+}

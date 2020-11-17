@@ -1,0 +1,47 @@
+.github-btn {
+  position: absolute;
+  top: 35px;
+  right: 40px;
+  z-index: 99999;
+
+  & img {
+    width: 30px;
+  }
+}
+
+.primary-cta-button {
+  background-color: white;
+  color: $color-dark !important;
+  cursor: pointer;
+  border: 2px solid white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: all .2s;
+  font-size: 20px;
+  text-align: center;
+}
+
+.primary-cta-button:hover {
+  background-color: #ccc;
+  border: 2px solid #ccc;
+  color: $color-dark;
+  text-decoration: none;
+}
+
+.ghost-cta-button {
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 20px;
+  transition: all .2s;
+  text-align: center;
+}
+
+.ghost-cta-button:hover {
+  background-color: white;
+  color: $color-dark;
+  text-decoration: none;
+}

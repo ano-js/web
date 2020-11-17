@@ -1,14 +1,18 @@
 // GLOBAL IMPORTS
 @import "imports/base";
 
-// BLOCK IMPORTS
-@import "imports/blocks/navbar";
-@import "imports/blocks/footer";
+// COMPONENTS
+@import "imports/components/containers";
+@import "imports/components/headers";
+@import "imports/components/buttons";
+@import "imports/components/inputs";
+@import "imports/components/navbar";
+@import "imports/components/footer";
 
-// PAGE STYLE IMPORTS
+// PAGES
 @import "imports/pages/index";
 @import "imports/pages/animations";
 @import "imports/pages/animation";
 @import "imports/pages/join-us";
 @import "imports/pages/our-team";
-@import "imports/pages/contributor";
+@import "imports/pages/faq";
