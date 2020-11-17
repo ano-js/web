@@ -1,40 +1,30 @@
 .contributor-section {
-
-  &-left {
-    &-header {
-      font-size: 30px;
-    }
-
-    &-benefits, &-qualifications {
-      margin-left: 30px;
-
-      &-item {
-        font-size: 20px;
-        color: white;
-
-        &-sub {
-          margin-left: 30px;
-          font-size: 17px;
-        }
-      }
-    }
-  }
-
-  &-right {
-    &-header {
-      font-size: 30px;
-    }
-
-    & p {
-      font-size: 17.5px;
-    }
-  }
-
   .contributor-form-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 50px;
     margin-top: 15px;
+  }
+
+  .checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0;
+
+    & input {
+      margin-right: 5px;
+      transform: translateY(-1px);
+    }
+  }
+
+  & a {
+    color: #ccc !important;
+    text-decoration: underline !important;
+
+    &:hover {
+      color: #eee !important;
+    }
   }
 }
 

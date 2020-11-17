@@ -1,8 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Oxanium:400,700&display=swap");
-p, li, div {
-  color: #ddd;
-  font-size: 17.5px; }
-
 * {
   margin: 0;
   padding: 0;
@@ -19,6 +15,10 @@ body {
 section {
   padding: 50px 0;
   background-color: #141414; }
+
+p, li, div {
+  color: #ddd;
+  font-size: 17.5px; }
 
 .cta-buttons {
   display: grid;
@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 15px; }
   .form-input:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.3); }
+    border-color: #ccc; }
   .form-input::placeholder {
     color: #ddd; }
 
@@ -283,29 +283,26 @@ footer {
     right: 10px;
     width: 20px; }
 
-.contributor-section-left-header {
-  font-size: 30px; }
-
-.contributor-section-left-benefits, .contributor-section-left-qualifications {
-  margin-left: 30px; }
-  .contributor-section-left-benefits-item, .contributor-section-left-qualifications-item {
-    font-size: 20px;
-    color: white; }
-    .contributor-section-left-benefits-item-sub, .contributor-section-left-qualifications-item-sub {
-      margin-left: 30px;
-      font-size: 17px; }
-
-.contributor-section-right-header {
-  font-size: 30px; }
-
-.contributor-section-right p {
-  font-size: 17.5px; }
-
 .contributor-section .contributor-form-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 50px;
   margin-top: 15px; }
+
+.contributor-section .checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 0; }
+  .contributor-section .checkbox input {
+    margin-right: 5px;
+    transform: translateY(-1px); }
+
+.contributor-section a {
+  color: #ccc !important;
+  text-decoration: underline !important; }
+  .contributor-section a:hover {
+    color: #eee !important; }
 
 @media (max-width: 500px) {
   .contributor-section {

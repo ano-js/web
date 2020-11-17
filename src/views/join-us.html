@@ -9,34 +9,38 @@
   <body>
     <%- include("blocks/navbar.html") %>
 
-
     <div class="page-container container">
       <h1 class="header-secondary">Join Us!</h1>
-      <h3 class="header-fourth">Become an Open Source Contributor</h3>
+
       <div class="contributor-section">
         <div class="contributor-form-container">
           <div>
+            <h3 class="header-fourth">Be a Contributor</h3>
             <form method="post">
               <input class="form-input" type="email" name="email" placeholder="Email" required>
               <input class="form-input mb-0" type="text" name="githubUsername" placeholder="GitHub Username" required>
-              <input type="checkbox" required> <small class="d-inline">I have read the Ano.js <a href="terms-and-conditions">Terms</a> and <a href="/privacy-policy">Privacy Policy</a>.</small>
-              <br>
+
+              <div class="checkbox">
+                <input type="checkbox" required> <small class="d-inline">I have read the Ano.js <a href="terms-and-conditions">Terms</a> and <a href="/privacy-policy">Privacy Policy</a>.</small>
+              </div>
+
               <input class="primary-cta-button" type="submit" value="Join the Team!">
             </form>
-            <small><button class="btn btn-link p-0" onclick="document.getElementById('benefits').scrollIntoView({behavior: 'smooth'});">Why should I be a contributor?</button></small>
           </div>
           <div>
-            <p>
-              You will receive an invitation in your email to become a contributor on the <a target="_blank" href="https://github.com/anojs/anojs">Ano.js GitHub repository</a>. You will also receive an email with an invite to join the <a href="https://discord.gg/xkdRm7E">Ano.js Discord Server</a>
-            </p>
-            <p>
-              If you don't get a GitHub invite, double check that you have spelled your GitHub username correctly.
-            </p>
-            <p>
-              <strong>NOTE: Make sure you're logged in before you accept the GitHub invitation.</strong>
-              <br>
-              <small>If you are not logged in before accepting, you will get a 404 error</small>
-            </p>
+            <h3 class="header-fifth">Steps</h3>
+            <ol style="padding-left: 30px;">
+              <li>Enter your email and GitHub username</li>
+              <li>Receive a <a href="https://github.com/calixo888/anojs" target="_blank">GitHub repository</a> invite</li>
+              <li>Receive an email with a <a href="https://discord.gg/xkdRm7E" target="_blank">Discord</a> invite</li>
+              <li>Start contributing!</li>
+            </ol>
+
+            <h3 class="header-fifth mt-4">FAQs</h3>
+            <ul style="padding-left: 30px;">
+              <li><a href="https://github.com/calixo888/anojs/blob/master/README.md#what-do-anojs-contributors-do" target="_blank">What do contributors do?</a></li>
+              <li><a href="https://github.com/calixo888/anojs/blob/master/README.md#why-should-you-be-a-contributor" target="_blank">Why should I be a contributor?</a></li>
+            </ul>
           </div>
         </div>
       </div>
