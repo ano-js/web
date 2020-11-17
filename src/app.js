@@ -44,14 +44,10 @@ app.get("/app/store-contributor-repo-data", (req, res) => {
   res.send("Ano.js contributors successfully scraped and stored!");
 });
 
-app.get("/ads.txt", (req, res) => {
-  res.sendFile(__dirname + "/static/ads.txt");
-});
-
 
 // ERROR ROUTES
 app.get("*", (req, res) => {
-  res.render("404.html", context={ blockElements });
+  res.render("404.html");
 });
 
 

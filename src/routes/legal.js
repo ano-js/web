@@ -1,19 +1,42 @@
-module.exports = function(app, blockElements) {
+const fs = require("fs");
+
+module.exports = function(app) {
 
   app.use("/robots.txt", (req, res, next) => {
-    res.sendFile(__dirname + "/robots.txt");
+    const filePath = __dirname + "/../static/files/robots.txt";
+    fs.readFile(filePath, (err, data) => {
+      res.send(data);
+    });
   });
 
   app.use("/sitemap.xml", (req, res, next) => {
-    res.sendFile(__dirname + "/sitemap.xml");
+    const filePath = __dirname + "/../static/files/sitemap.xml";
+    fs.readFile(filePath, (err, data) => {
+      res.send(data);
+    });
   });
 
-  app.get("/terms-and-conditions", (req, res) => {
-    res.render("terms_and_conditions.html");
+  app.get("/ads.txt", (req, res) => {
+    const filePath = __dirname + "/../static/files/ads.txt";
+    fs.readFile(filePath, (err, data) => {
+      res.send(data);
+    });
   });
 
-  app.get("/privacy-policy", (req, res) => {
-    res.render("privacy_policy.html");
+  app.get("/legal/terms-of-use.pdf", (req, res) => {
+    const filePath = __dirname + "/../static/files/terms-of-use.pdf";
+    fs.readFile(filePath, (err, data) => {
+      res.contentType("application/pdf");
+      res.send(data);
+    });
+  });
+
+  app.get("/legal/privacy-policy.pdf", (req, res) => {
+    const filePath = __dirname + "/../static/files/privacy-policy.pdf";
+    fs.readFile(filePath, (err, data) => {
+      res.contentType("application/pdf");
+      res.send(data);
+    });
   });
 
   app.get("/credits", (req, res) => {
