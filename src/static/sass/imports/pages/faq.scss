@@ -1,0 +1,19 @@
+.faqs {
+  max-width: 750px;
+  margin: 0 auto;
+
+  .faq {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+
+  & a {
+    color: #ccc !important;
+    text-decoration: underline !important;
+
+    &:hover {
+      color: #eee !important;
+    }
+  }
+}

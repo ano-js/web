@@ -344,3 +344,14 @@ footer {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }
     .contributors .contributor-avatar {
       width: 100%; } }
+
+.faqs {
+  max-width: 750px;
+  margin: 0 auto; }
+  .faqs .faq:not(:last-child) {
+    margin-bottom: 30px; }
+  .faqs a {
+    color: #ccc !important;
+    text-decoration: underline !important; }
+    .faqs a:hover {
+      color: #eee !important; }
