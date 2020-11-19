@@ -30,7 +30,7 @@
         <a href="/join-us" class="primary-cta-button" style="position: absolute; right: 0;">Become a Contributor!</a>
       </h3>
       <div class="contributors">
-        <% for (contributor of contributors.slice(3)) { %>
+        <% for (contributor of contributors) { %>
           <div class="contributor">
             <img class="contributor-avatar" src="<%= contributor.avatar_url %>" alt="Anojs Open Source Contributor's Avatar'">
             <a href="/our-team/<%= contributor.login %>">

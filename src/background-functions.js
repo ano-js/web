@@ -5,7 +5,7 @@ const axios = require("axios");
 const fetch = require("node-fetch");
 const nodemailer = require("nodemailer");
 const { animationModel, animationCounterModel, contactModel, contributorModel } = require('./mongoose');
-const { personalAccessToken, baseCdnLink, baseApiFileLink, baseImageLink, repoDataLink, repoCollaboratorsLink, repoCollaboratorInviteLink, repoCommitsLink, discordInviteLink } = require("./variables");
+const { personalAccessToken, baseCdnLink, baseApiFileLink, baseImageLink, repoDataLink, repoContributorsLink, repoCollaboratorsLink, repoCollaboratorInviteLink, repoCommitsLink, discordInviteLink } = require("./variables");
 
 const sendEmail = async (from, to, subject, text) => {
   let transporter = nodemailer.createTransport({
@@ -103,7 +103,6 @@ const storeAnimationRepoData = () => {
             }
 
             if (!found) {
-              console.log("not found");
               const newAnimationCounter = new animationCounterModel({
                 idName,
                 counter: 0
@@ -130,70 +129,12 @@ const storeAnimationRepoData = () => {
   });
 }
 
-const storeContributorRepoData = () => {
-  // Getting all commit data
-  axios.get(repoCommitsLink).then(async (response) => {
-    const commitData = response.data;
+const storeContributorRepoData = async () => {
+  const contributors = (await axios.get(repoContributorsLink)).data;
 
-    let contributors = [];
-    let pageNumber = 1;
-    let lastResponse = 1;
-    for (i = 0; i < 10; i++) {
-      await axios.get(repoCollaboratorsLink + (i+1).toString(), {
-        headers: {
-          "Authorization": "token " + personalAccessToken
-        }
-      }).then((response) => {
-        for (contributor of response.data) {
-          contributors.push(contributor);
-        }
-
-        pageNumber++;
-      }).catch((err) => {
-        console.error(err);
-      });
-    }
-
-    for (var i = 0; i < contributors.length; i++) {
-      let contributionCounter = 0;
-      for (commit of commitData) {
-        if (commit.author.login == contributors[i].login) {   // Contribution was from current contributor
-          contributionCounter += 1;
-        }
-      }
-
-      contributors[i].contributionCounter = contributionCounter;
-    }
-
-    // Sorting array based on contributionCounter
-    contributors.sort((a, b) => (a.contributionCounter > b.contributionCounter) ? -1 : 1);
-
-    animationModel.find((err, animations) => {
-      // Attaching each animation appropriate to each contributor
-      for (var i = 0; i < contributors.length; i++) {
-        let contributorAnimations = [];
-
-        for (animation of animations) {
-          if (animation.animationContributor == contributors[i].login) {
-            contributorAnimations.push(animation);
-          }
-        }
-
-        // Adding animations to contributor
-        contributors[i].animations = contributorAnimations;
-
-        // Adding number of animations to contributor
-        contributors[i].numberOfAnimations = contributorAnimations.length;
-      }
-
-      // Saving all contributors in MongoDB
-      // Drop all animations
-      contributorModel.deleteMany({}, (err) => { if (err) throw err; });
-
-      // Inserting all contributors
-      contributorModel.insertMany(contributors, (err, contributors) => { if (err) throw err; })
-    });
-  });
+  // SAVING CONTRIBUTORS TO MONGO
+  await contributorModel.deleteMany({}, (err) => { if (err) throw err; }); // DROPPING ALL CURRENT CONTRIBUTORS
+  await contributorModel.insertMany(contributors, (err, contributors) => { if (err) throw err; }); // INSERTING NEW CONTRIBUTORS
 }
 
 module.exports = { sendEmail, storeAnimationRepoData, storeContributorRepoData }
