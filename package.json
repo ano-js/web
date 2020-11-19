@@ -1,6 +1,6 @@
 {
-  "name": "anojs",
-  "version": "1.0.0",
+  "name": "web",
+  "version": "2.4",
   "description": "",
   "main": "index.js",
   "scripts": {
