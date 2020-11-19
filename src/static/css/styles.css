@@ -131,7 +131,8 @@ nav {
   .github-btn {
     display: none; }
   nav {
-    position: static !important; }
+    position: static !important;
+    height: auto !important; }
   .nav-placeholder {
     display: none; } }
 
