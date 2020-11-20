@@ -31,7 +31,7 @@ app.engine('html', require('ejs').renderFile);
 require("./routes/general")(app);
 require("./routes/animations")(app);
 require("./routes/legal")(app);
-// require("./routes/api")(app);
+require("./routes/api")(app);
 
 // BACKGROUND APPLICATION TASKS
 app.get("/app/store-animation-repo-data", (req, res) => {
