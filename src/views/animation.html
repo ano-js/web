@@ -91,7 +91,7 @@
     }
 
     function addUseToAnimation() {
-      fetch(`/app/add-use-to-animation?animationIdName=${"<%= animation.idName %>"}`, {
+      fetch(`/api/add-use-to-animation?animationIdName=${"<%= animation.idName %>"}`, {
         method: "POST"
       });
 

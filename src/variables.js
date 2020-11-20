@@ -1,6 +1,6 @@
 const personalAccessToken = process.env.PERSONAL_ACCESS_TOKEN;
 const baseCdnLink = "https://cdn.jsdelivr.net/gh/ano-js/anojs@latest/animation-files/";
-const baseApiFileLink = "https://anojs.com/files/";
+const baseApiFileLink = "https://cdn.anojs.com/files/";
 const baseImageLink = "https://cdn.jsdelivr.net/gh/ano-js/anojs@latest/animation-images/";
 const repoDataLink = "https://api.github.com/repos/ano-js/anojs/contents/animation-files";
 const repoContributorsLink = "https://api.github.com/repos/ano-js/anojs/contributors";
