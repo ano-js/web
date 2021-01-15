@@ -42,4 +42,11 @@ module.exports = function(app) {
   app.get("/credits", (req, res) => {
     res.render("credits.html");
   });
+
+  app.get("/arc-sw.js", (req, res) => {
+    const filePath = __dirname + "/../static/files/arc-sw.js";
+    fs.readFile(filePath, (err, data) => {
+      res.send(data);
+    });
+  });
 }
