@@ -46,6 +46,7 @@ module.exports = function(app) {
   app.get("/arc-sw.js", (req, res) => {
     const filePath = __dirname + "/../static/files/arc-sw.js";
     fs.readFile(filePath, (err, data) => {
+      res.contentType("application/javascript");
       res.send(data);
     });
   });
